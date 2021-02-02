@@ -1,4 +1,3 @@
-## Group 4 Iteration 0
 
 # Collaborative Budget System
 The Collaborative Budget System (aka weBudget) will be used to manage shared and personal household expenses.
