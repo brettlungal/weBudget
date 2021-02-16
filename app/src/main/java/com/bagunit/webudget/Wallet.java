@@ -3,8 +3,8 @@ package com.bagunit.webudget;
 public class Wallet {
 
     private static int walletID = 1;
-    String ownerName;
-    double balance;
+    private String ownerName;
+    private double balance;
 
     public Wallet(String ownerName){
         this.walletID = walletID;

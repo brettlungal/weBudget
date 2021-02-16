@@ -1,5 +1,5 @@
 package com.bagunit.webudget;
-import org.junit.*;
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Wallet_test {
