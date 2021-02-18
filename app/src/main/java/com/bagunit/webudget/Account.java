@@ -1,5 +1,7 @@
 package com.bagunit.webudget;
 
+import java.util.LinkedList;
+
 public class Account {
 
     private String fName;
@@ -8,22 +10,24 @@ public class Account {
     private String password;
     private int age;
     private Wallet wallet;
-    //private Group group;
+    private LinkedList<Group> groups;
 
-    public Account(String fName, String lName, int age , Wallet wallet,String email, String password){
+    public Account(String fName, String lName, int age ,String email, String password){
         this.fName = fName;
         this.lName = lName;
         this.age = age;
         this.wallet = wallet;
         this.email = email;
         this.password = password;
+        this.wallet = new Wallet(email);
+        this.groups = new LinkedList<Group>();
     }
 
-    public String getfName() {
+    public String getFirstName() {
         return fName;
     }
 
-    public String getlName() {
+    public String getLastName() {
         return lName;
     }
 
@@ -33,6 +37,14 @@ public class Account {
 
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public LinkedList<Group> getGroups(){
+        return this.groups;
+    }
+
+    public void addToGroup(Group newGroup){
+        groups.add(newGroup);
     }
 
 }
