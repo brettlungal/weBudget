@@ -1,12 +1,14 @@
 package com.bagunit.webudget;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Wallet_test {
 
-    @BeforeEach
+    private Wallet wallet;
+    @Before
     protected void setUp(){
-        Wallet wallet = new Wallet("test_owner");
+        wallet = new Wallet("test_owner");
     }
 
     @Test
