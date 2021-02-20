@@ -3,6 +3,7 @@ package com.bagunit.webudget;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,8 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private String email_input;
-    private String pwrd_input;
+
     private EditText email_field,pwrd_field;
     private Button login_button;
 
@@ -38,6 +38,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
     public String[] getInputValues(EditText email,EditText password){
         String[] values = new String[2];
 
@@ -54,9 +63,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 //login has been clicked
                 hideKeyboard();
-                String[] vals = getInputValues(email_field,pwrd_field);
+                String[] vals = getInputValues(this.email_field,this.pwrd_field);
+                System.out.println("============\n"+vals[0]+":"+vals[1]+"\n===============");
                 //TODO perform some logic here
-                if ( vals[0] == "test_user" && vals[1] == "password"){
+                if ( vals[0].equals("test_user") && vals[1].equals("password")){
+                    System.out.println("in if");
                     startActivity(new Intent(LoginActivity.this, MasterActivity.class));
                 }
 
