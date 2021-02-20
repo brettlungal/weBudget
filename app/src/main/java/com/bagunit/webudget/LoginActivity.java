@@ -1,12 +1,12 @@
 package com.bagunit.webudget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pwrd_field = (EditText)findViewById(R.id.password_input);
         login_button = (Button)findViewById(R.id.login_button);
 
+        login_button.setOnClickListener(this);
 
 
     }
@@ -55,6 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 hideKeyboard();
                 String[] vals = getInputValues(email_field,pwrd_field);
                 //TODO perform some logic here
+                if ( vals[0] == "test_user" && vals[1] == "password"){
+                    startActivity(new Intent(LoginActivity.this, MasterActivity.class));
+                }
 
         }
 

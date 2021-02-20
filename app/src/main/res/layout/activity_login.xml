@@ -27,20 +27,22 @@
 
         <EditText
             android:id="@+id/email_input"
-            android:layout_width="260dp"
-            android:layout_height="59dp"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
             android:layout_marginTop="24dp"
+            android:background="@drawable/roundedinput"
             android:ems="10"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            tools:layout_editor_absoluteX="75dp" />
+            tools:layout_editor_absoluteX="80dp" />
 
         <EditText
             android:id="@+id/password_input"
-            android:layout_width="260dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/roundedinput"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
