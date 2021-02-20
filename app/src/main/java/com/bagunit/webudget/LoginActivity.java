@@ -14,15 +14,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private String email_input;
     private String pwrd_input;
+    private EditText email_field,pwrd_field;
+    private Button login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText email_field = (EditText)findViewById(R.id.email_input);
-        EditText pwrd_field = (EditText)findViewById(R.id.password_input);
-        Button login_button = (Button)findViewById(R.id.login_button);
+        email_field = (EditText)findViewById(R.id.email_input);
+        pwrd_field = (EditText)findViewById(R.id.password_input);
+        login_button = (Button)findViewById(R.id.login_button);
 
 
 
@@ -51,7 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 //login has been clicked
                 hideKeyboard();
-                String[] vals = getInputValues(); //TODO need to either pass the edit text vars or make them global
+                String[] vals = getInputValues(email_field,pwrd_field);
+                //TODO perform some logic here
 
         }
 
