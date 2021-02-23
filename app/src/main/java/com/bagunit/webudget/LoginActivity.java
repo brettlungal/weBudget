@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private EditText email_field,pwrd_field;
-    private Button login_button;
+    private Button login_button,signup_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         email_field = (EditText)findViewById(R.id.email_input);
         pwrd_field = (EditText)findViewById(R.id.password_input);
         login_button = (Button)findViewById(R.id.login_button);
+        signup_button = (Button)findViewById(R.id.signup_button);
 
         login_button.setOnClickListener(this);
-
+        signup_button.setOnClickListener(this);
 
     }
 
@@ -70,6 +71,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     System.out.println("in if");
                     startActivity(new Intent(LoginActivity.this, MasterActivity.class));
                 }
+
+            case R.id.signup_button:
+                hideKeyboard();
+
 
         }
 
