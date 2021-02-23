@@ -1,7 +1,6 @@
 package com.comp3350.webudget.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email_field = (EditText)findViewById(R.id.email_input);
+        email_field = (EditText)findViewById(R.id.username);
         pwrd_field = (EditText)findViewById(R.id.password_input);
         login_button = (Button)findViewById(R.id.login_button);
         signup_button = (Button)findViewById(R.id.signup_button);
