@@ -1,4 +1,4 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget.objects;
 
 import java.util.ArrayList;
 

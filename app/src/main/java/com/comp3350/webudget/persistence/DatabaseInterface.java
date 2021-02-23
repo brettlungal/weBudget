@@ -1,4 +1,4 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget.persistence;
 
 public interface DatabaseInterface {
 

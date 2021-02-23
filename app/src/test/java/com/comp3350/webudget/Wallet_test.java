@@ -1,4 +1,6 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget;
+import com.comp3350.webudget.objects.Wallet;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

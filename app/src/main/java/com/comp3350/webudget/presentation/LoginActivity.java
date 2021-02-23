@@ -1,4 +1,4 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget.presentation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.comp3350.webudget.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

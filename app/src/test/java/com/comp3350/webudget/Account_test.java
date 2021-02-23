@@ -1,4 +1,7 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget;
+import com.comp3350.webudget.objects.Account;
+import com.comp3350.webudget.objects.Group;
+
 import org.junit.Before;
 import org.junit.Test;
 

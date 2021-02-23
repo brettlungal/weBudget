@@ -1,10 +1,12 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.comp3350.webudget.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.bagunit.webudget;
+package com.comp3350.webudget.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.comp3350.webudget.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
