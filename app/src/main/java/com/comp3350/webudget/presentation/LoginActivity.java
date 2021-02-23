@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.business.LoginLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,12 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //login has been clicked
                 hideKeyboard();
                 String[] vals = getInputValues(this.email_field,this.pwrd_field);
-                System.out.println("============\n"+vals[0]+":"+vals[1]+"\n===============");
-                //TODO perform some logic here
-                if ( vals[0].equals("test_user") && vals[1].equals("password")){
-                    System.out.println("in if");
-                    startActivity(new Intent(LoginActivity.this, MasterActivity.class));
-                }
+                LoginLogic login = new LoginLogic();
 
             case R.id.signup_button:
                 hideKeyboard();
