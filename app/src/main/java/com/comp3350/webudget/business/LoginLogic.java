@@ -8,7 +8,7 @@ public class LoginLogic {
     private Account account;
 
     public LoginLogic(String[] info){
-        account = new Account("chaos","monkey",99,info[0],info[1]);
+        account = new Account("chaos","monkey",info[0],info[1]);
     }
 
     public boolean isUserValid(){
