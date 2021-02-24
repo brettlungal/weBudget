@@ -28,7 +28,7 @@ Branching
 ----------
 
 Please view our [branching strategy](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/Branching_Strategy.md).
-Please view our [branching graph](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/branching_graph.png) image.
+![](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/branching_graph.PNG)
 
 
 SOLID
