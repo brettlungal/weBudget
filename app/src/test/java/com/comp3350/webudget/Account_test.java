@@ -13,7 +13,7 @@ public class Account_test {
 
     private Account acct;
     @Before
-    protected void setUp(){
+    public void setUp(){
         acct = new Account("test","user",21,"test_user@gmail.com","secure_pwrd");
     }
 
