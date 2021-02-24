@@ -4,23 +4,25 @@ import java.util.ArrayList;
 
 public class Account {
 
+    private static int ID;
     private String fName;
     private String lName;
-    private String email;
+    private String username;
     private String password;
     private int age;
     private Wallet wallet;
     private ArrayList<Group> groups;
 
-    public Account(String fName, String lName, int age ,String email, String password){
+    public Account(String fName, String lName, int age ,String username, String password){
         this.fName = fName;
         this.lName = lName;
         this.age = age;
         this.wallet = wallet;
-        this.email = email;
+        this.username = username;
         this.password = password;
-        this.wallet = new Wallet(email);
+        this.wallet = new Wallet(username);
         this.groups = new ArrayList<Group>();
+        ID++;
     }
 
     public String getFirstName() {
@@ -48,4 +50,15 @@ public class Account {
         newGroup.addMember(this);
     }
 
+    public int getID(){
+        return ID;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
 }

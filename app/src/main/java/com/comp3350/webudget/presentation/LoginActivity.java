@@ -1,6 +1,7 @@
 package com.comp3350.webudget.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.business.LoginLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         email_field = (EditText)findViewById(R.id.username);
         pwrd_field = (EditText)findViewById(R.id.password_input);
@@ -66,13 +69,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 //login has been clicked
                 hideKeyboard();
-                String[] vals = getInputValues(this.email_field,this.pwrd_field);
-                LoginLogic login = new LoginLogic();
-
+                String[] inputValues = getInputValues(this.email_field,this.pwrd_field);
+                LoginLogic login = new LoginLogic(inputValues);
+                if(login.isUserValid()){
+                    System.out.println("XXXXXXXXXXXXXXXX");
+                    startActivity(new Intent(this , MasterActivity.class));
+                }
+            break;
             case R.id.signup_button:
                 hideKeyboard();
-
-
+                startActivity(new Intent(this , SignupActivity.class));
+            break;
         }
 
     }
