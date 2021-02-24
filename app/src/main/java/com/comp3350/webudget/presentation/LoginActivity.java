@@ -3,14 +3,15 @@ package com.comp3350.webudget.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.business.LoginLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,8 +73,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String[] inputValues = getInputValues(this.email_field,this.pwrd_field);
                 LoginLogic login = new LoginLogic(inputValues);
                 if(login.isUserValid()){
-                    System.out.println("XXXXXXXXXXXXXXXX");
                     startActivity(new Intent(this , MasterActivity.class));
+                }
+                else{
+                    Toast toast= Toast.makeText(getApplicationContext(),
+                            "Username or Password is not correct", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
             break;
             case R.id.signup_button:
