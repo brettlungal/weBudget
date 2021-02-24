@@ -9,7 +9,7 @@ public class SignupLogic {
     Account account;
 
     public SignupLogic(String[] info){
-        Services.accountPersistence().insertUser(new Account(info[2], info[1], info[0], info[3]));
+        Services.accountPersistence().insertUser(info[2], info[1], info[0], info[3]);
     }
 
 }

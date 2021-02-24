@@ -22,7 +22,7 @@ public class AccountDatabase implements IAccountDatabase {
     }
 
     @Override
-    public void insertUser(Account account) {
-        database.add(account);
+    public void insertUser(String fName, String lName, String username, String password){
+        database.add(new Account(fName, lName, username, password));
     }
 }
