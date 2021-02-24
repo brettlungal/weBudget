@@ -13,7 +13,7 @@ import com.comp3350.webudget.business.SignupLogic;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText username,fname,lname,password;
+    private EditText username,fname,lname,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +45,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.signup_button:
                 System.out.println("click signup");
-                String[] inputValues = getInputValues(fname, lname, username, password);
+                String[] inputValues = getInputValues(fname,lname,username,password);
                 SignupLogic signup = new SignupLogic(inputValues);
-                startActivity(new Intent(this , LoginActivity.class));
+                startActivity(new Intent(this,LoginActivity.class));
                 finish();
         }
 
