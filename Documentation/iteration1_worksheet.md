@@ -34,12 +34,7 @@ Please view our [branching graph](https://code.cs.umanitoba.ca/3350-winter-2021-
 SOLID
 -----
 
-Find a SOLID violation in the project of group `(n%12)+1` (group 12 does group 1).
-Open an issue in their project with the violation,
-clearly explaining the SOLID violation - specifying the type, provide a link to that issue. Be sure
-your links in the issues are to **specific commits** (not to `main`, or `develop` as those will be changed).
-
-Provide a link to the issue you created here.
+Here is the link to the [SOLID Violation](https://code.cs.umanitoba.ca/3350-winter-2021-a01/3350-winter2021-a01-lingual-g5/-/issues/63) we found in group 5s repo.
 
 Agile Planning
 --------------
