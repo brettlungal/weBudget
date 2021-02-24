@@ -12,7 +12,7 @@ import com.comp3350.webudget.business.SignupLogic;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText username,fname,lname,password;
+    private EditText username,fname,lname,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.signup_button:
                 SignupLogic signup = new SignupLogic();
-                
+
         }
 
     }
