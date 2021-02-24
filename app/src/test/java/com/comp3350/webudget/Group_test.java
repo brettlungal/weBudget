@@ -21,7 +21,7 @@ public class Group_test {
     @Test
     public void test_addToGroup(){
         //testing successful addition of user accounts
-        Account test_user = new Account("test","user",21,"test_user@gmail.com","plain-text-pwrd");
+        Account test_user = new Account("test","user","test_user@gmail.com","plain-text-pwrd");
         group.addMember(test_user);
         ArrayList<Account> members = group.getMembers();
         assertEquals("List length should be 1",1,members.size());

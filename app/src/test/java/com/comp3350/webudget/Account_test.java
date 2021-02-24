@@ -14,7 +14,7 @@ public class Account_test {
     private Account acct;
     @Before
     public void setUp(){
-        acct = new Account("test","user",21,"test_user@gmail.com","secure_pwrd");
+        acct = new Account("test","user","test_user@gmail.com","secure_pwrd");
     }
 
     @Test
