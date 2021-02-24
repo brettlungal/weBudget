@@ -3,29 +3,33 @@ Iteration 1 Worksheet
 
 Adding a feature
 -----------------
+In this iteration we added the feature that allows users to create accounts on our app, and sign in.
+Having user accounts will allow us to store information about each user that persists to track their transactions,
+groups, wallet, and general information about the user. We starte with a login screen that has an option to create 
+an account if you dont already have one. From there you can enter your desired username, first name, last name, and password which will all be stored in our database. Once the account has been create the user is automatically navigated back to the login screen where they can login with their freshly created account.
 
-Tell the story of how one of your features was added to the project.
-Provide links to the
-feature, user stories, and merge requests (if used), associated tests, and merge commit
-that was used complete the feature.
+Links
+- [User Story: Create Account](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/12)
+- [User Story: Account Login](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/13)
+- [Feature: Personal Acount](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/1)
+- [Test: LoginTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/Login_test.java)
+- [Test: SignupTest](nothingYet)
+- [Merge Commit](nothingYet)
 
-Use one or two paragraphs which can have point-form within them.
 
 Exceptional code
 ----------------
 
-Provide a link to a test of exceptional code. In a few sentences,
-provide an explanation of why the exception is handled or thrown
-in the code you are testing.
+Here is where we used some [Exceptional Code](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/Login_test.java).
+In this code we throw an InvalidLoginException if you attempt to login with an invalid username or password. The exception is handled gracefully by the UI alerting the user to the invalid input that was provided.
+
 
 Branching
 ----------
 
-Provide a link to where you describe your branching strategy.
+Please view our [branching strategy](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/Branching_Strategy.md).
+![](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/branching_graph.png)
 
-Provide screen shot of a feature being added using your branching strategy
-successfully. The [GitLab Graph tool can do this](https://code.cs.umanitoba.ca/comp3350-summer2019/cook-eBook/-/network/develop),
-as well as using `git log --graph`.
 
 SOLID
 -----
@@ -40,7 +44,4 @@ Provide a link to the issue you created here.
 Agile Planning
 --------------
 
-Write a paragraph about any plans that were changed. Did you
-'push' any features to iteration 2? Did you change the description
-of any Features or User Stories? Have links to any changed or pushed Features
-or User Stories.
+In this iteration, we pushed back [accessing user wallet](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/4), [viewing personal caldenar](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/8), and [persistant storage](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/2) features to iteration 2. We did this because during planning in iteration 0 we got ambitious about iteration 1 and assumed we would have a database up. Since we did not get the database up we were unable to implement these features that relied on it. No descriptions about features or stories have been changed **so far**.
