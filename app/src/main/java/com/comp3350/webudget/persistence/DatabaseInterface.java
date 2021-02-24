@@ -4,7 +4,7 @@ import com.comp3350.webudget.objects.Account;
 
 public interface DatabaseInterface {
 
-    public boolean accountExist(Account account);
+    public boolean accountExist(String username, String password);
     public void insertUser(Account account);
     public void insertWallet(int id,double balance,String ownerEmail);
     public void getWallet(int id);

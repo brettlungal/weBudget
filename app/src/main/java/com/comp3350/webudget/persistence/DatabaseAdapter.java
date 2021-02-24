@@ -5,7 +5,7 @@ import com.comp3350.webudget.objects.Account;
 public class DatabaseAdapter implements DatabaseInterface{
 
     @Override
-    public boolean accountExist(Account account){
+    public boolean accountExist(String username, String password){
         return false;
     }
 

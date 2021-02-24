@@ -5,14 +5,16 @@ import com.comp3350.webudget.objects.Account;
 
 public class LoginLogic {
 
-    private Account account;
+    private String username;
+    private String password;
 
     public LoginLogic(String[] info){
-        account = new Account("chaos","monkey",info[0],info[1]);
+        username = info[0];
+        password = info[1];
     }
 
     public boolean isUserValid(){
-        if(Services.accountPersistence().accountExist(account)){
+        if(Services.accountPersistence().accountExist(username,password)){
             return true;
         }
         return false;

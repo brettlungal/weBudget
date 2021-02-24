@@ -12,10 +12,10 @@ public class accountDatabase extends DatabaseAdapter{
     }
 
     @Override
-    public boolean accountExist(Account account){
+    public boolean accountExist(String username, String password){
         for(int i = 0; i < database.size(); i++){
             Account temp = database.get(i);
-            if(temp.getUsername().equals(account.getUsername()) && temp.getPassword().equals(account.getPassword()))
+            if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
                 return true;
         }
         return false;
