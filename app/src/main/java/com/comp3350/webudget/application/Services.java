@@ -1,14 +1,14 @@
 package com.comp3350.webudget.application;
 
-import com.comp3350.webudget.persistence.DatabaseInterface;
-import com.comp3350.webudget.persistence.accountDatabase;
+import com.comp3350.webudget.persistence.IAccountDatabase;
+import com.comp3350.webudget.persistence.AccountDatabase;
 
 public class Services {
-    private static DatabaseInterface accountPersistence = null;
+    private static IAccountDatabase accountPersistence = null;
 
-    public static synchronized DatabaseInterface accountPersistence() {
+    public static synchronized IAccountDatabase accountPersistence() {
         if (accountPersistence == null) {
-            accountPersistence = new accountDatabase();
+            accountPersistence = new AccountDatabase();
         }
         return accountPersistence;
     }

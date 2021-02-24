@@ -4,10 +4,10 @@ import com.comp3350.webudget.objects.Account;
 
 import java.util.ArrayList;
 
-public class accountDatabase extends DatabaseAdapter{
+public class AccountDatabase implements IAccountDatabase {
     ArrayList<Account> database;
 
-    public accountDatabase(){
+    public AccountDatabase(){
         database = new ArrayList<>();
     }
 
