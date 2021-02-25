@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.business.SignupLogic;
@@ -44,11 +46,18 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
 
             case R.id.signup_button:
-                System.out.println("click signup");
                 String[] inputValues = getInputValues(fname,lname,username,password);
-                SignupLogic signup = new SignupLogic(inputValues);
-                startActivity(new Intent(this,LoginActivity.class));
-                finish();
+                try {
+                    new SignupLogic(inputValues);
+                    startActivity(new Intent(this,LoginActivity.class));
+                    finish();
+                } catch (SignupLogic.SignupException e) {
+                    Toast toast= Toast.makeText(getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+
         }
 
     }

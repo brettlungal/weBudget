@@ -25,4 +25,14 @@ public class AccountDatabase implements IAccountDatabase {
     public void insertUser(String fName, String lName, String username, String password){
         database.add(new Account(fName, lName, username, password));
     }
+
+    @Override
+    public Account getAccount(String username) {
+        for(int i = 0; i < database.size(); i++){
+            Account temp = database.get(i);
+            if(temp.getUsername().equals(username))
+                return temp;
+        }
+        return null;
+    }
 }

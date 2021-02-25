@@ -1,7 +1,6 @@
 package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.application.InvalidLoginException;
 
 public class LoginLogic {

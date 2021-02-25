@@ -1,9 +1,8 @@
-package com.comp3350.webudget;
+package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.application.InvalidLoginException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
-import com.comp3350.webudget.business.LoginLogic;
 
 import org.junit.After;
 import org.junit.Before;
