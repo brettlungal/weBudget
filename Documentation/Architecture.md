@@ -1,4 +1,4 @@
-### Architecture
+# Architecture
 
 - Please look at our [architecture diagram](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/Documentation/architecture.png) we created as a .png file
 - This image outlines our Storage layer , Business layer, UI layer,  and Domain Specific objects.
