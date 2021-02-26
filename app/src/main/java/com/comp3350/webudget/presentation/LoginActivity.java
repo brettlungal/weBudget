@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.business.LoginLogic;
-import com.comp3350.webudget.application.InvalidLoginException;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try{
                     LoginLogic login = new LoginLogic(inputValues);
                     startActivity(new Intent(this , MasterActivity.class));
-                }catch(InvalidLoginException e){
+                }catch(LoginLogic.InvalidLoginException e){
                     Toast toast= Toast.makeText(getApplicationContext(),
                             "Username or Password is not correct", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
