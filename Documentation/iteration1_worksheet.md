@@ -12,8 +12,8 @@ Links
 - [User Story: Create Account](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/12)
 - [User Story: Account Login](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/13)
 - [Feature: Personal Acount](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/1)
-- [Test: LoginTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/Login_test.java)
-- [Test: SignupTest](nothingYet)
+- [Test: LoginTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/business/Login_test.java)
+- [Test: SignupTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/business/SignupLogicTest.java)
 - [Merge Commit](nothingYet)
 
 
