@@ -12,15 +12,15 @@ Links
 - [User Story: Create Account](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/12)
 - [User Story: Account Login](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/13)
 - [Feature: Personal Acount](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/issues/1)
-- [Test: LoginTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/Login_test.java)
-- [Test: SignupTest](nothingYet)
+- [Test: LoginTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/business/Login_test.java)
+- [Test: SignupTest](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/business/SignupLogicTest.java)
 - [Merge Commit](nothingYet)
 
 
 Exceptional code
 ----------------
 
-Here is where we used some [Exceptional Code](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/test/java/com/comp3350/webudget/Login_test.java).
+Here is where we used some [Exceptional Code](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/blob/master/app/src/main/java/com/comp3350/webudget/business/LoginLogic.java).
 In this code we throw an InvalidLoginException if you attempt to login with an invalid username or password. The exception is handled gracefully by the UI alerting the user to the invalid input that was provided.
 
 
