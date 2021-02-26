@@ -37,6 +37,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         values[2] = lname.getText().toString();
         values[3] = password.getText().toString();
 
+        
         return values;
     }
 
