@@ -31,6 +31,5 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             //listen for clicks
 
         }
-
     }
 }

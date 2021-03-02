@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 
 import com.comp3350.webudget.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,10 +22,8 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
 
         BottomNavigationView nav = (BottomNavigationView)findViewById(R.id.navigation);
         nav.setOnNavigationItemSelectedListener(this);
-        loadFragment( new AccountFragment() );
+        loadFragment(new HomeFragment());
     }
-
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -45,7 +46,6 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
                 frag = new CalendarFragment();
                 break;
         }
-
         return loadFragment(frag);
     }
 
