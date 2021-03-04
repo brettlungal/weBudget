@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch ( view.getId() ){
             case R.id.home_group_button:
                 load_fragment(new GroupFragment());
+                break;
         }
     }
 
