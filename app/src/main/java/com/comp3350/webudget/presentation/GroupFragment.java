@@ -1,5 +1,6 @@
 package com.comp3350.webudget.presentation;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,8 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.fragment_group , container, false);
-
-
-        return homeView;
+        View view = inflater.inflate(R.layout.fragment_group , container, false);
+        return view;
     }
 
     @Override

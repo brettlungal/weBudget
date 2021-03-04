@@ -8,12 +8,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.objects.Transaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private Fragment current_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
 
         BottomNavigationView nav = (BottomNavigationView)findViewById(R.id.navigation);
         nav.setOnNavigationItemSelectedListener(this);
-        loadFragment(new HomeFragment());
+        load_fragment(new HomeFragment());
     }
 
     @Override
@@ -46,12 +50,13 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
                 frag = new CalendarFragment();
                 break;
         }
-        return loadFragment(frag);
+        return load_fragment(frag);
     }
 
-    private boolean loadFragment(Fragment f){
-        if ( f != null ){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , f ).commit();
+    private boolean load_fragment(Fragment frag){
+        if ( frag != null ) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , frag ).addToBackStack(null).commit();
+            current_fragment = frag;
             return true;
         }
         return false;
