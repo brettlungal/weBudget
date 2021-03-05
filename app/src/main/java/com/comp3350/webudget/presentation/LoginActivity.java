@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         email_field = (EditText)findViewById(R.id.username);
         pwrd_field = (EditText)findViewById(R.id.password_input);
         login_button = (Button)findViewById(R.id.login_button);
@@ -35,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login_button.setOnClickListener(this);
         signup_button.setOnClickListener(this);
-
     }
 
     private void hideKeyboard(){
@@ -68,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch ( view.getId() ){
             case R.id.login_button:
-                //login has been clicked
                 hideKeyboard();
                 String[] inputValues = getInputValues(this.email_field,this.pwrd_field);
                 try{

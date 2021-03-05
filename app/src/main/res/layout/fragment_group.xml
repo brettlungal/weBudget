@@ -22,7 +22,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button_create_group2"
+        android:id="@+id/group_create_group_button"
         android:layout_width="162dp"
         android:layout_height="56dp"
         android:background="@drawable/roundedbutton"

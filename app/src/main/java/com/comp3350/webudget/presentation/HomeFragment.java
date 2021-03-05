@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.objects.Transaction;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private Button group_button;
-    private Fragment current_fragment;
 
     @Nullable
     @Override
@@ -34,7 +32,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch ( view.getId() ){
+        switch ( view.getId() ) {
             case R.id.home_group_button:
                 load_fragment(new GroupFragment());
                 break;
@@ -45,10 +43,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         boolean load_success = false;
         // switch to a try catch?
         if(frag != null) {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, frag); // changed this but broke the back button
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainer, frag);
             transaction.addToBackStack(null);
             transaction.commit();
-            current_fragment = frag;
             load_success = true;
         }
         return load_success;

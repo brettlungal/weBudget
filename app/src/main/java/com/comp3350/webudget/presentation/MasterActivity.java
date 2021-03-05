@@ -17,8 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private Fragment current_fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +54,6 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
     private boolean load_fragment(Fragment frag){
         if ( frag != null ) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , frag ).addToBackStack(null).commit();
-            current_fragment = frag;
             return true;
         }
         return false;
