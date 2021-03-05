@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         boolean load_success = false;
         // switch to a try catch?
         if(frag != null) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction().replace(R.id.home_fragment_container, frag);
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, frag); // changed this but broke the back button
             transaction.addToBackStack(null);
             transaction.commit();
             current_fragment = frag;
