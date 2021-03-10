@@ -11,12 +11,13 @@ public class Account {
     private int walletID;
     private ArrayList<Integer> groupIDs;
 
-    public Account(String fName, String lName, String username, String password, int walletID){
+    public Account(String fName, String lName, String username, String password, int walletID, ArrayList<Integer> groupIDs){
         this.fName = fName;
         this.lName = lName;
         this.walletID = walletID;
         this.username = username;
         this.password = password;
+        this.groupIDs = groupIDs;
     }
 
     public String getFirstName() {
