@@ -24,7 +24,7 @@ public class WalletPersistence {
         return walletPersistence;
     }
 
-    public IWalletDatabase WalletPersistence(){
+    public IWalletDatabase getPersistence(){
         return getPersistence(TestWalletDatabase.class);
     }
 
