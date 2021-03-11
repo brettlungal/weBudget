@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import com.comp3350.webudget.R;
 
 public class CreateGroupFragment extends Fragment implements View.OnClickListener {
+
+    private EditText group_name_field, description_field, password_field;
 
     @Nullable
     @Override

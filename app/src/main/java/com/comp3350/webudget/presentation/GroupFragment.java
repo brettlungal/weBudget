@@ -38,6 +38,11 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private boolean load_groups() {
+        boolean load_success = false;
+        return load_success;
+    }
+
     private boolean load_fragment(Fragment frag) {
         boolean load_success = false;
         // switch to a try catch?
