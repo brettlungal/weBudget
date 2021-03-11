@@ -1,6 +1,8 @@
 package com.comp3350.webudget.persistence;
 
+import com.comp3350.webudget.objects.Wallet;
+
 public interface IWalletDatabase {
-    public void insertWallet(int id,double balance,String ownerEmail);
-    public void getWallet(int id);
+    public int insertWallet(String ownerName); //returns the ID of the wallet
+    public Wallet getWallet(int id);
 }

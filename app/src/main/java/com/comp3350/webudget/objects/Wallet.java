@@ -2,7 +2,7 @@ package com.comp3350.webudget.objects;
 
 public class Wallet {
 
-    private static int walletID = 1;
+    private int walletID;
     private String ownerName;
     private int balance;
 
@@ -10,6 +10,10 @@ public class Wallet {
         this.walletID = walletID;
         this.ownerName = ownerName;
         this.balance = balance;
+    }
+
+    public int getWalletID(){
+        return this.walletID;
     }
 
     public double getBalance(){
