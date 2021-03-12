@@ -50,7 +50,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 try {
                     new SignupLogic(inputValues);
                     startActivity(new Intent(this,LoginActivity.class));
-                    finish();
+                    //finish();
                 } catch (SignupLogic.SignupException e) {
                     Toast toast= Toast.makeText(getApplicationContext(),
                             e.getMessage(), Toast.LENGTH_SHORT);
@@ -61,4 +61,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+
+    public void kk(){
+        Toast toast= Toast.makeText(getApplicationContext(),
+                "Username or Password is not correct", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+
+    }
+
 }
