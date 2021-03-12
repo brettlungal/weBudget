@@ -50,7 +50,7 @@ public class AccountDatabase implements IAccountDatabase {
     @Override
     public void insertUser(String fName, String lName, String username, String password){
         //database.add(new Account(fName, lName, username, password, 0, null));
-        String accounts = "create table accounts( "+
+        String accounts = "create table if not EXISTS accounts( "+
                 " username VARCHAR(100),"+
                 " password VARCHAR(100),"+
                 " fName VARCHAR(100),"+
