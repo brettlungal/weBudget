@@ -15,9 +15,7 @@ public class WalletPersistence {
         if (walletPersistence == null) {
             try {
                 walletPersistence = injectedWalletDB.newInstance();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
         }
