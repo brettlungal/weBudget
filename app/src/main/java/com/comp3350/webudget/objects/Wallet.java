@@ -15,11 +15,10 @@ public class Wallet {
     public double getBalance(){
         return this.balance;
     }
+    public int getWalletID(){ return this.walletID; }
 
     public String toString(){
         return this.ownerName+" wallet contains "+balance;
     }
-
-
 
 }
