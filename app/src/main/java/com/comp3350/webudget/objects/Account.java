@@ -8,45 +8,40 @@ public class Account {
     private String lName;
     private String username;
     private String password;
-    private Wallet wallet;
-    private ArrayList<Group> groups;
+    private int walletID;
+    private ArrayList<Integer> groupIDs;
 
-    public Account(String fName, String lName, String username, String password){
+    public Account(String fName, String lName, String username, String password, int walletID, ArrayList<Integer> groupIDs){
         this.fName = fName;
         this.lName = lName;
-        this.wallet = wallet;
+        this.walletID = walletID;
         this.username = username;
         this.password = password;
-        this.wallet = new Wallet(username);
-        this.groups = new ArrayList<Group>();
+        this.groupIDs = groupIDs;
     }
 
     public String getFirstName() {
-        return fName;
+        return this.fName;
     }
 
     public String getLastName() {
-        return lName;
-    }
-
-    public Wallet getWallet() {
-        return wallet;
-    }
-
-    public ArrayList<Group> getGroups(){
-        return this.groups;
-    }
-
-    public void addToGroup(Group newGroup){
-        groups.add(newGroup);
-        newGroup.addMember(this);
+        return this.lName;
     }
 
     public String getUsername(){
-        return username;
+        return this.username;
     }
 
     public String getPassword(){
-        return password;
+        return this.password;
     }
+
+    public int getWalletID() {
+        return this.walletID;
+    }
+
+    public ArrayList<Integer> getGroupIDs(){
+        return this.groupIDs;
+    }
+
 }

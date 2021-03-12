@@ -4,37 +4,16 @@ public class Wallet {
 
     private static int walletID = 1;
     private String ownerName;
-    private double balance;
+    private int balance;
 
-    public Wallet(String ownerName){
+    public Wallet(int walletID, String ownerName, int balance){
         this.walletID = walletID;
         this.ownerName = ownerName;
-        this.balance = 0;
+        this.balance = balance;
     }
 
     public double getBalance(){
         return this.balance;
-    }
-
-    public void addMoney(double amount){
-        if ( amount < 0 ){
-            System.out.println("cannot add a negative amount to wallet. Please use removeMoney function");
-        }else {
-            this.balance += amount;
-        }
-    }
-    public void removeMoney(double amount){
-        if ( amount <= 0 ){
-            System.out.println("Cannot remove negative amount from wallet. Please use addMoney function");
-        }else{
-            //verified input
-            if ( this.balance-amount < 0 ){
-                System.out.println("Sorry, insufficent funds");
-            }else {
-                //ok we can subtract the amount
-                this.balance-=amount;
-            }
-        }
     }
 
     public String toString(){

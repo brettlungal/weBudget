@@ -37,6 +37,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         values[2] = lname.getText().toString();
         values[3] = password.getText().toString();
 
+        
         return values;
     }
 
@@ -50,7 +51,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 try {
                     new SignupLogic(inputValues);
                     startActivity(new Intent(this,LoginActivity.class));
-                    //finish();
+                    finish();
                 } catch (SignupLogic.SignupException e) {
                     Toast toast= Toast.makeText(getApplicationContext(),
                             e.getMessage(), Toast.LENGTH_SHORT);

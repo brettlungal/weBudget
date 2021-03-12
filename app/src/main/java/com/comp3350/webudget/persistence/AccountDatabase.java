@@ -49,6 +49,7 @@ public class AccountDatabase implements IAccountDatabase {
 
     @Override
     public void insertUser(String fName, String lName, String username, String password){
+        //database.add(new Account(fName, lName, username, password, 0, null));
         String accounts = "create table accounts( "+
                 " username VARCHAR(100),"+
                 " password VARCHAR(100),"+
@@ -78,6 +79,9 @@ public class AccountDatabase implements IAccountDatabase {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+
+        //database.add(new Account(fName, lName, username, password, 0, null));
+
     }
 
     @Override
