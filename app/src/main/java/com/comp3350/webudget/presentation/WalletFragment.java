@@ -12,24 +12,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-public class AccountFragment extends Fragment implements View.OnClickListener {
+public class WalletFragment extends Fragment implements View.OnClickListener {
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View accountView = inflater.inflate(R.layout.fragment_account , container, false);
+        View walletView = inflater.inflate(R.layout.fragment_wallet , container, false);
 
 
-        return accountView;
+        return walletView;
     }
 
     @Override
     public void onClick(View v) {
 
         switch ( v.getId() ){
-            //listen for clicks
-            case R.id.wallet_icon:
+            //listen for click
+
 
         }
 
