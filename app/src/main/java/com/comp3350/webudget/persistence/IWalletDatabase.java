@@ -1,4 +1,6 @@
 package com.comp3350.webudget.persistence;
+import com.comp3350.webudget.objects.Wallet;
+
 
 import com.comp3350.webudget.objects.Wallet;
 

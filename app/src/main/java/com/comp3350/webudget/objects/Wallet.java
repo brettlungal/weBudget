@@ -24,6 +24,4 @@ public class Wallet {
         return this.ownerName+" wallet contains "+balance;
     }
 
-
-
 }
