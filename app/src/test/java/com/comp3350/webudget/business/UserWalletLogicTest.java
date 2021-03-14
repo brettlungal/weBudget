@@ -1,13 +1,19 @@
 package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.TestAccountDatabase;
+import com.comp3350.webudget.persistence.TestWalletDatabase;
 import com.comp3350.webudget.persistence.WalletDatabase;
+import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.application.WalletException;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
@@ -28,14 +34,15 @@ public class UserWalletLogicTest {
     }
 
     //TODO test: get AccountError if the user searched for does not exist: get, deposit, withdraw, and get transactions
+
     @Test(expected = AccountException.class)
-    public void testAccountDNEGet() throws AccountException{
+    public void testAccountDNEGet() throws AccountException, WalletException{
         try {
             this.userWalletLogic.getAmount("cloudself");
         }catch(AccountException e){
             throw AccountException("Account does not exist");
-        }catch(Wallet Exception e){
-            throw WalletException("Wallet does not exist")
+        }catch(WalletException e){
+            throw WalletException("Wallet does not exist");
         }
     }
 
