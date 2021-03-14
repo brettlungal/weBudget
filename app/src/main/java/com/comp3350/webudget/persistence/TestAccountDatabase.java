@@ -6,9 +6,16 @@ import java.util.ArrayList;
 
 public class TestAccountDatabase implements IAccountDatabase {
     ArrayList<Account> database;
+    IWalletDatabase walletDatabase = null;
 
     public TestAccountDatabase(){
         database = new ArrayList<>();
+        walletDatabase = new TestWalletDatabase();
+    }
+
+    public TestAccountDatabase(IWalletDatabase injectedWalletDatabase){
+        database = new ArrayList<>();
+        walletDatabase = injectedWalletDatabase;
     }
 
     @Override
@@ -23,7 +30,8 @@ public class TestAccountDatabase implements IAccountDatabase {
 
     @Override
     public void insertUser(String fName, String lName, String username, String password){
-        database.add(new Account(fName, lName, username, password, 0, null));
+        int walletID = walletDatabase.insertWallet(username);
+        database.add(new Account(fName, lName, username, password, walletID, null));
     }
 
     @Override
