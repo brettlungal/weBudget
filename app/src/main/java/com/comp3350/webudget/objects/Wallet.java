@@ -16,7 +16,11 @@ public class Wallet {
         return this.walletID;
     }
 
-    public double getBalance(){
+    public String getOwnerName(){
+        return this.ownerName;
+    }
+
+    public int getBalance(){
         return this.balance;
     }
 

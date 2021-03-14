@@ -22,22 +22,46 @@ public class TestWalletDatabase implements IWalletDatabase{
     }
 
     @Override
-    public Wallet getWallet(int id) {
+    public Wallet getWallet(int id) throws WalletException{
         for(int i = 0; i < database.size(); i++){
             Wallet temp = database.get(i);
-            if(temp.getWalletID() == id)
+            if(temp.getWalletID() == id) {
                 return temp;
+            }
         }
-        return null;
+
+        throw new WalletException("Wallet not found");
     }
 
-    @Override
+    @Override //NOTE: do not base database code off of this code segment.
     public void deposit(int walletID, int amount) throws WalletException {
-
+        boolean walletFound = false;
+        for(int i = 0; i < database.size(); i++){
+            Wallet temp = database.get(i);
+            if(temp.getWalletID() == walletID) {
+                walletFound = true;
+                Wallet newWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() + amount);
+                database.set(i, newWallet);
+            }
+        }
+        if (!walletFound) {
+            throw new WalletException("Wallet not found");
+        }
     }
 
-    @Override
+    @Override //again, do not base database code off of these test methods; they are not written to do anything more than test the logic, and are not robust
     public void withdraw(int walletID, int amount) throws WalletException {
-
+        boolean walletFound = false;
+        for(int i = 0; i < database.size(); i++){
+            Wallet temp = database.get(i);
+            if(temp.getWalletID() == walletID) {
+                walletFound = true;
+                Wallet newWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() - amount);
+                database.set(i, newWallet);
+            }
+        }
+        if (!walletFound) {
+            throw new WalletException("Wallet not found");
+        }
     }
 }
