@@ -40,9 +40,9 @@ public class UserWalletLogicTest {
         try {
             this.userWalletLogic.getAmount("cloudself");
         }catch(AccountException e){
-            throw AccountException("Account does not exist");
+            throw new AccountException("Account does not exist");
         }catch(WalletException e){
-            throw WalletException("Wallet does not exist");
+            throw new WalletException("Wallet does not exist");
         }
     }
 

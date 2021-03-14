@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Wallet_test {
-
+/*
     private Wallet wallet;
     @Before
     public void setUp(){
@@ -29,4 +29,5 @@ public class Wallet_test {
         wallet.removeMoney(100);
         assertEquals("balance should equal 10.5",10.5,wallet.getBalance());
     }
+*/
 }
