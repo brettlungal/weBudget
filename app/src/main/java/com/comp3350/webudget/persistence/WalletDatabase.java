@@ -7,16 +7,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import java.util.ArrayList;
 
 public class WalletDatabase implements IWalletDatabase
 {
     ArrayList<Wallet> walletDatabase;
-
-    public WalletDatabase()
-    {
-    }
 
     private Connection connect() throws SQLException
     {
@@ -25,12 +22,13 @@ public class WalletDatabase implements IWalletDatabase
     }
 
     @Override
-    public void insertWallet(int id, double balance, String username) {
+    public int insertWallet(String username) {
+        int balance = 0;
+        int walletID = 0;
         String wallet = "create table wallet( "+
-                " id integer,"+
-                " balance VARCHAR(100),"+
+                "id INTEGER IDENTITY PRIMARY KEY,"+
                 " username VARCHAR(100),"+
-                " primary key(username)" +
+                " balance VARCHAR(100),"+
                 " foreign key (username) references accounts);"+
                 ")";
 
@@ -39,15 +37,19 @@ public class WalletDatabase implements IWalletDatabase
 
 
             PreparedStatement addWallet = connect().prepareStatement(
-                    "insert into wallet username (id, balance, username) values (?, ?, ?);"
+                    "insert into wallet (username, balance) values (?, ?);"
             );
 
-            addWallet.setInt(1, id );
+            //addWallet.setInt(1, id );
+            addWallet.setString(1, username);
             addWallet.setDouble(2, balance );
-            addWallet.setString(3, username);
-
 
             addWallet.executeUpdate();
+
+            PreparedStatement psIdentity = connect().prepareStatement("CALL IDENTITY()");
+            ResultSet result = psIdentity.executeQuery();
+            walletID = result.getInt(1);
+            System.out.println("The ID of the new wallet that is added is: "+walletID);
 
             addWallet.close();
         }
@@ -55,6 +57,7 @@ public class WalletDatabase implements IWalletDatabase
         {
             sqlException.printStackTrace();
         }
+        return walletID;
     }
 
     @Override
