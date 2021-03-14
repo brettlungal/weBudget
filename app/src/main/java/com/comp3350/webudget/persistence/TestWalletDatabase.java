@@ -1,5 +1,6 @@
 package com.comp3350.webudget.persistence;
 
+import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Wallet;
 
@@ -28,5 +29,15 @@ public class TestWalletDatabase implements IWalletDatabase{
                 return temp;
         }
         return null;
+    }
+
+    @Override
+    public void deposit(int walletID, int amount) throws WalletException {
+
+    }
+
+    @Override
+    public void withdraw(int walletID, int amount) throws WalletException {
+
     }
 }

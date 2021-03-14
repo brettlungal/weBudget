@@ -17,7 +17,7 @@ public class UserWalletLogicTest {
     public ExpectedException exception = ExpectedException.none();
 
     private IAccountDatabase testAccountDB;
-    private IWalletDatabase testWalletDB
+    private IWalletDatabase testWalletDB;
     private UserWalletLogic userWalletLogic = null;
 
     @Before
@@ -28,6 +28,16 @@ public class UserWalletLogicTest {
     }
 
     //TODO test: get AccountError if the user searched for does not exist: get, deposit, withdraw, and get transactions
+    @Test(expected = AccountException.class)
+    public void testAccountDNEGet() throws AccountException{
+        try {
+            this.userWalletLogic.getAmount("cloudself");
+        }catch(AccountException e){
+            throw AccountException("Account does not exist");
+        }catch(Wallet Exception e){
+            throw WalletException("Wallet does not exist")
+        }
+    }
 
     //TODO test: balance = 0 on creation
     //TODO test: two created account's wallets have different IDs
