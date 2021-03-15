@@ -1,6 +1,8 @@
 package com.comp3350.webudget.application;
 
+import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
+import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.AccountDatabase;
@@ -13,11 +15,13 @@ public class Services {
     private static IAccountDatabase accountPersistence = null;
     private static IWalletDatabase walletPersistence = null;
     private static IUserWalletLogic userWalletLogic = null;
+    private static IUserLogic userLogic = null;
 
     public static synchronized void testSetup(){
         walletPersistence = new TestWalletDatabase();
-        accountPersistence = new TestAccountDatabase(walletPersistence());
-        userWalletLogic = new UserWalletLogic(accountPersistence, walletPersistence);
+        accountPersistence = new TestAccountDatabase();
+        userLogic = new UserLogic();
+        userWalletLogic = new UserWalletLogic();
     }
 
     public static synchronized IAccountDatabase accountPersistence() {
@@ -32,6 +36,13 @@ public class Services {
             walletPersistence = new WalletDatabase();
         }
         return walletPersistence;
+    }
+
+    public static synchronized IUserLogic userLogic(){
+        if(userLogic == null){
+            userLogic = new UserLogic();
+        }
+        return userLogic;
     }
 
     public static synchronized IUserWalletLogic userWalletLogic(){

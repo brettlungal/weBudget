@@ -1,5 +1,6 @@
 package com.comp3350.webudget.persistence;
 
+import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class TestAccountDatabase implements IAccountDatabase {
 
     public TestAccountDatabase(){
         database = new ArrayList<>();
-        walletDatabase = new TestWalletDatabase();
+        walletDatabase = Services.walletPersistence();
     }
 
     public TestAccountDatabase(IWalletDatabase injectedWalletDatabase){
