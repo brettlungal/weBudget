@@ -2,22 +2,22 @@ package com.comp3350.webudget.objects;
 
 public class Transaction {
 
-    private static int id = 1;
-    private double amount;
+    private int id;
+    private int amount;
     private String title;
     private Account user;
     private String date;
 
 
-    public Transaction(String title, double amount, Account user, String date){
+    public Transaction(int id, String title, int amount, Account user, String date){
         this.title = title;
         this.amount = amount;
         this.user = user;
         this.date = date;
-        this.id = id++;
+        this.id = id;
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 

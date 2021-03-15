@@ -2,31 +2,28 @@ package com.comp3350.webudget.objects;
 import java.util.ArrayList;
 public class Group {
 
-    private ArrayList<Account> members;
+
     private String name;
-    private static int id = 1;
-    private Wallet wallet;
+    private int id;
+    private int walletID;
+    private ArrayList<Integer> memberIDs;
 
-    public Group(String name){
+    public Group(String name, int id, int walletID, ArrayList<Integer> memberIDs){
         this.name = name;
-        this.id = id++;
-        members = new ArrayList<Account>();
-        wallet = new Wallet(name);
+        this.id = id;
+        this.memberIDs = memberIDs;
+        this.walletID = walletID;
     }
 
-    public void addMember(Account newUser){
-        this.members.add(newUser);
-    }
-
-    public ArrayList<Account> getMembers(){
-        return this.members;
+    public ArrayList<Integer> getMemberIDs(){
+        return this.memberIDs;
     }
 
     public int getId(){
         return this.id;
     }
 
-    public Wallet getWallet(){
-        return this.wallet;
+    public int getWallet(){
+        return this.walletID;
     }
 }
