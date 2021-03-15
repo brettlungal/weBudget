@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO remove: This is for connecting to the database fake
         Services.testSetup();
-        
+
         Context context = getApplicationContext();
         File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
 
