@@ -2,7 +2,7 @@ package com.comp3350.webudget.objects;
 
 public class Wallet {
 
-    private static int walletID = 1;
+    private int walletID;
     private String ownerName;
     private int balance;
 
@@ -12,10 +12,17 @@ public class Wallet {
         this.balance = balance;
     }
 
-    public double getBalance(){
+    public int getWalletID(){
+        return this.walletID;
+    }
+
+    public String getOwnerName(){
+        return this.ownerName;
+    }
+
+    public int getBalance(){
         return this.balance;
     }
-    public int getWalletID(){ return this.walletID; }
 
     public String toString(){
         return this.ownerName+" wallet contains "+balance;

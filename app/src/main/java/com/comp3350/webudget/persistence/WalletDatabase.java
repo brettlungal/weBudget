@@ -1,6 +1,7 @@
 package com.comp3350.webudget.persistence;
 
 import com.comp3350.webudget.application.Main;
+import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Wallet;
 
 import java.sql.Connection;
@@ -22,9 +23,11 @@ public class WalletDatabase implements IWalletDatabase
     }
 
     @Override
-    public int insertWallet(String username) {
-        int balance = 0;
+    public int insertWallet(String username)
+    {
         int walletID = 0;
+        double balance = 0;
+
         String wallet = "create table wallet( "+
                 "id INTEGER IDENTITY PRIMARY KEY,"+
                 " username VARCHAR(100),"+
@@ -68,5 +71,15 @@ public class WalletDatabase implements IWalletDatabase
                 return temp;
         }
         return null;
+    }
+
+    @Override
+    public void deposit(int walletID, int amount) throws WalletException {
+
+    }
+
+    @Override
+    public void withdraw(int walletID, int amount) throws WalletException {
+
     }
 }
