@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Main;
+import com.comp3350.webudget.application.Services;
 
 import java.io.File;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Services.testSetup();
         Context context = getApplicationContext();
         File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
 
