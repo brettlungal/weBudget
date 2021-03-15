@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.objects.Transaction;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +22,7 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
+
 
         BottomNavigationView nav = (BottomNavigationView)findViewById(R.id.navigation);
         nav.setOnNavigationItemSelectedListener(this);
