@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Main;
+import com.comp3350.webudget.application.Services;
 
 import java.io.File;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO remove: This is for connecting to the database fake
+        Services.testSetup();
 
         Context context = getApplicationContext();
         File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
