@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO remove: This is for connecting to the database fake
         Services.testSetup();
+        
         Context context = getApplicationContext();
         File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
 
