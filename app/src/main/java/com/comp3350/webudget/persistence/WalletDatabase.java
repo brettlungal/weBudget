@@ -65,7 +65,6 @@ public class WalletDatabase implements IWalletDatabase
 
     @Override
     public Wallet getWallet(int id) {
-        {
             try
             {
                 PreparedStatement getWalStatement = connect().prepareStatement(

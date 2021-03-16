@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.business.LoginLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import javax.security.auth.login.LoginException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -73,9 +76,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 hideKeyboard();
                 String[] inputValues = getInputValues(this.email_field,this.pwrd_field);
                 try{
-                    LoginLogic login = new LoginLogic(inputValues);
+                    //Login
+                    Services.userLogic().login(inputValues);
                     startActivity(new Intent(this , MasterActivity.class));
-                }catch(LoginLogic.InvalidLoginException e){
+                }catch(LoginException e){
                     Toast toast= Toast.makeText(getApplicationContext(),
                             "Username or Password is not correct", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
