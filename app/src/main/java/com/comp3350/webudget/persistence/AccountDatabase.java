@@ -1,25 +1,13 @@
 package com.comp3350.webudget.persistence;
 
-import android.content.Context;
-import android.view.Gravity;
-import android.widget.Toast;
-
 import com.comp3350.webudget.application.Main;
-import com.comp3350.webudget.business.SignupLogic;
 import com.comp3350.webudget.objects.Account;
-import com.comp3350.webudget.presentation.LoginActivity;
-import com.comp3350.webudget.presentation.MainActivity;
-import com.comp3350.webudget.presentation.SignupActivity;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import android.content.Intent;
-
 
 
 import java.util.ArrayList;
@@ -38,13 +26,34 @@ public class AccountDatabase implements IAccountDatabase {
 
 
     @Override
-    public boolean accountExist(String username, String password){
-        for(int i = 0; i < database.size(); i++){
-            Account temp = database.get(i);
-            if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
-                return true;
+    public boolean accountExist(String username, String password)
+    {
+        boolean flag = false;
+        try
+        {
+            PreparedStatement verifyAcc = connect().prepareStatement(
+                    "select * from accounts where username = ? and password = ?"
+            );
+
+            flag = true;
+
+            verifyAcc.setString(1, username);
+            verifyAcc.setString(2, password);
+            ResultSet resultSet = verifyAcc.executeQuery();
+
+            while (resultSet.next() && flag)
+            {
+                String userName = resultSet.getString("username");
+                String firstName = resultSet.getString("fName");
+                String lastName = resultSet.getString("lName");
+
+                System.out.println(" Account of the User "+userName + " exists.");
+            }
         }
-        return false;
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return flag;
     }
 
     @Override
@@ -58,11 +67,8 @@ public class AccountDatabase implements IAccountDatabase {
                 " primary key(username)" +
                 ")";
 
-
-
         try {
             connect().createStatement().executeUpdate(accounts);
-
 
             PreparedStatement addAccount = connect().prepareStatement(
                     "insert into accounts (username,password, fName,lName) values (?, ?,?,?);"
@@ -85,12 +91,42 @@ public class AccountDatabase implements IAccountDatabase {
     }
 
     @Override
-    public Account getAccount(String username) {
-        for(int i = 0; i < database.size(); i++){
-            Account temp = database.get(i);
-            if(temp.getUsername().equals(username))
-                return temp;
+    public Account getAccount(String username)
+    {
+        try
+        {
+            PreparedStatement getAccStatement = connect().prepareStatement(
+                    "select * from accounts where username = ?"
+            );
+
+            getAccStatement.setString(1, username);
+            ResultSet resultSet = getAccStatement.executeQuery();
+
+            while (resultSet.next())
+            {
+                String userName = resultSet.getString("username");
+                String firstName = resultSet.getString("fName");
+                String lastName = resultSet.getString("lName");
+
+                System.out.println(userName + " is associated with the account of " +firstName+" "+lastName);
+            }
+        }
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
         return null;
     }
 }
+
+//for(int i = 0; i < database.size(); i++){
+//            Account temp = database.get(i);
+//            if(temp.getUsername().equals(username))
+//                return temp;
+//        }
+//        return null;
+//        for(int i = 0; i < database.size(); i++){
+//            Account temp = database.get(i);
+//            if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
+//                return true;
+//        }
+//        return false;
