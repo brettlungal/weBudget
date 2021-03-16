@@ -65,21 +65,73 @@ public class WalletDatabase implements IWalletDatabase
 
     @Override
     public Wallet getWallet(int id) {
-        for(int i = 0; i < walletDatabase.size(); i++){
-            Wallet temp = walletDatabase.get(i);
-            if(temp.getWalletID()==(id))
-                return temp;
+        {
+            try
+            {
+                PreparedStatement getWalStatement = connect().prepareStatement(
+                        "select * from wallet where id = ?"
+                );
+
+                getWalStatement.setInt(1, id);
+                ResultSet resultSet = getWalStatement.executeQuery();
+
+                while (resultSet.next())
+                {
+                    String userName = resultSet.getString("username");
+                    double balance = resultSet.getDouble("balance");
+                    System.out.println(userName + " with ID: "+id+"has a total balance: " +balance);
+                }
+            }
+            catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
+            return null;
+    }
+
+    @Override
+    public void deposit(int walletID, double amount) throws WalletException {
+            try
+            {
+                PreparedStatement depositSt = connect().prepareStatement(
+                        "update wallet set balance = balance + ? where id = ?"
+                );
+
+                depositSt.setDouble(1, amount);
+                depositSt.setInt(2, walletID);
+                ResultSet resultSet = depositSt.executeQuery();
+
+                System.out.println("The amount has been deposited.");
+            }
+            catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
+    }
+
+    @Override
+    public void withdraw(int walletID, double amount) throws WalletException {
+            try
+            {
+                PreparedStatement depositSt = connect().prepareStatement(
+                        "update wallet set balance = balance - ? where id = ?"
+                );
+
+                depositSt.setDouble(1, amount);
+                depositSt.setInt(2, walletID);
+                ResultSet resultSet = depositSt.executeQuery();
+
+                System.out.println("The amount has been withdrawn.");
+            }
+            catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
         }
-        return null;
-    }
-
-    @Override
-    public void deposit(int walletID, int amount) throws WalletException {
-
-    }
-
-    @Override
-    public void withdraw(int walletID, int amount) throws WalletException {
 
     }
 }
+
+//        for(int i = 0; i < walletDatabase.size(); i++){
+//            Wallet temp = walletDatabase.get(i);
+//            if(temp.getWalletID()==(id))
+//                return temp;
+//        }
+//        return null;
