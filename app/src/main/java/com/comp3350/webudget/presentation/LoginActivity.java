@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_button.setOnClickListener(this);
         signup_button.setOnClickListener(this);
 
+
     }
 
     private void hideKeyboard(){
@@ -88,4 +89,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
 }
