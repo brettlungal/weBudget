@@ -88,7 +88,7 @@ public class WalletDatabase implements IWalletDatabase
     }
 
     @Override
-    public void deposit(int walletID, double amount) throws WalletException {
+    public void deposit(int walletID, int amount) throws WalletException {
             try
             {
                 PreparedStatement depositSt = connect().prepareStatement(
@@ -107,7 +107,7 @@ public class WalletDatabase implements IWalletDatabase
     }
 
     @Override
-    public void withdraw(int walletID, double amount) throws WalletException {
+    public void withdraw(int walletID, int amount) throws WalletException {
             try
             {
                 PreparedStatement depositSt = connect().prepareStatement(
@@ -123,9 +123,8 @@ public class WalletDatabase implements IWalletDatabase
             catch (SQLException sqlException) {
                 sqlException.printStackTrace();
             }
-        }
-
     }
+
 }
 
 //        for(int i = 0; i < walletDatabase.size(); i++){
