@@ -7,6 +7,32 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="512dp"
+        android:text="User"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintStart_toEndOf="@+id/balance"
+        app:layout_constraintTop_toBottomOf="@+id/owner_title"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <TextView
+        android:id="@+id/owner_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Owner"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintStart_toEndOf="@+id/balance_title"
+        app:layout_constraintTop_toBottomOf="@+id/summary_title" />
+
+    <TextView
         android:id="@+id/recipient_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
