@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.objects.Group;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class GroupFragment extends Fragment implements View.OnClickListener {
 
     private Button create_group_button;
+    private ArrayList<String> users_groups_names;
 
     @Nullable
     @Override
@@ -30,15 +33,21 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         create_group_button = (Button)view.findViewById(R.id.group_create_group_button);
         create_group_button.setOnClickListener(this);
 
-        // List
-        ArrayList<String> test_al = new ArrayList<String>();
-        test_al.add("this");
-        test_al.add("is");
-        test_al.add("a");
-        test_al.add("test");
+        // List View
+        users_groups_names = new ArrayList<String>();
+        users_groups_names.add("nothing");
+        users_groups_names.add("appears");
+        users_groups_names.add("to");
+        users_groups_names.add("be");
+        users_groups_names.add("here");
+        try {
+            // ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
+            // turn users_groups into an array list of strings to display to
+        } catch (Exception e) {
 
+        }
         ListView group_list = (ListView) view.findViewById(R.id.group_list);
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, test_al);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users_groups_names);
         group_list.setAdapter((listViewAdapter));
 
         return view;
@@ -51,11 +60,6 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
                 load_fragment(new CreateGroupFragment());
                 break;
         }
-    }
-
-    private boolean load_groups() {
-        boolean load_success = false;
-        return load_success;
     }
 
     private boolean load_fragment(Fragment frag) {
