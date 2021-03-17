@@ -33,7 +33,7 @@ public class TestAccountDatabase implements IAccountDatabase {
     @Override
     public void insertUser(String fName, String lName, String username, String password){
         int walletID = walletDatabase.insertWallet(username);
-        database.add(new Account(fName, lName, username, password, walletID, null));
+        database.add(new Account(fName, lName, username, password, walletID, new ArrayList<Integer>()));
     }
 
     @Override
