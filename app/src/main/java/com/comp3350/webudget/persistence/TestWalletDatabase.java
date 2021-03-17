@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TestWalletDatabase implements IWalletDatabase{
     ArrayList<Wallet> database;
-    static int walletID = 0;
+    static int walletID = -1;
 
     public TestWalletDatabase(){
         database = new ArrayList<>();

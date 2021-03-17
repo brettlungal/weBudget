@@ -45,4 +45,9 @@ public class TestAccountDatabase implements IAccountDatabase {
         }
         return null;
     }
+
+    @Override
+    public ArrayList<Account> getAllAccounts() {
+        return new ArrayList<>(database);
+    }
 }
