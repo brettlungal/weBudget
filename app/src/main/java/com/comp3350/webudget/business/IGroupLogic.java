@@ -6,8 +6,8 @@ import com.comp3350.webudget.objects.Group;
 
 import java.util.ArrayList;
 
-public interface IGroupsLogic {
-    public Group getGroup(int id)  throws GroupException;
+public interface IGroupLogic {
+    public Group getGroup(int groupID)  throws GroupException;
     public ArrayList<Group> getGroups()  throws GroupException;
     public ArrayList<Group> getUserGroups(String username)  throws AccountException, GroupException;
     public int createEmptyGroup(String name) throws GroupException;

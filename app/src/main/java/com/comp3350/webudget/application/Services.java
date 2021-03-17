@@ -4,22 +4,27 @@ import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
 import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
+import com.comp3350.webudget.persistence.GroupDatabase;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.AccountDatabase;
+import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.TestAccountDatabase;
+import com.comp3350.webudget.persistence.TestGroupDatabase;
 import com.comp3350.webudget.persistence.TestWalletDatabase;
 import com.comp3350.webudget.persistence.WalletDatabase;
 
 public class Services {
     private static IAccountDatabase accountPersistence = null;
     private static IWalletDatabase walletPersistence = null;
+    private static IGroupDatabase groupPersistence = null;
     private static IUserWalletLogic userWalletLogic = null;
     private static IUserLogic userLogic = null;
 
     public static synchronized void testSetup(){
         walletPersistence = new TestWalletDatabase();
         accountPersistence = new TestAccountDatabase();
+        groupPersistence = new TestGroupDatabase();
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
     }
@@ -36,6 +41,13 @@ public class Services {
             walletPersistence = new WalletDatabase();
         }
         return walletPersistence;
+    }
+
+    public static synchronized IGroupDatabase groupPersistence(){
+        if (groupPersistence == null){
+            groupPersistence = new GroupDatabase();
+        }
+        return groupPersistence;
     }
 
     public static synchronized IUserLogic userLogic(){
