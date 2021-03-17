@@ -26,7 +26,7 @@ public class UserWalletLogicTest {
 
     private IAccountDatabase testAccountDB;
     private IWalletDatabase testWalletDB;
-    private UserWalletLogic userWalletLogic = null;
+    private IUserWalletLogic userWalletLogic = null;
 
     @Before
     public void setUp(){
@@ -93,7 +93,6 @@ public class UserWalletLogicTest {
     //test: two different users accounts are separate
     @Test
     public void testSeparateWallets() throws AccountException, WalletException {
-        System.out.println("ok");
         this.testAccountDB.insertUser("u","u","user7","admin");
         this.testAccountDB.insertUser("u","u","user8","admin");
         this.userWalletLogic.deposit("user7", 333);

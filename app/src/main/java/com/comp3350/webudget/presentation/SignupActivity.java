@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.application.SignupException;
-import com.comp3350.webudget.business.SignupLogic;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
