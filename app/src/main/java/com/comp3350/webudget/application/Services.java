@@ -1,5 +1,7 @@
 package com.comp3350.webudget.application;
 
+import com.comp3350.webudget.business.GroupLogic;
+import com.comp3350.webudget.business.IGroupLogic;
 import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
 import com.comp3350.webudget.business.UserLogic;
@@ -8,9 +10,12 @@ import com.comp3350.webudget.persistence.GroupDatabase;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.AccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
+import com.comp3350.webudget.persistence.IMembershipDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
+import com.comp3350.webudget.persistence.MembershipDatabase;
 import com.comp3350.webudget.persistence.TestAccountDatabase;
 import com.comp3350.webudget.persistence.TestGroupDatabase;
+import com.comp3350.webudget.persistence.TestMembershipDatabase;
 import com.comp3350.webudget.persistence.TestWalletDatabase;
 import com.comp3350.webudget.persistence.WalletDatabase;
 
@@ -18,15 +23,21 @@ public class Services {
     private static IAccountDatabase accountPersistence = null;
     private static IWalletDatabase walletPersistence = null;
     private static IGroupDatabase groupPersistence = null;
+    private static IMembershipDatabase membershipPersistence = null;
+
     private static IUserWalletLogic userWalletLogic = null;
     private static IUserLogic userLogic = null;
+    private static IGroupLogic groupLogic = null;
 
     public static synchronized void testSetup(){
         walletPersistence = new TestWalletDatabase();
         accountPersistence = new TestAccountDatabase();
         groupPersistence = new TestGroupDatabase();
+        membershipPersistence = new TestMembershipDatabase();
+
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
+        groupLogic = new GroupLogic();
     }
 
     public static synchronized IAccountDatabase accountPersistence() {
@@ -50,6 +61,13 @@ public class Services {
         return groupPersistence;
     }
 
+    public static synchronized IMembershipDatabase membershipPersistence(){
+        if(membershipPersistence == null){
+            membershipPersistence = new MembershipDatabase();
+        }
+        return membershipPersistence;
+    }
+
     public static synchronized IUserLogic userLogic(){
         if(userLogic == null){
             userLogic = new UserLogic();
@@ -62,6 +80,13 @@ public class Services {
             userWalletLogic = new UserWalletLogic();
         }
         return userWalletLogic;
+    }
+
+    public static synchronized IGroupLogic groupLogic(){
+        if(groupLogic == null){
+            groupLogic = new GroupLogic();
+        }
+        return groupLogic;
     }
 
 

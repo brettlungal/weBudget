@@ -1,5 +1,7 @@
 package com.comp3350.webudget.persistence;
 
+import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.Main;
 import com.comp3350.webudget.objects.Account;
 
@@ -115,6 +117,11 @@ public class AccountDatabase implements IAccountDatabase {
             sqlException.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<Account> getAllAccounts()  throws AccountException {
+        throw new AccountException("Method not implemented yet!");
     }
 }
 
