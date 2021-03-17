@@ -40,7 +40,7 @@
         android:text="Recipient Username"
         app:layout_constraintBottom_toTopOf="@+id/recipient_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.775"
+        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transfer_title"
         app:layout_constraintVertical_bias="1.0" />
@@ -99,7 +99,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        tools:layout_editor_absoluteY="243dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.349"
+        tools:layout_editor_absoluteX="16dp" />
 
     <EditText
         android:id="@+id/amount_input"
@@ -131,13 +134,15 @@
         android:id="@+id/recipient_input"
         android:layout_width="175dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="360dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.728"
-        app:layout_constraintStart_toEndOf="@+id/amount_input" />
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toEndOf="@+id/amount_input"
+        app:layout_constraintTop_toBottomOf="@+id/transfer_title"
+        app:layout_constraintVertical_bias="0.002" />
 
     <Button
         android:id="@+id/send_button"
