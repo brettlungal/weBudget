@@ -23,8 +23,9 @@ public class TestAccountDatabase implements IAccountDatabase {
     public boolean accountExist(String username, String password){
         for(int i = 0; i < database.size(); i++){
             Account temp = database.get(i);
-            if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
+            if(temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
                 return true;
+            }
         }
         return false;
     }

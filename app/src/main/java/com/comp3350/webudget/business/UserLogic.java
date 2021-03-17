@@ -23,15 +23,16 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void signUp(String[] info) throws SignupException {
-        if (Services.accountPersistence().getAccount(info[0]) != null)
+        if (this.accountPersistence.getAccount(info[2]) != null) {
             throw new SignupException("User Name Has Been Taken !");
+        }
 
-        Services.accountPersistence().insertUser(info[2], info[1], info[0], info[3]);
+        this.accountPersistence.insertUser(info[0], info[1], info[2], info[3]);
     }
 
     @Override
     public void login(String[] info) throws LoginException {
-        if(!Services.accountPersistence().accountExist(info[0],info[1])){
+        if(!this.accountPersistence.accountExist(info[0],info[1])){
             throw new LoginException("Invalid username or password");
         }
         this.currentUser = info[0];

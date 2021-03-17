@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.business.LoginLogic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
