@@ -25,7 +25,7 @@ public class TestGroupDatabase implements IGroupDatabase{
     }
 
     @Override
-    public int createGroup(ArrayList<String> memberNames) {
+    public int createGroup(String groupName, ArrayList<String> memberNames) {
         return 0;
     }
 
