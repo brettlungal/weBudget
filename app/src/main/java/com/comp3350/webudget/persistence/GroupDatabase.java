@@ -10,7 +10,7 @@ public class GroupDatabase implements IGroupDatabase {
     //Only exists so it can be called without error by the UI
 
     @Override
-    public int createGroup(String groupName, ArrayList<String> memberNames) {
+    public int insertGroup(String groupName, ArrayList<String> memberNames) {
         return 0;
     }
 
