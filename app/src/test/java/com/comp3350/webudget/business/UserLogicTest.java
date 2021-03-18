@@ -17,6 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import javax.security.auth.login.LoginException;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 public class UserLogicTest {
     //TODO flesh this out with more tests
 
@@ -69,7 +72,9 @@ public class UserLogicTest {
         String[] info = {"user1","password1"};
         testUserLogic.signUp(user1Input);
         testUserLogic.login(info);
+        assertEquals("user1",testUserLogic.getCurrentUser());
     }
+
 
     @Test(expected = LoginException.class)
     public void test_invalid_login() throws SignupException, LoginException { //neither username or password or ok
@@ -97,5 +102,14 @@ public class UserLogicTest {
         String[] info = {"user1","password2"};
         testUserLogic.signUp(user1Input);
         testUserLogic.login(info);
+    }
+
+    public void test_logout() throws SignupException, LoginException{
+        String[] info = {"user1","password1"};
+        testUserLogic.signUp(user1Input);
+        testUserLogic.login(info);
+        assertEquals("user1",testUserLogic.getCurrentUser());
+        testUserLogic.logout();
+        assertNull(testUserLogic.getCurrentUser());
     }
 }
