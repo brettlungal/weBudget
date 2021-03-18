@@ -29,7 +29,7 @@ public class TestGroupDatabase implements IGroupDatabase{
         groupID++;
         int walletID = walletDatabase.insertWallet(groupName);
         database.add(new Group(groupName, groupID, walletID, new ArrayList<>(memberNames)));
-        return walletID;
+        return groupID;
     }
 
     @Override
