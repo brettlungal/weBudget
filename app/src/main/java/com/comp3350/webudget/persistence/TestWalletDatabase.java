@@ -1,4 +1,4 @@
-package com.comp3350.webudget.persistence.hsqldb;
+package com.comp3350.webudget.persistence;
 
 import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Account;

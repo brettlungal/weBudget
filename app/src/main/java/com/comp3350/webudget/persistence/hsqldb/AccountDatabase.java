@@ -1,8 +1,9 @@
 package com.comp3350.webudget.persistence.hsqldb;
-import androidx.core.app.ActivityCompat;
 
+import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
+import com.comp3350.webudget.persistence.IWalletDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +16,16 @@ import java.util.ArrayList;
 public class AccountDatabase implements IAccountDatabase {
 
     private final String dbPath;
+    private IWalletDatabase walletDatabase;
 
     public AccountDatabase(final String dbPath){
         this.dbPath = dbPath;
+        this.walletDatabase = Services.walletPersistence();
+    }
+
+    public AccountDatabase(final String dbPath, IWalletDatabase injectedWalletDatabase){
+        this.dbPath = dbPath;
+        walletDatabase = injectedWalletDatabase;
     }
 
     private Connection connection() throws SQLException {

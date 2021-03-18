@@ -6,28 +6,39 @@ import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.TestAccountDatabase;
 import com.comp3350.webudget.persistence.TestWalletDatabase;
+import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
+import com.comp3350.webudget.persistence.hsqldb.WalletDatabase;
+import com.comp3350.webudget.utils.TestUtils;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
-public class UserWalletLogicTest {
+public class UserWalletLogicIT {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     private IAccountDatabase testAccountDB;
     private IWalletDatabase testWalletDB;
-    private IUserWalletLogic userWalletLogic = null;
+    private IUserWalletLogic userWalletLogic;
+
+    private File tempDB;
 
     @Before
-    public void setUp(){
-        testWalletDB = new TestWalletDatabase();
-        testAccountDB = new TestAccountDatabase(testWalletDB);
-        this.userWalletLogic = new UserWalletLogic(testAccountDB,testWalletDB);
+    public void setUp() throws IOException {
+        this.tempDB = TestUtils.copyDB();
+        testWalletDB = new WalletDatabase(this.tempDB.getAbsolutePath().replace(".script", ""));
+        testAccountDB = new AccountDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testWalletDB);
+        userWalletLogic = new UserWalletLogic(testAccountDB, testWalletDB);
+
     }
 
     //test: get AccountError if the user searched for does not exist: get, deposit, withdraw, and get transactions
@@ -35,7 +46,7 @@ public class UserWalletLogicTest {
     @Test(expected = AccountException.class)
     public void testAccountDNEGet() throws AccountException, WalletException {
         this.userWalletLogic.getAmount("admin");
-   }
+    }
 
     //TODO test: get account error if there are users in the database, but we search for the wrong one?
 
@@ -102,4 +113,11 @@ public class UserWalletLogicTest {
     //TODO test: transaction after a single withdraw has correct information
 
     //TODO: what else?
+
+    @After
+    public void tearDown() {
+        // reset DB
+        this.tempDB.delete();
+    }
+
 }
