@@ -24,16 +24,21 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void signUp(String[] info) throws SignupException {
-        if (Services.accountPersistence().getAccount(info[0]) != null)
+        if (this.accountPersistence.getAccount(info[2]) != null) {
             throw new SignupException("User Name Has Been Taken !");
+        }
 
-        Services.accountPersistence().insertUser(info[2], info[1], info[0], info[3]);
+        this.accountPersistence.insertUser(info[0], info[1], info[2], info[3]);
     }
 
     @Override
     public void login(String[] info) throws LoginException {
+//<<<<<<< HEAD
         Account accountVerify = Services.accountPersistence().getAccount(info[0]);
         if(accountVerify == null){
+//=======
+        //if(!this.accountPersistence.accountExist(info[0],info[1])){
+//>>>>>>> becb30d92a645c96ef2a1e896f5e5579643622d4
             throw new LoginException("Invalid username or password");
         }
         else if(!accountVerify.getPassword().equals(info[1])){
@@ -44,6 +49,7 @@ public class UserLogic implements IUserLogic {
             this.currentUser = info[0];
         }
     }
+
 
     @Override
     public void logout() {

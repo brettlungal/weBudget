@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 
 public class AccountDatabase implements IAccountDatabase {
@@ -22,10 +23,10 @@ public class AccountDatabase implements IAccountDatabase {
     }
 
     @Override
-    public void insertUser(String fName, String lName, String username, String password, int walletID){
+    public void insertUser(String fName, String lName, String username, String password){
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
-                    "insert into accounts (username,password, fName,lName,walletID) values (?, ?,?,?,?);"
+                    "insert into accounts (username,password, fName,lName) values (?, ?,?,?);"
             );
 
             st.setString(1, username );
@@ -62,4 +63,9 @@ public class AccountDatabase implements IAccountDatabase {
 
         return null;
     }
+
+    public ArrayList<Account> getAllAccounts(){
+        return null;
+    }
+
 }
