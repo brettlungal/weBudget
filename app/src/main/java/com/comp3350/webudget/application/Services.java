@@ -5,11 +5,11 @@ import com.comp3350.webudget.business.IUserWalletLogic;
 import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
 import com.comp3350.webudget.persistence.IAccountDatabase;
-import com.comp3350.webudget.persistence.AccountDatabase;
+import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
-import com.comp3350.webudget.persistence.TestAccountDatabase;
-import com.comp3350.webudget.persistence.TestWalletDatabase;
-import com.comp3350.webudget.persistence.WalletDatabase;
+import com.comp3350.webudget.persistence.hsqldb.TestAccountDatabase;
+import com.comp3350.webudget.persistence.hsqldb.TestWalletDatabase;
+import com.comp3350.webudget.persistence.hsqldb.WalletDatabase;
 
 public class Services {
     private static IAccountDatabase accountPersistence = null;
@@ -26,7 +26,7 @@ public class Services {
 
     public static synchronized IAccountDatabase accountPersistence() {
         if (accountPersistence == null) {
-            accountPersistence = new AccountDatabase();
+            accountPersistence = new AccountDatabase(Main.getDBPathName());
         }
         return accountPersistence;
     }

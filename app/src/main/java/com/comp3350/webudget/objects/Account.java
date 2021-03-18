@@ -20,6 +20,12 @@ public class Account {
         this.groupIDs = groupIDs;
     }
 
+    public Account( String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
+
     public String getFirstName() {
         return this.fName;
     }

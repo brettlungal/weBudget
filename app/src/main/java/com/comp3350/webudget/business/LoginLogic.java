@@ -6,7 +6,7 @@ public class LoginLogic {
 
     public LoginLogic(String[] info) throws InvalidLoginException {
 
-        if(!Services.accountPersistence().accountExist(info[0],info[1])){
+        if(Services.accountPersistence().getAccount(info[0]) == null){
             throw new InvalidLoginException("Invalid username or password");
         }
     }

@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import javax.security.auth.login.LoginException;
@@ -31,10 +32,17 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void login(String[] info) throws LoginException {
-        if(!Services.accountPersistence().accountExist(info[0],info[1])){
+        Account accountVerify = Services.accountPersistence().getAccount(info[0]);
+        if(accountVerify == null){
             throw new LoginException("Invalid username or password");
         }
-        this.currentUser = info[0];
+        else if(!accountVerify.getPassword().equals(info[1])){
+            System.out.println(accountVerify.getPassword() + "    "+info[1] +"");
+            throw new LoginException("Invalid username or password");
+        }
+        else{
+            this.currentUser = info[0];
+        }
     }
 
     @Override

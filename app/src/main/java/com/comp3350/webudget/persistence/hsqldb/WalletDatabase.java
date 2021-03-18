@@ -1,8 +1,9 @@
-package com.comp3350.webudget.persistence;
+package com.comp3350.webudget.persistence.hsqldb;
 
 import com.comp3350.webudget.application.Main;
 import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Wallet;
+import com.comp3350.webudget.persistence.IWalletDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +20,7 @@ public class WalletDatabase implements IWalletDatabase
     private Connection connect() throws SQLException
     {
         System.out.println(Main.getDBPathName());
-        return DriverManager.getConnection("jdbc:hsqldb:file:"+ Main.getDBPathName() +"/SC;shutdown=true", "SA", "");
+        return DriverManager.getConnection("jdbc:hsqldb:file:"+ Main.getDBPathName() +";shutdown=true", "SA", "");
     }
 
     @Override
