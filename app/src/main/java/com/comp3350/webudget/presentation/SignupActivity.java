@@ -11,7 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.business.SignupLogic;
+import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.application.SignupException;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -49,10 +50,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.signup_button:
                 String[] inputValues = getInputValues(fname,lname,username,password);
                 try {
-                    new SignupLogic(inputValues);
+                    Services.userLogic().signUp(inputValues);
                     startActivity(new Intent(this,LoginActivity.class));
                     finish();
-                } catch (SignupLogic.SignupException e) {
+                } catch (SignupException e) {
                     Toast toast= Toast.makeText(getApplicationContext(),
                             e.getMessage(), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);

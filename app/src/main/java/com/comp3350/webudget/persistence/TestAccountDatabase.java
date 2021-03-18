@@ -23,8 +23,9 @@ public class TestAccountDatabase implements IAccountDatabase {
     public boolean accountExist(String username, String password){
         for(int i = 0; i < database.size(); i++){
             Account temp = database.get(i);
-            if(temp.getUsername().equals(username) && temp.getPassword().equals(password))
+            if(temp.getUsername().equals(username) && temp.getPassword().equals(password)) {
                 return true;
+            }
         }
         return false;
     }
@@ -32,7 +33,7 @@ public class TestAccountDatabase implements IAccountDatabase {
     @Override
     public void insertUser(String fName, String lName, String username, String password){
         int walletID = walletDatabase.insertWallet(username);
-        database.add(new Account(fName, lName, username, password, walletID, null));
+        database.add(new Account(fName, lName, username, password, walletID, new ArrayList<Integer>()));
     }
 
     @Override
@@ -43,5 +44,10 @@ public class TestAccountDatabase implements IAccountDatabase {
                 return temp;
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<Account> getAllAccounts() {
+        return new ArrayList<>(database);
     }
 }

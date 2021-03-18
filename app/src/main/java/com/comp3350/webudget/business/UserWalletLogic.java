@@ -40,7 +40,6 @@ public class UserWalletLogic implements IUserWalletLogic {
     @Override
     public int getAmount(String username) throws AccountException, WalletException {
         int walletID = getWalletID(username);
-        System.out.println(walletID);
         Wallet wallet = walletPersistence.getWallet(walletID);
         return wallet.getBalance();
     }
@@ -48,7 +47,6 @@ public class UserWalletLogic implements IUserWalletLogic {
     @Override
     public void deposit(String username, int amount) throws AccountException, WalletException {
         int walletID = getWalletID(username);
-        System.out.println(walletID);
         if(amount <= 0){
             throw new WalletException("Deposit to wallet must be positive");
         }
