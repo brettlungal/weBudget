@@ -3,10 +3,11 @@ package com.comp3350.webudget.persistence;
 import com.comp3350.webudget.application.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Wallet;
+import com.comp3350.webudget.persistence.IWalletDatabase;
 
 import java.util.ArrayList;
 
-public class TestWalletDatabase implements IWalletDatabase{
+public class TestWalletDatabase implements IWalletDatabase {
     ArrayList<Wallet> database;
     static int walletID = -1;
 

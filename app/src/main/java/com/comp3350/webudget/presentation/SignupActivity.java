@@ -64,12 +64,4 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public void kk(){
-        Toast toast= Toast.makeText(getApplicationContext(),
-                "Username or Password is not correct", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
-
-    }
-
 }

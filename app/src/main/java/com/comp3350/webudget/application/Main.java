@@ -2,7 +2,12 @@ package com.comp3350.webudget.application;
 
 public class Main
 {
-    public static String dbName = "SC";
+    private static String dbName="myDB";
+
+    public static void main(String[] args)
+    {
+        System.out.println("All done");
+    }
 
     public static void setDBPathName(final String name) {
         try {
@@ -20,5 +25,5 @@ public class Main
     public static String getDBPathName() {
         return dbName;
     }
-
 }
+

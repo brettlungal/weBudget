@@ -7,6 +7,8 @@ import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.TestAccountDatabase;
 import com.comp3350.webudget.persistence.TestWalletDatabase;
+//import com.comp3350.webudget.persistence.TestAccountDatabase;
+//import com.comp3350.webudget.persistence.TestWalletDatabase;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,7 +18,7 @@ import org.junit.rules.ExpectedException;
 import javax.security.auth.login.LoginException;
 
 public class UserLogicTest {
-    //TODO flesh this out with tests
+    //TODO flesh this out with more tests
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -25,8 +27,8 @@ public class UserLogicTest {
     private IWalletDatabase testWalletDB;
     private IUserLogic testUserLogic;
 
-    private final String[] user1Input = {"xx", "xx", "user1", "password1"};
-    private final String[] user2Input = {"yy", "yy", "user2", "password2"};
+    private final String[] user1Input = {"user1", "xx", "xx", "password1"};
+    private final String[] user2Input = {"user2", "yy", "yy", "password2"};
 
     @Before
     public void setUp(){
@@ -59,7 +61,6 @@ public class UserLogicTest {
     @Test(expected = LoginException.class)
     public void testNoUserLogin() throws LoginException{
         String[] info = {"user1","password1"};
-        //exception.expect(LoginException.class);
         testUserLogic.login(info);
     }
 

@@ -1,7 +1,8 @@
-package com.comp3350.webudget.persistence;
+package com.comp3350.webudget.persistence.hsqldb;
 
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
+import com.comp3350.webudget.persistence.IMembershipDatabase;
 
 import java.util.ArrayList;
 
