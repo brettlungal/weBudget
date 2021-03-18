@@ -16,7 +16,7 @@ import org.junit.rules.ExpectedException;
 import javax.security.auth.login.LoginException;
 
 public class UserLogicTest {
-    //TODO flesh this out with tests
+    //TODO flesh this out with more tests
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

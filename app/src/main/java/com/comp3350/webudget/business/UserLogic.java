@@ -1,5 +1,6 @@
 package com.comp3350.webudget.business;
 
+import com.comp3350.webudget.application.AccountException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.application.SignupException;
 import com.comp3350.webudget.objects.Account;
@@ -24,11 +25,19 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void signUp(String[] info) throws SignupException {
-        if (this.accountPersistence.getAccount(info[2]) != null) {
-            throw new SignupException("User Name Has Been Taken !");
+        try {
+            if (this.accountPersistence.getAccount(info[2]) != null) {
+                throw new SignupException("User Name Has Been Taken !");
+            }
+        }catch(AccountException e){
+            throw new SignupException("Error checking if username has been taken");
         }
 
-        this.accountPersistence.insertUser(info[0], info[1], info[2], info[3]);
+        try {
+            this.accountPersistence.insertUser(info[0], info[1], info[2], info[3]);
+        }catch(AccountException e){
+            throw new SignupException("Error adding user to signed-up users");
+        }
     }
 
     @Override
