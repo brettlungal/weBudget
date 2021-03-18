@@ -20,6 +20,9 @@ import java.io.IOException;
 
 import javax.security.auth.login.LoginException;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 public class UserLogicIT {
 
     @Rule
@@ -48,17 +51,6 @@ public class UserLogicIT {
     //TODO need to remove the user from the database after running
 
     @Test
-    public void signUpSuccess() throws SignupException {
-        testUserLogic.signUp(user1Input);
-    }
-
-    @Test(expected = SignupException.class)
-    public void signUpFail() throws SignupException {
-        testUserLogic.signUp(user1Input);
-        testUserLogic.signUp(user1Input);
-    }
-
-    @Test
     public void signUpMultiple() throws SignupException{
         testUserLogic.signUp(user1Input);
         testUserLogic.signUp(user2Input);
@@ -75,7 +67,9 @@ public class UserLogicIT {
         String[] info = {"user1","password1"};
         testUserLogic.signUp(user1Input);
         testUserLogic.login(info);
+        assertEquals("user1",testUserLogic.getCurrentUser());
     }
+
 
     @Test(expected = LoginException.class)
     public void test_invalid_login() throws SignupException, LoginException { //neither username or password or ok
@@ -103,6 +97,15 @@ public class UserLogicIT {
         String[] info = {"user1","password2"};
         testUserLogic.signUp(user1Input);
         testUserLogic.login(info);
+    }
+
+    public void test_logout() throws SignupException, LoginException{
+        String[] info = {"user1","password1"};
+        testUserLogic.signUp(user1Input);
+        testUserLogic.login(info);
+        assertEquals("user1",testUserLogic.getCurrentUser());
+        testUserLogic.logout();
+        assertNull(testUserLogic.getCurrentUser());
     }
 
     @After

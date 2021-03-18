@@ -20,7 +20,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View settingsView = inflater.inflate(R.layout.fragment_settings , container, false);
 
-
         return settingsView;
     }
 
@@ -31,6 +30,5 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             //listen for clicks
 
         }
-
     }
 }
