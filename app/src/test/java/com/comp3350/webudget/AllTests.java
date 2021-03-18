@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         UserLogicTest.class,
         UserWalletLogicTest.class,
-        //GroupLogicTest.class,
+        GroupLogicTest.class,
 })
 public class AllTests
 {
