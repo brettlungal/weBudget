@@ -5,6 +5,8 @@ import com.comp3350.webudget.application.SignupException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
+import com.comp3350.webudget.persistence.TestAccountDatabase;
+import com.comp3350.webudget.persistence.TestWalletDatabase;
 //import com.comp3350.webudget.persistence.TestAccountDatabase;
 //import com.comp3350.webudget.persistence.TestWalletDatabase;
 
@@ -30,8 +32,8 @@ public class UserLogicTest {
 
     @Before
     public void setUp(){
-        //testWalletDB = new TestWalletDatabase();
-        //testAccountDB = new TestAccountDatabase(testWalletDB);
+        testWalletDB = new TestWalletDatabase();
+        testAccountDB = new TestAccountDatabase(testWalletDB);
         testUserLogic = new UserLogic(testAccountDB);
     }
 
@@ -59,7 +61,6 @@ public class UserLogicTest {
     @Test(expected = LoginException.class)
     public void testNoUserLogin() throws LoginException{
         String[] info = {"user1","password1"};
-        //exception.expect(LoginException.class);
         testUserLogic.login(info);
     }
 

@@ -17,6 +17,12 @@ public class WalletDatabase implements IWalletDatabase
 {
     ArrayList<Wallet> walletDatabase;
 
+    private final String dbPath;
+
+    public WalletDatabase(final String dbPath){
+        this.dbPath = dbPath;
+    }
+
     private Connection connect() throws SQLException
     {
         System.out.println(Main.getDBPathName());

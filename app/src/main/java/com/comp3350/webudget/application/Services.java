@@ -53,7 +53,7 @@ public class Services {
 
     public static synchronized IWalletDatabase walletPersistence(){
         if (walletPersistence == null) {
-            walletPersistence = new WalletDatabase();
+            walletPersistence = new WalletDatabase(Main.getDBPathName());
         }
         return walletPersistence;
     }
