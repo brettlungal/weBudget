@@ -34,8 +34,6 @@ public class Services {
     private static IGroupLogic groupLogic = null;
 
     public static synchronized void testSetup(){
-        walletPersistence = new TestWalletDatabase();
-        accountPersistence = new TestAccountDatabase();
         groupPersistence = new TestGroupDatabase();
         membershipPersistence = new TestMembershipDatabase();
 
