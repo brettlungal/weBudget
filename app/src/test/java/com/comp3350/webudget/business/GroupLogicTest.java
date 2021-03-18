@@ -1,6 +1,8 @@
 package com.comp3350.webudget.business;
 
+import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IMembershipDatabase;
@@ -14,6 +16,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.assertEquals;
 
 public class GroupLogicTest {
     //Interface to test:
@@ -47,12 +51,29 @@ public class GroupLogicTest {
         testAccountDB = new TestAccountDatabase(testWalletDB);
         testGroupDB = new TestGroupDatabase(testWalletDB);
         testMembershipDB = new TestMembershipDatabase(testAccountDB, testGroupDB);
-        testGroupLogic = new GroupLogic(testAccountDB, testGroupDB);
+        testGroupLogic = new GroupLogic(testAccountDB, testGroupDB, testMembershipDB);
     }
 
     //getGroup: fails on no groups in DB
+    @Test(expected = GroupException.class)
+    public void getGroupButNoneExist() throws GroupException {
+        testGroupLogic.getGroup(0);
+    }
+
     //getGroup: fails on wrong groupID
+    @Test(expected = GroupException.class)
+    public void getGroupWrongID() throws GroupException {
+        int correctID = testGroupDB.insertGroup("g1",null);
+        testGroupLogic.getGroup((correctID+1));
+    }
+
     //getGroup: succeeds with correct groupID (w/ assert not null)
+    @Test
+    public void getGroupSuccess() throws GroupException{
+        int correctID = testGroupDB.insertGroup("g1", null);
+        Group group = testGroupLogic.getGroup((correctID));
+        assertEquals(group.getId(), correctID);
+    }
 
     //getGroups: returns an arrayList of 0 groups if none are in the database (assert not null first)
     //getGroups: returns an arrayList of N groups if N groups are added to the database (test will be deterministic with random N)
@@ -82,9 +103,5 @@ public class GroupLogicTest {
         testUserLogic.signUp(user1Input);
     }
 
-    @Test(expected = SignupException.class)
-    public void signUpFail() throws SignupException {
-        testUserLogic.signUp(user1Input);
-        testUserLogic.signUp(user1Input);
-    }
+
 }

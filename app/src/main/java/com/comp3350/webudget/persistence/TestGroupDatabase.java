@@ -34,6 +34,7 @@ public class TestGroupDatabase implements IGroupDatabase{
 
     @Override
     public Group getGroup(int id) throws GroupException {
+        //TODO note: this is probably too much logic for the stub. Re-write this so it acts the same as the real database would. (?)
         try {
             Group myGroup = database.get(id);
             if(myGroup == null){
