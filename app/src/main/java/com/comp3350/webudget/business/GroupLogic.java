@@ -3,6 +3,7 @@ package com.comp3350.webudget.business;
 import com.comp3350.webudget.application.AccountException;
 import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
@@ -16,19 +17,18 @@ public class GroupLogic implements IGroupLogic {
     //Only exists so it can be called without error by the UI
 
     private IAccountDatabase accountPersistence;
-    private IWalletDatabase walletPersistence;
     private IGroupDatabase groupPersistence;
 
     //default constructor
     public GroupLogic() {
         accountPersistence = Services.accountPersistence();
-        walletPersistence = Services.walletPersistence();
         groupPersistence = Services.groupPersistence();
     }
 
     //injectable constructor
-    public GroupLogic(final IAccountDatabase accountPersistence) {
+    public GroupLogic(final IAccountDatabase accountPersistence, final IGroupDatabase groupPersistence) {
         this.accountPersistence = accountPersistence;
+        this.groupPersistence = groupPersistence;
     }
 
     @Override
@@ -43,6 +43,11 @@ public class GroupLogic implements IGroupLogic {
 
     @Override
     public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Account> getGroupUsers(int groupID) {
         return null;
     }
 
