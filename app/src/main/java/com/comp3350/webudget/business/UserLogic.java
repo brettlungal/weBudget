@@ -33,12 +33,8 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void login(String[] info) throws LoginException {
-//<<<<<<< HEAD
         Account accountVerify = Services.accountPersistence().getAccount(info[0]);
         if(accountVerify == null){
-//=======
-        //if(!this.accountPersistence.accountExist(info[0],info[1])){
-//>>>>>>> becb30d92a645c96ef2a1e896f5e5579643622d4
             throw new LoginException("Invalid username or password");
         }
         else if(!accountVerify.getPassword().equals(info[1])){

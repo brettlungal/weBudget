@@ -127,10 +127,3 @@ public class WalletDatabase implements IWalletDatabase
     }
 
 }
-
-//        for(int i = 0; i < walletDatabase.size(); i++){
-//            Wallet temp = walletDatabase.get(i);
-//            if(temp.getWalletID()==(id))
-//                return temp;
-//        }
-//        return null;

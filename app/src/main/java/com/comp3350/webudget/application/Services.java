@@ -40,7 +40,7 @@ public class Services {
 
     public static synchronized IGroupDatabase groupPersistence(){
         if (groupPersistence == null){
-            groupPersistence = new GroupDatabase();
+            groupPersistence = new GroupDatabase(Main.getDBPathName());
         }
         return groupPersistence;
     }

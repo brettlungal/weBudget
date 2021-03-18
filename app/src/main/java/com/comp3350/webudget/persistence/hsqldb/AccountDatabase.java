@@ -1,4 +1,6 @@
 package com.comp3350.webudget.persistence.hsqldb;
+import androidx.core.app.ActivityCompat;
+
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 
@@ -53,8 +55,7 @@ public class AccountDatabase implements IAccountDatabase {
                 String password = resultSet.getString("password");
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
-                return new Account(userName,password);
-                //System.out.println(userName + " is associated with the account of " +firstName+" "+lastName);
+                return new Account(firstName,lastName,userName,password,-1,null);
             }
         }
         catch (SQLException sqlException) {
@@ -65,7 +66,25 @@ public class AccountDatabase implements IAccountDatabase {
     }
 
     public ArrayList<Account> getAllAccounts(){
-        return null;
+        ArrayList<Account> accounts = new ArrayList<>();
+        try(final Connection c = connection()){
+            final PreparedStatement st = c.prepareStatement(
+                    "select * from accounts"
+            );
+            ResultSet resultSet = st.executeQuery();
+            if (resultSet.next()){
+                String userName = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String firstName = resultSet.getString("fName");
+                String lastName = resultSet.getString("lName");
+                accounts.add(new Account(firstName,lastName,userName,password,-1,null));
+            }
+        }
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return accounts;
     }
 
 }
