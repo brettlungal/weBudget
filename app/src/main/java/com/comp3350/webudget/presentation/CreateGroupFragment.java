@@ -10,13 +10,18 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.business.GroupLogic;
+
+import java.util.ArrayList;
 
 public class CreateGroupFragment extends Fragment implements View.OnClickListener {
 
     private EditText group_name_field, description_field;
-    private Button create_group_button, add_members_button;
+    private Button create_group_button;
 
     @Nullable
     @Override
@@ -25,13 +30,11 @@ public class CreateGroupFragment extends Fragment implements View.OnClickListene
 
         // Fields
         group_name_field = (EditText)view.findViewById(R.id.group_name);
-        description_field = (EditText)view.findViewById(R.id.username);
+        description_field = (EditText)view.findViewById(R.id.group_description);
 
         // Buttons
         create_group_button = (Button)view.findViewById(R.id.create_group_create_group_button);
         create_group_button.setOnClickListener(this);
-        add_members_button = (Button)view.findViewById(R.id.create_group_add_members_button);
-        add_members_button.setOnClickListener(this);
 
         return view;
     }
@@ -41,13 +44,15 @@ public class CreateGroupFragment extends Fragment implements View.OnClickListene
         switch ( v.getId() ){
             case R.id.create_group_create_group_button:
                 String[] inputValues = getInputValues();
+                ArrayList<String> members = new ArrayList<String>();
+                members.add(Services.userLogic().getCurrentUser()); // Add self to group
                 try {
-                    // try to create group
+                    GroupLogic gl = new GroupLogic();
+                    gl.createGroupWithUsers(inputValues[0], members);
+                    load_fragment(new GroupFragment());
                 } catch(Exception e) {
-                    // handle failure
+
                 }
-                break;
-            case R.id.create_group_add_members_button:
                 break;
         }
     }
@@ -57,5 +62,18 @@ public class CreateGroupFragment extends Fragment implements View.OnClickListene
         values[0] = group_name_field.getText().toString();
         values[1] = description_field.getText().toString();
         return values;
+    }
+
+    private boolean load_fragment(Fragment frag) {
+        boolean load_success = false;
+        // switch to a try catch?
+        if(frag != null) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainer, frag);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            load_success = true;
+        }
+        return load_success;
     }
 }

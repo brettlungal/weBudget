@@ -41,7 +41,7 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         users_groups_names.add("be");
         users_groups_names.add("here");
         try {
-            // ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
+            //ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
             // turn users_groups into an array list of strings to display to
         } catch (Exception e) {
 
