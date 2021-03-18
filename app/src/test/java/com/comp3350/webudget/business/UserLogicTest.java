@@ -27,8 +27,8 @@ public class UserLogicTest {
     private IWalletDatabase testWalletDB;
     private IUserLogic testUserLogic;
 
-    private final String[] user1Input = {"xx", "xx", "user1", "password1"};
-    private final String[] user2Input = {"yy", "yy", "user2", "password2"};
+    private final String[] user1Input = {"user1", "xx", "xx", "password1"};
+    private final String[] user2Input = {"user2", "yy", "yy", "password2"};
 
     @Before
     public void setUp(){

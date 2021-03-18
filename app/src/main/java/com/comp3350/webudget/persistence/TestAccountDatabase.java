@@ -23,7 +23,7 @@ public class TestAccountDatabase implements IAccountDatabase{
     }
 
     @Override
-    public void insertUser(String fName, String lName, String username, String password) throws AccountException {
+    public void insertUser(String username, String fName, String lName, String password) throws AccountException {
         int walletID = walletDatabase.insertWallet(username);
         database.add(new Account(fName, lName, username, password, walletID, new ArrayList<Integer>()));
     }

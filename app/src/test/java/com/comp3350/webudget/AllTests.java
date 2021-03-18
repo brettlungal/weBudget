@@ -16,11 +16,9 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        Account_test.class,
-        Group_test.class,
         UserLogicTest.class,
         UserWalletLogicTest.class,
-        GroupLogicTest.class,
+        //GroupLogicTest.class,
 })
 public class AllTests
 {
