@@ -1,7 +1,9 @@
 package com.comp3350.webudget.business;
 
+import com.comp3350.webudget.application.AccountException;
 import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
@@ -16,6 +18,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -63,39 +67,144 @@ public class GroupLogicTest {
     //getGroup: fails on wrong groupIDt
     @Test(expected = GroupException.class)
     public void getGroupWrongID() throws GroupException {
-        int correctID = testGroupDB.insertGroup("g1",null);
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("testUser1");
+        names.add("testUser2");
+        int correctID = testGroupDB.insertGroup("g1",names);
         testGroupLogic.getGroup((correctID+1));
     }
 
     //getGroup: succeeds with correct groupID (w/ assert not null)
     @Test
     public void getGroupSuccess() throws GroupException{
-        int correctID = testGroupDB.insertGroup("g1", null);
-        Group group = testGroupLogic.getGroup((correctID));
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("testUser1");
+        names.add("testUser2");
+        int correctID = testGroupDB.insertGroup("g1", names);
+        Group group = testGroupLogic.getGroup(correctID);
         assertEquals(group.getId(), correctID);
     }
 
-    //getGroups: returns an arrayList of 0 groups if none are in the database (assert not null first)
-    //getGroups: returns an arrayList of N groups if N groups are added to the database (test will be deterministic with random N)
-    //          --> mix createEmptyGroup and createGroupWithUsers
+    @Test
+    public void verifyGroupCountZero() throws GroupException{
+        ArrayList<Group> no_groups = testGroupLogic.getGroups();
+        assertEquals(no_groups.size(),0);
+    }
+
+    @Test
+    public void verifyGroupCount() throws GroupException{
+        testGroupLogic.createEmptyGroup("test1");
+        testGroupLogic.createEmptyGroup("test2");
+        testGroupLogic.createEmptyGroup("test3");
+        ArrayList<Group> all_groups = testGroupLogic.getGroups();
+        assertEquals(all_groups.size(),3);
+    }
 
     //getUserGroups: same kinda test cases as above
+    @Test(expected = AccountException.class)
+    public void getUsersGroupsInvalidUser() throws GroupException, AccountException {
+        ArrayList<Group> no_groups = testGroupLogic.getUserGroups("nobody");
+        assertEquals(no_groups.size(),0);
+    }
+    @Test
+    public void getUserGroupsValidUserNoGroups() throws GroupException, AccountException{
+        testAccountDB.insertUser("Rob","Guderian","badinternet001","pass123");
+        ArrayList<Group> no_groups = testGroupLogic.getUserGroups("badinternet001");
+        assertEquals(no_groups.size(),0);
+    }
+    @Test
+    public void getUserGroupsValidUser() throws GroupException, AccountException{
+        testAccountDB.insertUser("Rob","Guderian","badinternet001","pass123");
+        ArrayList<String> users = new ArrayList<String>();
+        users.add("badinternet001");
+        int group_id = testGroupDB.insertGroup("test",users);
+        testGroupLogic.addUserToGroup("badinternet001",group_id);
+        ArrayList<Group> rob_groups = testGroupLogic.getUserGroups("badinternet001");
+        assertEquals(rob_groups.size(),1);
+    }
 
-    //getGroupUsers: same kinda test cases as above
+    @Test(expected = GroupException.class)
+    public void getGroupUsersInvalidGroup() throws GroupException, AccountException{
+        ArrayList<Account> members = testGroupLogic.getGroupUsers(12);
+    }
 
-    //createEmptyGroup: the group should have no members to begin with (a non-null list)
+    @Test
+    public void getGroupUsersEmptyGroup()throws GroupException, AccountException{
+        int empty_id = testGroupLogic.createEmptyGroup("nothing");
+        ArrayList<Account> users = testGroupLogic.getGroupUsers(empty_id);
+        assertEquals(0,users.size());
+    }
 
-    //createGroupWithUsers: the group should have the same size as the number of UNIQUE users
-    //createGroupWithUsers: passing an empty arraylist should have the same result as createEmptyGroup
-    //createGroupWithUsers: passing a null list should result in an error
+    @Test
+    public void getGroupUsersValidGroup()throws GroupException, AccountException{
+        testAccountDB.insertUser("first","name","test","easypass");
+        int group_id = testGroupLogic.createEmptyGroup("nothing");
+        testGroupLogic.addUserToGroup("test",group_id);
+        ArrayList<Account> members = testGroupLogic.getGroupUsers(group_id);
+        assertEquals(1,members.size());
+    }
+
+    @Test
+    public void getGroupSizeUsers() throws GroupException, AccountException{
+        ArrayList<String> users = new ArrayList<String>();
+        users.add("user1");
+        users.add("user2");
+        int id = testGroupLogic.createGroupWithUsers("coolgroup",users);
+        ArrayList<Account> members = testGroupLogic.getGroupUsers(id);
+        assertEquals(2,members.size());
+    }
+
+    @Test
+    public void getGroupSizeEmptyGroup() throws GroupException, AccountException{
+        ArrayList<String> empty = new ArrayList<String>();
+        int id = testGroupLogic.createGroupWithUsers("empty",empty);
+        ArrayList<Account> users = testGroupLogic.getGroupUsers(id);
+        assertEquals(0, users.size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void createGroupWithNull()throws GroupException,AccountException{
+        int id = testGroupLogic.createGroupWithUsers("null",null);
+    }
+
+
     //createGroupWithUsers: the group should not be made if any of the users do not exist. (you'll need two tests for this. One for accountError, and one to check that no group has been created) If you're clever you can do it in one
 
-    //addUserToGroup: test with fake users, fake groups, and both
-    //addUserToGroup: Test everything on empty & non empty groups. For non empty groups, test cases of if the user is in the initial group or not
-    //addUserToGroup: for all cases, when a new user is added, the size of the Group's Users and User's Groups lists should increase by 1
-    //addUserToGroup: for all cases, if the same user is added twice, the size of the membership lists should not change
-    //addUserToGroup: test with multiple users being added
+    @Test(expected = AccountException.class)
+    public void addInvalidUserToExistingGroup()throws GroupException, AccountException{
+        ArrayList<String> mem = new ArrayList<String>();
+        int id = testGroupDB.insertGroup("testing",mem);
+        testGroupLogic.addUserToGroup("nobody",id);
+    }
 
-    //removeUserFromGroup: aaaaaaaaaa probably a bunch of things
+    @Test
+    public void addValidUserToExistingGroup()throws GroupException, AccountException{
+        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        ArrayList<String> mem = new ArrayList<>();
+        int group_id = testGroupDB.insertGroup("robsGroup",mem);
+        testGroupLogic.addUserToGroup("horidinternet",group_id);
+        ArrayList<Account> users = testGroupLogic.getGroupUsers(group_id);
+        assertEquals(1,users.size());
+    }
+
+    @Test(expected = GroupException.class)
+    public void addValidUserToInvalidGroup()throws GroupException,AccountException{
+        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        testGroupLogic.addUserToGroup("horidinternet",420);
+    }
+
+    @Test
+    public void addValidUserToPopulatedGroup()throws GroupException,AccountException{
+        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        ArrayList<String> users = new ArrayList<>();
+        users.add("horidinternet");
+        int group_id = testGroupLogic.createGroupWithUsers("bobby",users);
+        testAccountDB.insertUser("Random","Dude","dude","bigpassword");
+        testGroupLogic.addUserToGroup("dude",group_id);
+        ArrayList<Account> mem = testGroupLogic.getGroupUsers(group_id);
+        assertEquals(mem.size(),2);
+    }
+
+
 
 }
