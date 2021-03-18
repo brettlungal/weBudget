@@ -26,7 +26,7 @@ public class UserLogic implements IUserLogic {
     @Override
     public void signUp(String[] info) throws SignupException {
         try {
-            if (this.accountPersistence.getAccount(info[2]) != null) {
+            if (this.accountPersistence.getAccount(info[0]) != null) {
                 throw new SignupException("User Name Has Been Taken !");
             }
         }catch(AccountException e){
@@ -48,7 +48,6 @@ public class UserLogic implements IUserLogic {
             if (accountVerify == null) {
                 throw new LoginException("Invalid username or password");
             } else if (!accountVerify.getPassword().equals(info[1])) {
-                System.out.println(accountVerify.getPassword() + "    " + info[1] + "");
                 throw new LoginException("Invalid username or password");
             } else {
                 this.currentUser = info[0];

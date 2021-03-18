@@ -53,21 +53,21 @@ public class UserWalletLogicIT {
     //test: balance = 0 on creation
     @Test
     public void testStartBalance() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user1","admin");
+        this.testAccountDB.insertUser("user1","u","u","admin");
         assertEquals(0, this.userWalletLogic.getAmount("user1"));
     }
 
     //test: depositing -ve amounts invalid
     @Test(expected = WalletException.class)
     public void testNegativeDeposit() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user2","admin");
+        this.testAccountDB.insertUser("user2","u","u","admin");
         this.userWalletLogic.deposit("user2", -100);
     }
 
     //test: wallet balance increases after successful deposit
     @Test
     public void testGoodDeposit() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user3","admin");
+        this.testAccountDB.insertUser("user3","u","u","admin");
         this.userWalletLogic.deposit("user3", 100);
         assertEquals(100, this.userWalletLogic.getAmount("user3"));
     }
@@ -75,14 +75,14 @@ public class UserWalletLogicIT {
     //test: withdrawing -ve amounts invalid
     @Test(expected = WalletException.class)
     public void testNegativeWithdraw() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user4","admin");
+        this.testAccountDB.insertUser("user4","u","u","admin");
         this.userWalletLogic.withdraw("user4", -100);
     }
 
     //test: withdrawing more than is in the account invalid
     @Test(expected = WalletException.class)
     public void testOverdraftWithdraw() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user5","admin");
+        this.testAccountDB.insertUser("user5","u","u","admin");
         this.userWalletLogic.deposit("user5", 100);
         this.userWalletLogic.withdraw("user5", 200);
     }
@@ -90,7 +90,7 @@ public class UserWalletLogicIT {
     //test: wallet balance decreases after successful withdraw
     @Test
     public void testGoodWithdraw() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user6","admin");
+        this.testAccountDB.insertUser("user6","u","u","admin");
         this.userWalletLogic.deposit("user6", 100);
         this.userWalletLogic.withdraw("user6", 73);
         assertEquals(27,userWalletLogic.getAmount("user6"));
@@ -99,8 +99,8 @@ public class UserWalletLogicIT {
     //test: two different users accounts are separate
     @Test
     public void testSeparateWallets() throws AccountException, WalletException {
-        this.testAccountDB.insertUser("u","u","user7","admin");
-        this.testAccountDB.insertUser("u","u","user8","admin");
+        this.testAccountDB.insertUser("user7","u","u","admin");
+        this.testAccountDB.insertUser("user8","u","u","admin");
         this.userWalletLogic.deposit("user7", 333);
         this.userWalletLogic.deposit("user8", 8301);
         assertEquals(333,userWalletLogic.getAmount("user7"));

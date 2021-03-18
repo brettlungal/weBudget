@@ -10,7 +10,6 @@ import android.os.Handler;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Main;
-import com.comp3350.webudget.application.Services;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -30,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         //Services.testSetup();
 
         copyDatabaseToDevice();
+        //Context context = getApplicationContext();
+        //File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
         //Main.setDBPathName(dataDirectory.toString());
 
         new Handler().postDelayed(new Runnable() {

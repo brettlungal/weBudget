@@ -6,7 +6,7 @@ import com.comp3350.webudget.objects.Account;
 import java.util.ArrayList;
 
 public interface IAccountDatabase {
-    public void insertUser(String fName, String lName, String username, String password)  throws AccountException;
+    public void insertUser(String username, String fName, String lname, String password)  throws AccountException;
     public Account getAccount(String username) throws AccountException;
     public ArrayList<Account> getAllAccounts() throws AccountException;
 }
