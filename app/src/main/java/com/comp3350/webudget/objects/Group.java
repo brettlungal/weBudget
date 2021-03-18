@@ -15,6 +15,10 @@ public class Group {
         this.walletID = walletID;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     public ArrayList<String> getMemberIDs(){
         return this.memberIDs;
     }
@@ -25,5 +29,9 @@ public class Group {
 
     public int getWallet(){
         return this.walletID;
+    }
+
+    public String toString(){
+        return this.name;
     }
 }

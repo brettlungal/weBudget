@@ -108,13 +108,13 @@ public class GroupLogicTest {
     }
     @Test
     public void getUserGroupsValidUserNoGroups() throws GroupException, AccountException{
-        testAccountDB.insertUser("Rob","Guderian","badinternet001","pass123");
+        testAccountDB.insertUser("badinternet001", "Rob","Guderian","pass123");
         ArrayList<Group> no_groups = testGroupLogic.getUserGroups("badinternet001");
         assertEquals(no_groups.size(),0);
     }
     @Test
     public void getUserGroupsValidUser() throws GroupException, AccountException{
-        testAccountDB.insertUser("Rob","Guderian","badinternet001","pass123");
+        testAccountDB.insertUser("badinternet001", "Rob","Guderian","pass123");
         ArrayList<String> users = new ArrayList<String>();
         users.add("badinternet001");
         int group_id = testGroupDB.insertGroup("test",users);
@@ -137,7 +137,7 @@ public class GroupLogicTest {
 
     @Test
     public void getGroupUsersValidGroup()throws GroupException, AccountException{
-        testAccountDB.insertUser("first","name","test","easypass");
+        testAccountDB.insertUser("test", "first","name","easypass");
         int group_id = testGroupLogic.createEmptyGroup("nothing");
         testGroupLogic.addUserToGroup("test",group_id);
         ArrayList<Account> members = testGroupLogic.getGroupUsers(group_id);
@@ -179,7 +179,7 @@ public class GroupLogicTest {
 
     @Test
     public void addValidUserToExistingGroup()throws GroupException, AccountException{
-        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        testAccountDB.insertUser("horidinternet","Rob","Guderian","pass");
         ArrayList<String> mem = new ArrayList<>();
         int group_id = testGroupDB.insertGroup("robsGroup",mem);
         testGroupLogic.addUserToGroup("horidinternet",group_id);
@@ -189,17 +189,17 @@ public class GroupLogicTest {
 
     @Test(expected = GroupException.class)
     public void addValidUserToInvalidGroup()throws GroupException,AccountException{
-        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        testAccountDB.insertUser("horidinternet","Rob","Guderian","pass");
         testGroupLogic.addUserToGroup("horidinternet",420);
     }
 
     @Test
     public void addValidUserToPopulatedGroup()throws GroupException,AccountException{
-        testAccountDB.insertUser("Rob","Guderian","horidinternet","pass");
+        testAccountDB.insertUser("horidinternet","Rob","Guderian","pass");
         ArrayList<String> users = new ArrayList<>();
         users.add("horidinternet");
         int group_id = testGroupLogic.createGroupWithUsers("bobby",users);
-        testAccountDB.insertUser("Random","Dude","dude","bigpassword");
+        testAccountDB.insertUser("dude","Random","Dude","bigpassword");
         testGroupLogic.addUserToGroup("dude",group_id);
         ArrayList<Account> mem = testGroupLogic.getGroupUsers(group_id);
         assertEquals(mem.size(),2);
