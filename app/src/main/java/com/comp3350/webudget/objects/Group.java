@@ -26,4 +26,6 @@ public class Group {
     public int getWallet(){
         return this.walletID;
     }
+
+    public String getName() { return this.name; }
 }
