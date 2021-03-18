@@ -60,7 +60,7 @@ public class GroupLogicTest {
         testGroupLogic.getGroup(0);
     }
 
-    //getGroup: fails on wrong groupID
+    //getGroup: fails on wrong groupIDt
     @Test(expected = GroupException.class)
     public void getGroupWrongID() throws GroupException {
         int correctID = testGroupDB.insertGroup("g1",null);
@@ -97,11 +97,5 @@ public class GroupLogicTest {
     //addUserToGroup: test with multiple users being added
 
     //removeUserFromGroup: aaaaaaaaaa probably a bunch of things
-
-    @Test
-    public void signUpSuccess() throws SignupException {
-        testUserLogic.signUp(user1Input);
-    }
-
 
 }
