@@ -47,9 +47,9 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         try {
             ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
             users_groups_names = groups_to_strings(users_groups);
-        } catch (Exception e) {
-            Toast toast= Toast.makeText(getActivity().getApplicationContext(),
-                    "Error loading groups", Toast.LENGTH_SHORT);
+        } catch (AccountException | GroupException e) {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                    e.getMessage(), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
         }
@@ -82,13 +82,19 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         return load_success;
     }
 
+    // Creates a list of group names as strings for listView to display
     private ArrayList<String> groups_to_strings(ArrayList<Group> groups) {
-        ArrayList<String> groups_as_strings = null;
-        if(groups == null) {
-            groups_as_strings = new ArrayList<String>();
+        ArrayList<String> groups_as_strings = new ArrayList<String>();
+        if(groups != null) {
             for (int i = 0; i < groups.size(); i++) {
                 groups_as_strings.add(groups.get(i).toString());
             }
+        } else {
+            groups_as_strings.add("nothing");
+            groups_as_strings.add("appears");
+            groups_as_strings.add("to");
+            groups_as_strings.add("be");
+            groups_as_strings.add("here");
         }
         return groups_as_strings;
     }
