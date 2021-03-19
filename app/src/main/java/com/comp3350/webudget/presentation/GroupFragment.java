@@ -1,14 +1,18 @@
 package com.comp3350.webudget.presentation;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Group;
 
@@ -41,10 +45,13 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         users_groups_names.add("be");
         users_groups_names.add("here");
         try {
-            //ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
-            // turn users_groups into an array list of strings to display to
+            ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
+            users_groups_names = groups_to_strings(users_groups);
         } catch (Exception e) {
-
+            Toast toast= Toast.makeText(getActivity().getApplicationContext(),
+                    "Error loading groups", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
         }
         ListView group_list = (ListView) view.findViewById(R.id.group_list);
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users_groups_names);
@@ -73,5 +80,16 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
             load_success = true;
         }
         return load_success;
+    }
+
+    private ArrayList<String> groups_to_strings(ArrayList<Group> groups) {
+        ArrayList<String> groups_as_strings = null;
+        if(groups == null) {
+            groups_as_strings = new ArrayList<String>();
+            for (int i = 0; i < groups.size(); i++) {
+                groups_as_strings.add(groups.get(i).toString());
+            }
+        }
+        return groups_as_strings;
     }
 }

@@ -1,11 +1,13 @@
 package com.comp3350.webudget.presentation;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.application.GroupException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.business.GroupLogic;
 
@@ -47,11 +51,13 @@ public class CreateGroupFragment extends Fragment implements View.OnClickListene
                 ArrayList<String> members = new ArrayList<String>();
                 members.add(Services.userLogic().getCurrentUser()); // Add self to group
                 try {
-                    GroupLogic gl = new GroupLogic();
-                    gl.createGroupWithUsers(inputValues[0], members);
+                    Services.groupLogic().createGroupWithUsers(inputValues[0], members);
                     load_fragment(new GroupFragment());
-                } catch(Exception e) {
-
+                } catch(GroupException | AccountException e) {
+                    Toast toast= Toast.makeText(getActivity().getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
                 break;
         }
