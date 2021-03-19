@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //TODO remove: This is for connecting to the database fake
-        Services.testSetup();
+        //Services.testSetup();
 
         copyDatabaseToDevice();
         //Context context = getApplicationContext();

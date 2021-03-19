@@ -36,6 +36,8 @@ public class Services {
     public static synchronized void testSetup(){
         groupPersistence = new TestGroupDatabase();
         membershipPersistence = new TestMembershipDatabase();
+        accountPersistence = new TestAccountDatabase();
+        walletPersistence = new TestWalletDatabase();
 
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
