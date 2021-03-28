@@ -25,6 +25,13 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void signUp(String[] info) throws SignupException {
+        //validate user entered a value for every field
+        for ( int i = 0; i<info.length; i++ ){
+            if( info[i].equals("") ){
+                throw new SignupException("All fields must be filled in");
+            }
+        }
+        //check if username is taken
         try {
             if (this.accountPersistence.getAccount(info[0]) != null) {
                 throw new SignupException("User Name Has Been Taken !");

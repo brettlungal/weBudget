@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.comp3350.webudget.application.AccountException;
 import com.comp3350.webudget.application.Services;
@@ -75,16 +76,34 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
             //listen for click
             case R.id.send_button:
                 String[] vals = getTransferInputValues();
-                int amt = Integer.parseInt(vals[1]);
+                try {
+                    Services.userWalletLogic().deposit(vals[0], vals[1]);
+                }catch( WalletException w ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }catch ( AccountException a ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Transfer Successful!", Toast.LENGTH_SHORT);
+                toast.show();
                 transfer_amount.getText().clear();
                 username.getText().clear();
                 break;
 
             case R.id.deposit_button:
                 String deposit_val = getDepositInputValue();
-                int deposit_amt = Integer.parseInt(deposit_val);
-                double newAmt = bal+=deposit_amt;
-                balance.setText(String.valueOf(newAmt));
+                try {
+                    Services.userWalletLogic().deposit(Services.userLogic().getCurrentUser(), deposit_val);
+                }catch( WalletException w ){
+                    Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
+                    deposit_toast.show();
+                }catch ( AccountException a ){
+                    Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
+                    deposit_toast.show();
+                }
+                Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
+                success_toast.show();
                 deposit_amount.getText().clear();
                 break;
         }

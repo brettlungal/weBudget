@@ -66,7 +66,8 @@ public class AccountDatabase implements IAccountDatabase {
 
     @Override
     public Account getAccount(String username){
-
+        //retrieve account from database
+        Account toReturn = null;
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
                     "select * from accounts where username = ?"
@@ -79,7 +80,7 @@ public class AccountDatabase implements IAccountDatabase {
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
                 int walletID = resultSet.getInt("walletid");
-                return new Account(firstName,lastName,userName,password,walletID,null);
+                toReturn = new Account(firstName,lastName,userName,password,walletID,null);
             }
             st.close();
         }
@@ -87,7 +88,7 @@ public class AccountDatabase implements IAccountDatabase {
             sqlException.printStackTrace();
         }
 
-        return null;
+        return toReturn;
     }
 
     public ArrayList<Account> getAllAccounts(){
