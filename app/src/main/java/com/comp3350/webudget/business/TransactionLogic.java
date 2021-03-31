@@ -18,19 +18,22 @@ public class TransactionLogic implements ITransactionLogic{
     private IAccountDatabase accountPersistence;
     private IGroupDatabase groupPersistence;
     private ITransactionDatabase transactionPersistence;
+    private IUserLogic userLogic;
 
     public TransactionLogic(){
         walletPersistence = Services.walletPersistence();
         accountPersistence = Services.accountPersistence();
         groupPersistence = Services.groupPersistence();
+        userLogic = Services.userLogic();
         //transactionPersistence = Services.transactionPersistence();
     }
 
-    public TransactionLogic(final IWalletDatabase walletPersistence, final IAccountDatabase accountPersistence, final IGroupDatabase groupPersistence, final ITransactionDatabase transactionPersistence){
+    public TransactionLogic(final IWalletDatabase walletPersistence, final IAccountDatabase accountPersistence, final IGroupDatabase groupPersistence, final ITransactionDatabase transactionPersistence, IUserLogic userLogic){
         this.walletPersistence = walletPersistence;
         this.accountPersistence = accountPersistence;
         this.groupPersistence = groupPersistence;
         this.transactionPersistence = transactionPersistence;
+        this.userLogic = userLogic;
     }
 
     @Override
@@ -40,6 +43,9 @@ public class TransactionLogic implements ITransactionLogic{
         }
         if ( groupId.equals("") ){
             throw new GroupException("Group name cannot be empty");
+        }
+        if ( !username.equals(userLogic.getCurrentUser()) ){
+            throw new AccountException("Cannot transfer money from an account that isnt yours!");
         }
         Account user = accountPersistence.getAccount(username);
         Group group = groupPersistence.getGroup(Integer.parseInt(groupId));
@@ -86,6 +92,9 @@ public class TransactionLogic implements ITransactionLogic{
 
     @Override
     public void userToUserTransaction(String sender, String receiver, String amount ) throws AccountException, WalletException {
+        if ( !sender.equals(userLogic.getCurrentUser()) ){
+            throw new AccountException("Cannot transfer money from an account that isnt yours!");
+        }
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");
         }
