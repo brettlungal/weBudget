@@ -33,6 +33,26 @@ public class TestWalletDatabase implements IWalletDatabase {
         throw new WalletException("Wallet not found");
     }
 
+    @Override
+    public void transferMoney(int senderWalletID, int recieverWalletID, int amount) throws WalletException {
+        boolean walletFound = false;
+        for(int i = 0; i < database.size(); i++){
+            Wallet temp = database.get(i);
+            if(temp.getWalletID() == senderWalletID) {
+                walletFound = true;
+                Wallet sendWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() - amount);
+                database.set(i, sendWallet);
+            }else if ( temp.getWalletID() == recieverWalletID ){
+                walletFound = true;
+                Wallet recvWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() + amount);
+                database.set(i, recvWallet);
+            }
+        }
+        if (!walletFound) {
+            throw new WalletException("Wallet not found");
+        }
+    }
+
     @Override //NOTE: do not base database code off of this code segment.
     public void deposit(int walletID, int amount) throws WalletException {
         boolean walletFound = false;

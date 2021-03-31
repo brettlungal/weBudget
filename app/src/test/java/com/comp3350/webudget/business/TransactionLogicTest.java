@@ -9,10 +9,11 @@ import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IMembershipDatabase;
 import com.comp3350.webudget.persistence.ITransactionDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
-import com.comp3350.webudget.persistence.TestAccountDatabase;
-import com.comp3350.webudget.persistence.TestGroupDatabase;
-import com.comp3350.webudget.persistence.TestMembershipDatabase;
-import com.comp3350.webudget.persistence.TestWalletDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestAccountDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestGroupDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestMembershipDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestWalletDatabase;
+
 
 import org.hsqldb.rights.User;
 import org.junit.Before;
