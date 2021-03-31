@@ -9,19 +9,19 @@ import com.comp3350.webudget.business.UserWalletLogic;
 
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
-import com.comp3350.webudget.persistence.TestAccountDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestAccountDatabase;
 
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.hsqldb.WalletDatabase;
-import com.comp3350.webudget.persistence.TestWalletDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestWalletDatabase;
 
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.hsqldb.GroupDatabase;
-import com.comp3350.webudget.persistence.TestGroupDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestGroupDatabase;
 
 import com.comp3350.webudget.persistence.IMembershipDatabase;
 import com.comp3350.webudget.persistence.hsqldb.MembershipDatabase;
-import com.comp3350.webudget.persistence.TestMembershipDatabase;
+import com.comp3350.webudget.persistence.testDatabases.TestMembershipDatabase;
 
 public class Services {
     private static IAccountDatabase accountPersistence = null;

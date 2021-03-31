@@ -44,10 +44,6 @@ public class UserLogicIT {
 
     }
 
-    //@After
-    //public void cleanUp(){}
-    //TODO need to remove the user from the database after running
-
     @Test
     public void signUpMultiple() throws SignupException{
         testUserLogic.signUp(user1Input);
