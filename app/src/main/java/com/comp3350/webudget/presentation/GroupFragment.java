@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.application.AccountException;
-import com.comp3350.webudget.application.GroupException;
+import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Group;
 

@@ -1,6 +1,6 @@
 package com.comp3350.webudget.persistence.testDatabases;
 
-import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
@@ -8,7 +8,7 @@ import com.comp3350.webudget.persistence.IWalletDatabase;
 
 import java.util.ArrayList;
 
-public class TestAccountDatabase implements IAccountDatabase{
+public class TestAccountDatabase implements IAccountDatabase {
     ArrayList<Account> database;
     IWalletDatabase walletDatabase = null;
 
