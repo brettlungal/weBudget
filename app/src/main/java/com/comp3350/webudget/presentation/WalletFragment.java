@@ -8,11 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.application.WalletException;
-import com.comp3350.webudget.business.IUserWalletLogic;
+import com.comp3350.webudget.Exceptions.WalletException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

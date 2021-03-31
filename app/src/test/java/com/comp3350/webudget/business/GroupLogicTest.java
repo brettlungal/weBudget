@@ -1,8 +1,7 @@
 package com.comp3350.webudget.business;
 
-import com.comp3350.webudget.application.AccountException;
-import com.comp3350.webudget.application.GroupException;
-import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IAccountDatabase;

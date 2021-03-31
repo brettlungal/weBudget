@@ -1,6 +1,6 @@
 package com.comp3350.webudget.business;
 
-import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.Exceptions.SignupException;
 
 import javax.security.auth.login.LoginException;
 

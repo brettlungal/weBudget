@@ -15,10 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.comp3350.webudget.R;
-import com.comp3350.webudget.application.AccountException;
-import com.comp3350.webudget.application.GroupException;
+import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.business.GroupLogic;
 
 import java.util.ArrayList;
 

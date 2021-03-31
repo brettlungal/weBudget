@@ -1,7 +1,6 @@
 package com.comp3350.webudget.persistence;
 
-import com.comp3350.webudget.application.GroupException;
-import com.comp3350.webudget.application.WalletException;
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.objects.Group;
 
 import java.util.ArrayList;
