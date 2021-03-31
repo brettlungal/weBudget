@@ -145,6 +145,8 @@ public class GroupLogicTest {
 
     @Test
     public void getGroupSizeUsers() throws GroupException, AccountException{
+        testAccountDB.insertUser("user1","xx", "xx",  "password1");
+        testAccountDB.insertUser("user2","yy", "yy",  "password2");
         ArrayList<String> users = new ArrayList<String>();
         users.add("user1");
         users.add("user2");
