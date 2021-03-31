@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
+import com.comp3350.webudget.Exceptions.MembershipException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
@@ -97,7 +98,7 @@ public class GroupLogic implements IGroupLogic {
         if(name == null){
             throw new GroupException("Group name invalid. Please enter a valid group name");
         }
-        return groupPersistence.insertGroup(name, new ArrayList<String>());
+        return groupPersistence.insertGroup(name);
     }
 
     private void verifyUsernames(ArrayList<String> usernames) throws AccountException{
@@ -136,11 +137,17 @@ public class GroupLogic implements IGroupLogic {
         //Check if all usernames are associated with valid accounts
         verifyUsernames(uniqueNames);
 
-        return groupPersistence.insertGroup(name, uniqueNames);
+        //create the group
+        int groupID = groupPersistence.insertGroup(name);
+        //add every user to the group
+        for(String username: uniqueNames)
+            membershipPersistence.addUserToGroup(username, groupID);
+
+        return groupID;
     }
 
     @Override
-    public void addUserToGroup(String username, int groupID) throws AccountException, GroupException {
+    public void addUserToGroup(String username, int groupID) throws AccountException, GroupException, MembershipException {
         //check that both the user and group exist
         if(username == null){
             throw new AccountException("One of the usernames entered was invalid. Please enter valid usernames only");
@@ -162,14 +169,14 @@ public class GroupLogic implements IGroupLogic {
         if(!membershipPersistence.isUserInGroup(username, groupID)){
             membershipPersistence.addUserToGroup(username, groupID);
         }else{
-            throw new MembershipException
+            throw new MembershipException("User is already a member of this group");
         }
 
 
     }
 
     @Override
-    public void removeUserFromGroup(String username, int groupID) throws AccountException, GroupException {
+    public void removeUserFromGroup(String username, int groupID) throws AccountException, GroupException, MembershipException {
         //check that both the user and group exist
         if(username == null){
             throw new AccountException("One of the usernames entered was invalid. Please enter valid usernames only");
@@ -186,7 +193,14 @@ public class GroupLogic implements IGroupLogic {
             throw new GroupException("User not found");
         }
 
-        //TODO check that the user is indeed already a member of the group
-        membershipPersistence.addUserToGroup(username, groupID);
+        //check that the user is indeed already a member of the group
+
+        if(membershipPersistence.isUserInGroup(username, groupID)){
+            membershipPersistence.addUserToGroup(username, groupID);
+        }else{
+            throw new MembershipException("User is not a member of this group; could not be removed");
+        }
+
+        membershipPersistence.removeUserFromGroup(username, groupID);
     }
 }

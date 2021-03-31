@@ -25,10 +25,10 @@ public class TestGroupDatabase implements IGroupDatabase {
     }
 
     @Override
-    public int insertGroup(String groupName, ArrayList<String> memberNames) {
+    public int insertGroup(String groupName) {
         groupID++;
         int walletID = walletDatabase.insertWallet(groupName);
-        database.add(new Group(groupName, groupID, walletID, new ArrayList<>(memberNames)));
+        database.add(new Group(groupName, groupID, walletID, new ArrayList<String>()));
         return groupID;
     }
 
