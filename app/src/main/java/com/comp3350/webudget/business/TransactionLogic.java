@@ -61,7 +61,7 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        walletPersistence.transferMoney( userWallet.getWalletID(), groupWallet.getWalletID(), Integer.parseInt(amount) );
+        //walletPersistence.transferMoney( userWallet.getWalletID(), groupWallet.getWalletID(), Integer.parseInt(amount) );
 
     }
 
@@ -87,7 +87,7 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        walletPersistence.transferMoney( groupWallet.getWalletID(), userWallet.getWalletID(), Integer.parseInt(amount) );
+        //walletPersistence.transferMoney( groupWallet.getWalletID(), userWallet.getWalletID(), Integer.parseInt(amount) );
     }
 
     @Override
@@ -109,6 +109,6 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        walletPersistence.transferMoney( senderWallet.getWalletID(), recverWallet.getWalletID(), Integer.parseInt(amount) );
+        //walletPersistence.transferMoney( senderWallet.getWalletID(), recverWallet.getWalletID(), Integer.parseInt(amount) );
     }
 }

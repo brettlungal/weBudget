@@ -8,5 +8,5 @@ public interface IWalletDatabase {
     public Wallet getWallet(int id) throws WalletException;
     public void deposit(int walletID, int amount) throws WalletException;
     public void withdraw(int walletID, int amount) throws WalletException;
-    void transferMoney( int senderWalletID, int recieverWalletID, int amount ) throws WalletException;
+    //void transferMoney( int senderWalletID, int recieverWalletID, int amount ) throws WalletException;
 }
