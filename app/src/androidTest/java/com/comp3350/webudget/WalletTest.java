@@ -4,6 +4,7 @@ import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.presentation.LoginActivity;
+import com.comp3350.webudget.presentation.MainActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,7 +36,7 @@ public class WalletTest {
     private String username,password,inputValue,currentBal;
 
     @Rule
-    public ActivityTestRule<LoginActivity> activityRule = new ActivityTestRule<>(LoginActivity.class);
+    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void initValues(){
