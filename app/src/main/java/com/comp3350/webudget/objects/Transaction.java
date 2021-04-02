@@ -3,18 +3,18 @@ package com.comp3350.webudget.objects;
 public class Transaction {
 
     private int id;
+    private int fromWalletid;
+    private int toWalletid;
     private int amount;
-    private String title;
-    private Account user;
     private String date;
 
 
-    public Transaction(int id, String title, int amount, Account user, String date){
-        this.title = title;
-        this.amount = amount;
-        this.user = user;
-        this.date = date;
+    public Transaction(int id, int fromWalletid, int toWalletid, int amount, String date){
         this.id = id;
+        this.amount = amount;
+        this.fromWalletid = fromWalletid;
+        this.toWalletid = toWalletid;
+        this.date = date;
     }
 
     public int getId() {
@@ -25,12 +25,12 @@ public class Transaction {
         return amount;
     }
 
-    public String getTitle() {
-        return title;
+    public int getFromWalletid() {
+        return fromWalletid;
     }
 
-    public Account getUser() {
-        return user;
+    public int getToWalletid() {
+        return toWalletid;
     }
 
     public String getDate() {

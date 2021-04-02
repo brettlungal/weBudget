@@ -8,7 +8,9 @@ import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
 
 import com.comp3350.webudget.persistence.IAccountDatabase;
+import com.comp3350.webudget.persistence.ITransactionDatabase;
 import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
+import com.comp3350.webudget.persistence.hsqldb.TransactionDatabase;
 import com.comp3350.webudget.persistence.testDatabases.TestAccountDatabase;
 
 import com.comp3350.webudget.persistence.IWalletDatabase;
@@ -28,6 +30,7 @@ public class Services {
     private static IWalletDatabase walletPersistence = null;
     private static IGroupDatabase groupPersistence = null;
     private static IMembershipDatabase membershipPersistence = null;
+    private static ITransactionDatabase transactionDatabase = null;
 
     private static IUserWalletLogic userWalletLogic = null;
     private static IUserLogic userLogic = null;
@@ -71,6 +74,15 @@ public class Services {
         }
         return membershipPersistence;
     }
+
+    public static synchronized ITransactionDatabase transactionPersistence(){
+        if(transactionDatabase == null){
+            transactionDatabase = new TransactionDatabase(Main.getDBPathName());
+        }
+        return transactionDatabase;
+    }
+
+
 
     public static synchronized IUserLogic userLogic(){
         if(userLogic == null){

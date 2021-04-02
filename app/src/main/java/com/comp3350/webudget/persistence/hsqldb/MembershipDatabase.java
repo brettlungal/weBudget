@@ -39,7 +39,20 @@ public class MembershipDatabase implements IMembershipDatabase {
 
     @Override
     public Boolean isUserInGroup(String username, int groupID){
-        return null;
+        try(final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement(
+                    "select username from membership where groupid=?;"
+            );
+            st.setInt(1, groupID);
+            ResultSet resultSet = st.executeQuery();
+            st.close();
+            if(resultSet.next()){
+                return true;
+            }
+        } catch (final SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return false;
     }
 
     @Override
