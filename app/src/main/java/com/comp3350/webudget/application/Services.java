@@ -67,7 +67,7 @@ public class Services {
 
     public static synchronized IMembershipDatabase membershipPersistence(){
         if(membershipPersistence == null){
-            membershipPersistence = new MembershipDatabase();
+            //membershipPersistence = new MembershipDatabase();
         }
         return membershipPersistence;
     }

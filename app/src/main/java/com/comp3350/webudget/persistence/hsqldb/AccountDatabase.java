@@ -35,30 +35,20 @@ public class AccountDatabase implements IAccountDatabase {
 
     @Override
     public void insertUser(String username, String fName, String lName, String password){
+
+        int walletID = walletDatabase.insertWallet(username);
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
-                    "insert into accounts (username,password, fName,lName) values (?, ?,?,?);"
+                    "insert into account (username,password, fName,lName,walletid) values (?, ?,?,?,?);"
             );
 
             st.setString(1, username );
             st.setString(2, password );
             st.setString(3, fName);
             st.setString(4, lName );
+            st.setInt(5, walletID );
             st.executeUpdate();
             st.close();
-
-            int walletID = walletDatabase.insertWallet(username);
-
-            final PreparedStatement st2 = c.prepareStatement(
-                    "update accounts set walletid=? where username=?;"
-            );
-
-            st2.setInt(1, walletID );
-            st2.setString(2, username );
-            st2.executeUpdate();
-            st2.close();
-
-
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -69,7 +59,7 @@ public class AccountDatabase implements IAccountDatabase {
 
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from accounts where username = ?"
+                    "select * from account where username = ?"
             );
             st.setString(1, username);
             ResultSet resultSet = st.executeQuery();
@@ -78,8 +68,8 @@ public class AccountDatabase implements IAccountDatabase {
                 String password = resultSet.getString("password");
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
-                int walletID = resultSet.getInt("walletid");
-                return new Account(firstName,lastName,userName,password,walletID,null);
+                int walletid = resultSet.getInt("walletid");
+                return new Account(firstName,lastName,userName,password,walletid,null);
             }
             st.close();
         }
@@ -94,7 +84,7 @@ public class AccountDatabase implements IAccountDatabase {
         ArrayList<Account> accounts = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from accounts"
+                    "select * from account"
             );
             ResultSet resultSet = st.executeQuery();
             if (resultSet.next()){
@@ -102,7 +92,8 @@ public class AccountDatabase implements IAccountDatabase {
                 String password = resultSet.getString("password");
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
-                accounts.add(new Account(firstName,lastName,userName,password,-1,null));
+                int walletid = resultSet.getInt("walletid");
+                accounts.add(new Account(firstName,lastName,userName,password,walletid,null));
             }
             st.close();
         }

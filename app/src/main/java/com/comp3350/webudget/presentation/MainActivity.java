@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
             File outFile = new File(copyPath);
             if (!outFile.exists()) {
-                System.out.println("FILE LOADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                 InputStreamReader in = new InputStreamReader(assetManager.open(asset));
                 FileWriter out = new FileWriter(outFile);
                 count = in.read(buffer);

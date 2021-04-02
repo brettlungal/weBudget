@@ -28,20 +28,18 @@ public class WalletDatabase implements IWalletDatabase{
         int walletID = -1;
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
-                    "insert into wallet (username,balance) values (?, ?);"
+                    "insert into wallet (balance) values (?);"
             );
-            st.setString(1, username );
-            st.setInt(2, 0 );
+            st.setInt(1, 0 );
             st.executeUpdate();
             st.close();
 
             final PreparedStatement st2 = c.prepareStatement(
-                    "select walletid from wallet where username=?;"
+                    "select MAX(walletid) as maxID from wallet;"
             );
-            st2.setString(1, username);
             ResultSet resultSet = st2.executeQuery();
             if (resultSet.next()){
-                walletID = resultSet.getInt("walletid");
+                walletID = resultSet.getInt("maxID");
             }
             st2.close();
 
@@ -62,9 +60,8 @@ public class WalletDatabase implements IWalletDatabase{
             ResultSet resultSet = st.executeQuery();
             if (resultSet.next()){
                 int walletID = resultSet.getInt("walletid");
-                String username = resultSet.getString("username");
                 int balance = resultSet.getInt("balance");
-                return new Wallet(walletID,username,balance);
+                return new Wallet(walletID,balance);
             }
             st.close();
 
