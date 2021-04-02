@@ -51,7 +51,7 @@ public class WalletDatabase implements IWalletDatabase{
     }
 
     @Override
-    public Wallet getWallet(int id) {
+    public Wallet getWallet(int id) throws WalletException{
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "select * from wallet where walletid=?;"
@@ -66,7 +66,7 @@ public class WalletDatabase implements IWalletDatabase{
             st.close();
 
         } catch (final SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new WalletException("Getting Wallet Object Fail from Database!");
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class WalletDatabase implements IWalletDatabase{
         setBalance(walletID, getBalance(walletID) - amount);
     }
 
-    private int getBalance(int walletID){
+    private int getBalance(int walletID) throws WalletException{
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "select balance from wallet where walletid=?;"
@@ -94,12 +94,12 @@ public class WalletDatabase implements IWalletDatabase{
             st.close();
 
         } catch (final SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new WalletException("Error When Getting Balance given walletID");
         }
         return 0;
     }
 
-    private void setBalance(int walletID, int amount){
+    private void setBalance(int walletID, int amount) throws WalletException{
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "update WALLET set balance=? where walletid=?;"
@@ -110,7 +110,7 @@ public class WalletDatabase implements IWalletDatabase{
             st.executeUpdate();
             st.close();
         } catch (final SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new WalletException("Error When Updating Balance given walletID");
         }
     }
 

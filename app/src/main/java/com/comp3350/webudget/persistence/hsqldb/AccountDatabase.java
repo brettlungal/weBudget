@@ -1,5 +1,6 @@
 package com.comp3350.webudget.persistence.hsqldb;
 
+import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
@@ -34,7 +35,7 @@ public class AccountDatabase implements IAccountDatabase {
     }
 
     @Override
-    public void insertUser(String username, String fName, String lName, String password){
+    public void insertUser(String username, String fName, String lName, String password) throws AccountException {
 
         int walletID = walletDatabase.insertWallet(username);
         try(final Connection c = connection()) {
@@ -50,14 +51,12 @@ public class AccountDatabase implements IAccountDatabase {
             st.executeUpdate();
             st.close();
         } catch (final SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new AccountException("Account Creation Fail in Database");
         }
     }
 
     @Override
-    public Account getAccount(String username){
-        //retrieve account from database
-        Account toReturn = null;
+    public Account getAccount(String username) throws AccountException{
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
                     "select * from account where username = ?"
@@ -75,13 +74,13 @@ public class AccountDatabase implements IAccountDatabase {
             st.close();
         }
         catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new AccountException("Fail to Get Account in Database");
         }
 
-        return toReturn;
+        return null;
     }
 
-    public ArrayList<Account> getAllAccounts(){
+    public ArrayList<Account> getAllAccounts() throws AccountException{
         ArrayList<Account> accounts = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
@@ -99,7 +98,7 @@ public class AccountDatabase implements IAccountDatabase {
             st.close();
         }
         catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new AccountException("Cannot Get All Accounts from Database");
         }
 
         return accounts;
