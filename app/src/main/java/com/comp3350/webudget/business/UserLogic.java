@@ -1,11 +1,11 @@
 package com.comp3350.webudget.business;
 
-import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.application.SignupException;
+import com.comp3350.webudget.Exceptions.SignupException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
-import com.comp3350.webudget.persistence.IWalletDatabase;
+
 import javax.security.auth.login.LoginException;
 
 public class UserLogic implements IUserLogic {
@@ -25,6 +25,13 @@ public class UserLogic implements IUserLogic {
 
     @Override
     public void signUp(String[] info) throws SignupException {
+        //validate user entered a value for every field
+        for ( int i = 0; i<info.length; i++ ){
+            if( info[i].equals("") ){
+                throw new SignupException("All fields must be filled in");
+            }
+        }
+        //check if username is taken
         try {
             if (this.accountPersistence.getAccount(info[0]) != null) {
                 throw new SignupException("User Name Has Been Taken !");

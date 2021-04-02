@@ -1,6 +1,10 @@
 package com.comp3350.webudget.persistence.hsqldb;
 
+
 import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.GroupException;
+
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IGroupDatabase;
@@ -31,6 +35,11 @@ public class MembershipDatabase implements IMembershipDatabase {
 
     private Connection connection() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:"+ dbPath +";shutdown=true", "SA", "");
+    }
+
+    @Override
+    public Boolean isUserInGroup(String username, int groupID) throws AccountException, GroupException {
+        return null;
     }
 
     @Override
@@ -78,12 +87,12 @@ public class MembershipDatabase implements IMembershipDatabase {
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
         }
-
         return null;
     }
 
     @Override
     public ArrayList<Account> getGroupUsers(int groupID) {
+        //TODO implement when the feature gets implemented
         return null;
     }
 }

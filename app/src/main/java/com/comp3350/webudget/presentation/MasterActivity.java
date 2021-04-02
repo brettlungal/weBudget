@@ -5,28 +5,66 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Transaction;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
 
+        // appbar
+        androidx.appcompat.widget.Toolbar toolbar =  findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
 
-        BottomNavigationView nav = (BottomNavigationView)findViewById(R.id.navigation);
+        // navigation
+        BottomNavigationView nav = findViewById(R.id.navigation);
         nav.setOnNavigationItemSelectedListener(this);
+
+        // fragments
         load_fragment(new HomeFragment());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_appbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.appbar_logout:
+                try {
+                    Services.userLogic().logout();
+                    startActivity(new Intent(this , MainActivity.class));
+                } catch (Exception e) {
+                    Toast toast = Toast.makeText(this.getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     @Override

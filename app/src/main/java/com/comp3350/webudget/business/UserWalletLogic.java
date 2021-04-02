@@ -1,8 +1,8 @@
 package com.comp3350.webudget.business;
 
-import com.comp3350.webudget.application.AccountException;
+import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.application.WalletException;
+import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Transaction;
 import com.comp3350.webudget.objects.Wallet;
@@ -47,10 +47,24 @@ public class UserWalletLogic implements IUserWalletLogic {
     @Override
     public void deposit(String username, int amount) throws AccountException, WalletException {
         int walletID = getWalletID(username);
-        if(amount <= 0){
-            throw new WalletException("Deposit to wallet must be positive");
+        if(amount <= 0 || amount > 99999){
+            throw new WalletException("Deposit to wallet must be within range $0 = $99,999");
         }
         walletPersistence.deposit(walletID, amount);
+    }
+
+    @Override
+    public void deposit(String username, String amount) throws AccountException, WalletException {
+        if ( amount.equals("") || amount.length()>5 || username.equals("")){
+            throw new WalletException("Empty deposit amount received");
+        }
+        //if were here we have valid inputs
+        int walletID = getWalletID(username);
+        int amt = Integer.parseInt(amount);
+        if(amt <= 0 || amt > 99999){
+            throw new WalletException("Deposit to wallet must be within range $0 - $99,999");
+        }
+        walletPersistence.deposit(walletID, amt);
     }
 
     @Override

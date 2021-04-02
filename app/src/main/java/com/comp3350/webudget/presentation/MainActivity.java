@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Main;
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBPathName());
 
         } catch (final IOException ioe) {
-            //Messages.warning(this, "Unable to access application data: " + ioe.getMessage());
+            Toast toast= Toast.makeText(getApplicationContext(), ioe.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

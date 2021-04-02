@@ -21,17 +21,20 @@ public class GroupDatabase implements IGroupDatabase {
     }
 
     @Override
-    public int insertGroup(String groupName, ArrayList<String> memberNames) {
+    public int insertGroup(String groupName) {
+        //TODO implement when the feature gets implemented
         return 0;
     }
 
     @Override
     public Group getGroup(int id) {
+        //TODO implement when the feature gets implemented
         return null;
     }
 
     @Override
     public ArrayList<Group> getAllGroups() {
+        //TODO implement when the feature gets implemented
         return null;
     }
 }
