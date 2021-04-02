@@ -29,10 +29,10 @@ public class GroupDatabase implements IGroupDatabase {
         membershipDatabase = Services.membershipPersistence();
     }
 
-    public GroupDatabase(final String dbPath, IWalletDatabase injectedWalletDatabase, IAccountDatabase injectedAccountDatabase){
+    public GroupDatabase(final String dbPath, IWalletDatabase injectedWalletDatabase, IMembershipDatabase injectedMembershipDatabase){
         this.dbPath = dbPath;
         walletDatabase = injectedWalletDatabase;
-        membershipDatabase = new MembershipDatabase(dbPath, this, injectedAccountDatabase);
+        membershipDatabase = injectedMembershipDatabase;
     }
 
 
@@ -94,8 +94,52 @@ public class GroupDatabase implements IGroupDatabase {
 
     @Override
     public ArrayList<Group> getAllGroups() {
-        //TODO implement when the feature gets implemented
+        ArrayList<Group> groups = new ArrayList<>();
+
+        try(final Connection c = connection()){
+            final PreparedStatement st = c.prepareStatement(
+                    "select * from groupTable"
+            );
+            ResultSet resultSet = st.executeQuery();
+            if (resultSet.next()){
+                int groupID = resultSet.getInt("groupid");
+                String groupName = resultSet.getString("name");
+                int walletid = resultSet.getInt("walletid");
+                groups.add(new Group(groupName,groupID,walletid,getAllUsername(groupID)));
+            }
+            st.close();
+        }
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } catch (GroupException e) {
+            e.getStackTrace();
+        }
         return null;
+    }
+
+    @Override
+    public ArrayList<Group> getGroups(String username) {
+        ArrayList<Integer> groupIDs = membershipDatabase.getUserGroupIDs(username);
+        ArrayList<Group> groups = new ArrayList<>();
+        for(int i = 0; i < groupIDs.size(); i++){
+            try(final Connection c = connection()){
+                final PreparedStatement st = c.prepareStatement(
+                        "select * from groupTable where groupid = ?"
+                );
+                st.setInt(1, groupIDs.get(i));
+                ResultSet resultSet = st.executeQuery();
+                if (resultSet.next()){
+                    String groupName = resultSet.getString("name");
+                    int walletid = resultSet.getInt("walletid");
+                    groups.add(new Group(groupName,groupIDs.get(i),walletid,getAllUsername(groupIDs.get(i))));
+                }
+                st.close();
+            }
+            catch (SQLException | GroupException sqlException) {
+                sqlException.printStackTrace();
+            }
+        }
+        return groups;
     }
 
 

@@ -79,4 +79,9 @@ public class TestMembershipDatabase implements IMembershipDatabase {
 
         return groupUsers;
     }
+
+    @Override
+    public ArrayList<Integer> getUserGroupIDs(String username) {
+        return null;
+    }
 }
