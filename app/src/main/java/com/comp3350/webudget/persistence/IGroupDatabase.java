@@ -9,4 +9,5 @@ public interface IGroupDatabase {
      public int insertGroup(String groupName);
      public Group getGroup(int id) throws GroupException;
      public ArrayList<Group> getAllGroups();
+     public ArrayList<Group> getGroups(String username);
 }

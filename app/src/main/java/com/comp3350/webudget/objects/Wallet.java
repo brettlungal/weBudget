@@ -3,12 +3,10 @@ package com.comp3350.webudget.objects;
 public class Wallet {
 
     private int walletID;
-    private String ownerName;
     private int balance;
 
-    public Wallet(int walletID, String ownerName, int balance){
+    public Wallet(int walletID, int balance){
         this.walletID = walletID;
-        this.ownerName = ownerName;
         this.balance = balance;
     }
 
@@ -16,16 +14,13 @@ public class Wallet {
         return this.walletID;
     }
 
-    public String getOwnerName(){
-        return this.ownerName;
-    }
 
     public int getBalance(){
         return this.balance;
     }
 
     public String toString(){
-        return this.ownerName+" wallet contains "+balance;
+        return " wallet contains "+balance;
     }
 
 }

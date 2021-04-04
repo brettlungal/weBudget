@@ -1,6 +1,11 @@
 package com.comp3350.webudget.persistence;
 
+import com.comp3350.webudget.objects.Transaction;
+
+import java.util.ArrayList;
+
 public interface ITransactionDatabase {
-    public void insertTransaction(int id,double amount);
-    public void getTransaction(int id);
+    public void insertTransaction(int fromWalletid, int toWalletid, int amount);
+    public ArrayList<Transaction> getInputTransaction(int walletID);
+    public ArrayList<Transaction> getOutputTransaction(int walletID);
 }

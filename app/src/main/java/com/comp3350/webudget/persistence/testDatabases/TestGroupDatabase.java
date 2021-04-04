@@ -47,4 +47,9 @@ public class TestGroupDatabase implements IGroupDatabase {
         return new ArrayList<>(database);
     }
 
+    @Override
+    public ArrayList<Group> getGroups(String username) {
+        return null;
+    }
+
 }

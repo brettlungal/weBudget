@@ -17,7 +17,7 @@ public class TestWalletDatabase implements IWalletDatabase {
     @Override
     public int insertWallet(String ownerName) {
         walletID++;
-        database.add(new Wallet(walletID, ownerName, 0));
+        database.add(new Wallet(walletID, 0));
         return walletID;
     }
 
@@ -60,7 +60,7 @@ public class TestWalletDatabase implements IWalletDatabase {
             Wallet temp = database.get(i);
             if(temp.getWalletID() == walletID) {
                 walletFound = true;
-                Wallet newWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() + amount);
+                Wallet newWallet = new Wallet(walletID,  temp.getBalance() + amount);
                 database.set(i, newWallet);
             }
         }
@@ -76,7 +76,7 @@ public class TestWalletDatabase implements IWalletDatabase {
             Wallet temp = database.get(i);
             if(temp.getWalletID() == walletID) {
                 walletFound = true;
-                Wallet newWallet = new Wallet(walletID, temp.getOwnerName(), temp.getBalance() - amount);
+                Wallet newWallet = new Wallet(walletID,  temp.getBalance() - amount);
                 database.set(i, newWallet);
             }
         }

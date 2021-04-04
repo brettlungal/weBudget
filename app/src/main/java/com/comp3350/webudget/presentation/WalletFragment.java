@@ -23,7 +23,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
 
     private TextView balance,owner;
     private EditText username,transfer_amount,deposit_amount;
-    private double bal;
+    private String current_user;
 
     @Nullable
     @Override
@@ -31,15 +31,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
         View walletView = inflater.inflate(R.layout.fragment_wallet , container, false);
         walletView.findViewById(R.id.send_button).setOnClickListener(this);
         walletView.findViewById(R.id.deposit_button).setOnClickListener(this);
-        String current_user = Services.userLogic().getCurrentUser();
-        bal = 0;
-        try {
-            bal = Services.userWalletLogic().getAmount(current_user);
-        } catch (AccountException e) {
-            e.printStackTrace();
-        } catch (WalletException e) {
-            e.printStackTrace();
-        }
+        current_user = Services.userLogic().getCurrentUser();
+
         //get the required ui elements
         username = (EditText)walletView.findViewById(R.id.recipient_input);
         transfer_amount = (EditText)walletView.findViewById(R.id.amount_input);
@@ -49,7 +42,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
 
         //set the values dynamically
         owner.setText(current_user);
-        balance.setText(String.valueOf(bal));
+        updateBalance();
 
 
         return walletView;
@@ -68,6 +61,16 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
         return deposit_amount.getText().toString();
     }
 
+    private void updateBalance(){
+        try {
+            balance.setText(String.valueOf(Services.userWalletLogic().getAmount(current_user)));
+        } catch (AccountException accountException) {
+            accountException.printStackTrace();
+        } catch (WalletException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -77,6 +80,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
                 String[] vals = getTransferInputValues();
                 try {
                     Services.userWalletLogic().deposit(vals[0], vals[1]);
+                    Services.userWalletLogic().withdraw(current_user, Integer.parseInt(vals[1]));
                 }catch( WalletException w ){
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
@@ -86,6 +90,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
                 }
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Transfer Successful!", Toast.LENGTH_SHORT);
                 toast.show();
+
+                updateBalance();
                 transfer_amount.getText().clear();
                 username.getText().clear();
                 break;
@@ -103,6 +109,9 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
                 }
                 Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
                 success_toast.show();
+
+                updateBalance();
+
                 deposit_amount.getText().clear();
                 break;
         }

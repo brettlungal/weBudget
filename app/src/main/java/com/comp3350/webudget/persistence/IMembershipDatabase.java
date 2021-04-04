@@ -13,4 +13,7 @@ public interface IMembershipDatabase {
     public void removeUserFromGroup(String username, int groupID) throws AccountException, GroupException;
     public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException;
     public ArrayList<Account> getGroupUsers(int groupID) throws AccountException, GroupException;
+
+    public ArrayList<Integer> getUserGroupIDs(String username);
+
 }
