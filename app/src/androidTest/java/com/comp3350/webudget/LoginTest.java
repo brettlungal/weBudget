@@ -65,8 +65,7 @@ public class LoginTest {
 
         }
         Espresso.onView(withId(R.id.login_button)).perform(click());
-
-
+        
     }
 
 }
