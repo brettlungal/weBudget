@@ -11,7 +11,7 @@ public interface IMembershipDatabase {
     public Boolean isUserInGroup(String username, int groupID) throws AccountException, GroupException;
     public void addUserToGroup(String username, int groupID) throws AccountException, GroupException;
     public void removeUserFromGroup(String username, int groupID) throws AccountException, GroupException;
-    public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException;
+    public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException; // DO NOT USE THIS FUNCTION FOR REAL DATABASE IN LOGIC LAYER!!!
     public ArrayList<Account> getGroupUsers(int groupID) throws AccountException, GroupException;
 
     public ArrayList<Integer> getUserGroupIDs(String username);
