@@ -140,8 +140,10 @@ public class GroupLogic implements IGroupLogic {
         //create the group
         int groupID = groupPersistence.insertGroup(name);
         //add every user to the group
-        for(String username: uniqueNames)
+        for(String username: uniqueNames) {
+            //System.out.println("USername " + username + "groupID" + groupID);
             membershipPersistence.addUserToGroup(username, groupID);
+        }
 
         return groupID;
     }
@@ -171,8 +173,6 @@ public class GroupLogic implements IGroupLogic {
         }else{
             throw new MembershipException("User is already a member of this group");
         }
-
-
     }
 
     @Override
