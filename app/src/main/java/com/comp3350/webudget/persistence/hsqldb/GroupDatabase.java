@@ -5,7 +5,6 @@ import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
-import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IMembershipDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
@@ -75,7 +74,7 @@ public class GroupDatabase implements IGroupDatabase {
     public Group getGroup(int id) throws GroupException {
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from account where groupid = ?"
+                    "select * from groupTable where groupid = ?"
             );
             st.setInt(1, id);
             ResultSet resultSet = st.executeQuery();
@@ -87,6 +86,7 @@ public class GroupDatabase implements IGroupDatabase {
             st.close();
         }
         catch (SQLException sqlException) {
+            sqlException.printStackTrace();
             throw new GroupException("Fail to Get Account in Database");
         }
         return null;

@@ -10,6 +10,7 @@ import com.comp3350.webudget.persistence.IMembershipDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
 import com.comp3350.webudget.persistence.hsqldb.GroupDatabase;
+import com.comp3350.webudget.persistence.hsqldb.MembershipDatabase;
 import com.comp3350.webudget.persistence.hsqldb.WalletDatabase;
 import com.comp3350.webudget.persistence.testDatabases.TestMembershipDatabase;
 import com.comp3350.webudget.utils.TestUtils;
@@ -56,8 +57,8 @@ public class GroupLogicIT {
         this.tempDB = TestUtils.copyDB();
         testWalletDB = new WalletDatabase(this.tempDB.getAbsolutePath().replace(".script", ""));
         testAccountDB = new AccountDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testWalletDB);
+        testMembershipDB = new MembershipDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testAccountDB);
         testGroupDB = new GroupDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testWalletDB,testMembershipDB);
-        testMembershipDB = new TestMembershipDatabase(testAccountDB, testGroupDB);
         testGroupLogic = new GroupLogic(testAccountDB, testGroupDB, testMembershipDB);
         testUserLogic = new UserLogic(this.testAccountDB);
     }
@@ -68,7 +69,7 @@ public class GroupLogicIT {
         testGroupLogic.createEmptyGroup(group2Input);
     }
 
-    @Test(expected = GroupException.class)
+    @Test
     public void testGroupWithUsers() throws GroupException, AccountException, SignupException {
         ArrayList<String> usernames = new ArrayList<String>();
         usernames.add("user1");
@@ -79,7 +80,7 @@ public class GroupLogicIT {
     }
 
 
-    @Test(expected = GroupException.class)
+    @Test
     public void removeUserFromGroupTest() throws GroupException, AccountException, SignupException, MembershipException {
         ArrayList<String> usernames = new ArrayList<String>();
         usernames.add("user1");
@@ -87,9 +88,10 @@ public class GroupLogicIT {
         testUserLogic.signUp(user1Input);
         testUserLogic.signUp(user2Input);
         testGroupLogic.removeUserFromGroup("user1",testGroupLogic.createGroupWithUsers(group1Input,usernames));
+        testGroupLogic.removeUserFromGroup("user2",testGroupLogic.createGroupWithUsers(group1Input,usernames));
     }
 
-    @Test(expected = GroupException.class)
+    @Test
     public void addUserToGroupTest() throws GroupException, AccountException, MembershipException, SignupException {
         int groupID = testGroupLogic.createEmptyGroup(group1Input);
         testUserLogic.signUp(user1Input);

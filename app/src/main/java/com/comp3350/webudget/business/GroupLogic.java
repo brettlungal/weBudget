@@ -141,7 +141,6 @@ public class GroupLogic implements IGroupLogic {
         int groupID = groupPersistence.insertGroup(name);
         //add every user to the group
         for(String username: uniqueNames) {
-            //System.out.println("USername " + username + "groupID" + groupID);
             membershipPersistence.addUserToGroup(username, groupID);
         }
 
@@ -195,9 +194,7 @@ public class GroupLogic implements IGroupLogic {
 
         //check that the user is indeed already a member of the group
 
-        if(membershipPersistence.isUserInGroup(username, groupID)){
-            membershipPersistence.addUserToGroup(username, groupID);
-        }else{
+        if(!membershipPersistence.isUserInGroup(username, groupID)){
             throw new MembershipException("User is not a member of this group; could not be removed");
         }
 
