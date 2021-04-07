@@ -2,8 +2,10 @@ package com.comp3350.webudget.application;
 
 import com.comp3350.webudget.business.GroupLogic;
 import com.comp3350.webudget.business.IGroupLogic;
+import com.comp3350.webudget.business.ITransactionLogic;
 import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
+import com.comp3350.webudget.business.TransactionLogic;
 import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
 
@@ -35,6 +37,7 @@ public class Services {
     private static IUserWalletLogic userWalletLogic = null;
     private static IUserLogic userLogic = null;
     private static IGroupLogic groupLogic = null;
+    private static ITransactionLogic transactionLogic = null;
 
     public static synchronized void testSetup(){
         groupPersistence = new TestGroupDatabase();
@@ -45,6 +48,7 @@ public class Services {
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
         groupLogic = new GroupLogic();
+        transactionLogic = new TransactionLogic();
     }
 
     public static synchronized IAccountDatabase accountPersistence() {
@@ -103,6 +107,13 @@ public class Services {
             groupLogic = new GroupLogic();
         }
         return groupLogic;
+    }
+
+    public static synchronized ITransactionLogic transactionLogic(){
+        if ( transactionLogic == null ){
+            transactionLogic = new TransactionLogic();
+        }
+        return transactionLogic;
     }
 
 
