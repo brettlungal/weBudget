@@ -6,7 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
+import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.R;
+import com.comp3350.webudget.application.Services;
+import com.comp3350.webudget.business.TransactionLogic;
+import com.comp3350.webudget.objects.Transaction;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +27,18 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View calView = inflater.inflate(R.layout.fragment_calendar , container, false);
+        ArrayList<Transaction> recievedTransactions;
+        ArrayList<Transaction> sentTransactions;
+        try{
+            recievedTransactions = Services.transactionLogic().getTransactionsIn(Services.userLogic().getCurrentUser());
+            sentTransactions = Services.transactionLogic().getTransactionsOut(Services.userLogic().getCurrentUser());
+
+        }catch ( WalletException w ){
+
+        }catch ( AccountException a ){
+
+        }
+
 
 
         return calView;
