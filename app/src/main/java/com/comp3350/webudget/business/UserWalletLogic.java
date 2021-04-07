@@ -79,9 +79,4 @@ public class UserWalletLogic implements IUserWalletLogic {
         }
         walletPersistence.withdraw(walletID, amount);
     }
-
-    @Override
-    public ArrayList<Transaction> getTransactions(String username) throws AccountException, WalletException {
-        return null;
-    }
 }

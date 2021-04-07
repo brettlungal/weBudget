@@ -11,5 +11,4 @@ public interface IUserWalletLogic {
     public void deposit(String username, int amount) throws AccountException, WalletException;
     public void deposit( String username, String amount ) throws AccountException, WalletException;
     public void withdraw(String username, int amount) throws AccountException, WalletException;
-    public ArrayList<Transaction> getTransactions(String username) throws AccountException, WalletException;
 }
