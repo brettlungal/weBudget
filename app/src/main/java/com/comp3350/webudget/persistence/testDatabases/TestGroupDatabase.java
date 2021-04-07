@@ -14,6 +14,7 @@ public class TestGroupDatabase implements IGroupDatabase {
     IWalletDatabase walletDatabase = null;
     int groupID = -1;
 
+
     public TestGroupDatabase(){
         database = new ArrayList<>();
         walletDatabase = Services.walletPersistence();
@@ -51,5 +52,8 @@ public class TestGroupDatabase implements IGroupDatabase {
     public ArrayList<Group> getGroups(String username) {
         return null;
     }
+
+
+
 
 }

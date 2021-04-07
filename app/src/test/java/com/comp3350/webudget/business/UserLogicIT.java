@@ -93,6 +93,7 @@ public class UserLogicIT {
         testUserLogic.login(info);
     }
 
+    @Test
     public void test_logout() throws SignupException, LoginException{
         String[] info = {"user1","password1"};
         testUserLogic.signUp(user1Input);

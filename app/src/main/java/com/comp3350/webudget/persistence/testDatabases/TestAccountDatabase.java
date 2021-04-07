@@ -42,4 +42,6 @@ public class TestAccountDatabase implements IAccountDatabase {
     public ArrayList<Account> getAllAccounts() throws AccountException {
         return new ArrayList<>(database);
     }
+
+
 }

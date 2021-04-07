@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         //Services.testSetup();
 
         copyDatabaseToDevice();
-        //Context context = getApplicationContext();
-        //File dataDirectory = context.getDir("db", Context.MODE_PRIVATE);
-        //Main.setDBPathName(dataDirectory.toString());
 
         new Handler().postDelayed(new Runnable() {
             @Override

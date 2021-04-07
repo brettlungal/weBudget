@@ -75,7 +75,7 @@ public class GroupDatabase implements IGroupDatabase {
     public Group getGroup(int id) throws GroupException {
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from account where groupid = ?"
+                    "select * from groupTable where groupid = ?"
             );
             st.setInt(1, id);
             ResultSet resultSet = st.executeQuery();
@@ -87,6 +87,7 @@ public class GroupDatabase implements IGroupDatabase {
             st.close();
         }
         catch (SQLException sqlException) {
+            sqlException.printStackTrace();
             throw new GroupException("Fail to Get Account in Database");
         }
         return null;
