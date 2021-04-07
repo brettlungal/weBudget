@@ -41,7 +41,7 @@ public class LoginTest {
 
     @Before
     public void initValues(){
-        username = "brett";
+        username = "dev";
         password = "pass";
         inputValue = "1024";
 
@@ -65,7 +65,7 @@ public class LoginTest {
 
         }
         Espresso.onView(withId(R.id.login_button)).perform(click());
-        
+        //assert something
     }
 
 }

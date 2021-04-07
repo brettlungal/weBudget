@@ -1,11 +1,14 @@
 package com.comp3350.webudget;
 
+import android.widget.EditText;
+
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.presentation.LoginActivity;
 import com.comp3350.webudget.presentation.MainActivity;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,49 +43,49 @@ public class WalletTest {
 
     @Before
     public void initValues(){
-        username = "brett";
+        username = "dev";
         password = "pass";
         inputValue = "1024";
 
 
     }
 
+    @After
+    public void resetValues(){
+        try{
+            Services.userWalletLogic().withdraw("dev",1024);
+        }catch( WalletException w ){
+
+        }catch ( AccountException a ){
+
+        }
+
+    }
+
     @Test
     public void depositMoney(){
 
-//        //click signup
-//        //Espresso.onView(withId(R.id.signup_button)).perform(click());
-//
-//        //enter fields to make account
-//        //Espresso.onView(withId(R.id.username)).perform(replaceText(username));
-//        //Espresso.onView(withId(R.id.fName)).perform(replaceText("tester"));
-//        //Espresso.onView(withId(R.id.lName)).perform(replaceText("bot"));
-//        //Espresso.onView(withId(R.id.password_input)).perform(replaceText(password)).perform(closeSoftKeyboard());
-//        //try{
-//       //     Thread.sleep(250);
-//       // }catch(InterruptedException e){
-//
-//       // }
-//        //Espresso.onView(withId(R.id.signup_button)).perform(click());
-//
-//        //signin with account
-//        Espresso.onView(withId(R.id.username)).perform(replaceText("brett"));
-//        Espresso.onView(withId(R.id.password_input)).perform(replaceText("pass")).perform(closeSoftKeyboard());
-//        Espresso.onView(withId(R.id.login_button)).perform(click());
-//
-//        //navigate to account screen
-//        Espresso.onView(withId(R.id.navigation_account)).perform(click());
-//
-//        //click on the wallet icon
-//        Espresso.onView(withId(R.id.wallet_icon)).perform(click());
-//
-//        //deposit value to wallet
-//        Espresso.onView(withId(R.id.depost_amt_input)).perform(typeText(inputValue));
-//        Espresso.onView(withId(R.id.deposit_button)).perform(click());
-//
-//        pressBack();
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
 
+        }
 
+        //signin with account
+        Espresso.onView(withId(R.id.username)).perform(replaceText(username));
+        Espresso.onView(withId(R.id.password_input)).perform(replaceText(password)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.login_button)).perform(click());
+
+        //navigate to account screen
+        Espresso.onView(withId(R.id.navigation_account)).perform(click());
+
+        //click on the wallet icon
+        Espresso.onView(withId(R.id.wallet_icon)).perform(click());
+
+        //deposit value to wallet
+        Espresso.onView(withId(R.id.depost_amt_input)).perform(replaceText(inputValue)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.deposit_button)).perform(click());
+        Espresso.onView(withId(R.id.balance)).check(matches(withText("1024")));
 
     }
 
