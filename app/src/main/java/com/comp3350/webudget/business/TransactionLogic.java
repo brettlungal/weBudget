@@ -6,11 +6,14 @@ import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
+import com.comp3350.webudget.objects.Transaction;
 import com.comp3350.webudget.objects.Wallet;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.ITransactionDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
+
+import java.util.ArrayList;
 
 public class TransactionLogic implements ITransactionLogic{
 
@@ -25,7 +28,7 @@ public class TransactionLogic implements ITransactionLogic{
         accountPersistence = Services.accountPersistence();
         groupPersistence = Services.groupPersistence();
         userLogic = Services.userLogic();
-        //transactionPersistence = Services.transactionPersistence();
+        transactionPersistence = Services.transactionPersistence();
     }
 
     public TransactionLogic(final IWalletDatabase walletPersistence, final IAccountDatabase accountPersistence, final IGroupDatabase groupPersistence, final ITransactionDatabase transactionPersistence, IUserLogic userLogic){
@@ -37,6 +40,26 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
+    public ArrayList<Transaction> getTransactionsIn(String username) throws AccountException {
+        Account acct = accountPersistence.getAccount(username);
+        if ( acct == null ){
+            throw new AccountException("Account does not exist!");
+        }
+        ArrayList<Transaction> transactions = transactionPersistence.getInputTransaction(acct.getWalletID());
+        return transactions;
+    }
+
+    @Override
+    public ArrayList<Transaction> getTransactionsOut(String username) throws AccountException {
+        Account acct = accountPersistence.getAccount(username);
+        if ( acct == null ){
+            throw new AccountException("Account does not exist!");
+        }
+        ArrayList<Transaction> transactions = transactionPersistence.getOutputTransaction(acct.getWalletID());
+        return transactions;
+    }
+
+    @Override
     public void userToGroupTransaction( String username, String groupId, String amount ) throws WalletException, AccountException, GroupException {
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");
@@ -44,9 +67,8 @@ public class TransactionLogic implements ITransactionLogic{
         if ( groupId.equals("") ){
             throw new GroupException("Group name cannot be empty");
         }
-        if ( !username.equals(userLogic.getCurrentUser()) ){
-            throw new AccountException("Cannot transfer money from an account that isnt yours!");
-        }
+
+
         Account user = accountPersistence.getAccount(username);
         Group group = groupPersistence.getGroup(Integer.parseInt(groupId));
         if ( user == null ){
@@ -61,7 +83,14 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        //walletPersistence.transferMoney( userWallet.getWalletID(), groupWallet.getWalletID(), Integer.parseInt(amount) );
+        int transaction_amt = Integer.parseInt(amount);
+        if ( transaction_amt < 0 ){
+            throw new WalletException("Cannot deposit negative amount!");
+        }
+        walletPersistence.deposit( groupWallet.getWalletID(), transaction_amt );
+        walletPersistence.withdraw( userWallet.getWalletID(), transaction_amt );
+        //add to transaction database
+        transactionPersistence.insertTransaction(userWallet.getWalletID(),groupWallet.getWalletID(),transaction_amt);
 
     }
 
@@ -87,14 +116,19 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        //walletPersistence.transferMoney( groupWallet.getWalletID(), userWallet.getWalletID(), Integer.parseInt(amount) );
+        int transaction_amt = Integer.parseInt(amount);
+        if ( transaction_amt < 0 ){
+            throw new WalletException("Cannot deposit negative amount!");
+        }
+        walletPersistence.deposit( userWallet.getWalletID(), transaction_amt );
+        walletPersistence.withdraw( groupWallet.getWalletID(), transaction_amt );
+        // add transaction to database
+        transactionPersistence.insertTransaction(groupWallet.getWalletID(),userWallet.getWalletID(),transaction_amt);
     }
 
     @Override
     public void userToUserTransaction(String sender, String receiver, String amount ) throws AccountException, WalletException {
-        if ( !sender.equals(userLogic.getCurrentUser()) ){
-            throw new AccountException("Cannot transfer money from an account that isnt yours!");
-        }
+
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");
         }
@@ -109,6 +143,13 @@ public class TransactionLogic implements ITransactionLogic{
             throw new WalletException("Wallet does not exist");
         }
         //finally done error checking, can perform the transaction
-        //walletPersistence.transferMoney( senderWallet.getWalletID(), recverWallet.getWalletID(), Integer.parseInt(amount) );
+        int transaction_amt = Integer.parseInt(amount);
+        if ( transaction_amt < 0 ){
+            throw new WalletException("Cannot deposit negative amount!");
+        }
+        walletPersistence.deposit( recverWallet.getWalletID(), transaction_amt );
+        walletPersistence.withdraw( senderWallet.getWalletID(), transaction_amt );
+        //add transaction to database
+        transactionPersistence.insertTransaction(senderWallet.getWalletID(),recverWallet.getWalletID(),transaction_amt);
     }
 }
