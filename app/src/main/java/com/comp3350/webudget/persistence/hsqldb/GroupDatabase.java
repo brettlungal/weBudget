@@ -82,7 +82,7 @@ public class GroupDatabase implements IGroupDatabase {
             if (resultSet.next()){
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                return new Group(groupName,id,walletid,getAllUsername(id));
+                return new Group(groupName,id,walletid);
             }
             st.close();
         }
@@ -106,14 +106,12 @@ public class GroupDatabase implements IGroupDatabase {
                 int groupID = resultSet.getInt("groupid");
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                groups.add(new Group(groupName,groupID,walletid,getAllUsername(groupID)));
+                groups.add(new Group(groupName,groupID,walletid));
             }
             st.close();
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
-        } catch (GroupException e) {
-            e.getStackTrace();
         }
 
         return groups;
@@ -133,28 +131,15 @@ public class GroupDatabase implements IGroupDatabase {
                 while (resultSet.next()){
                     String groupName = resultSet.getString("name");
                     int walletid = resultSet.getInt("walletid");
-                    groups.add(new Group(groupName,groupIDs.get(i),walletid,getAllUsername(groupIDs.get(i))));
+                    groups.add(new Group(groupName,groupIDs.get(i),walletid));
                 }
                 st.close();
             }
-            catch (SQLException | GroupException sqlException) {
+            catch (SQLException sqlException) {
                 sqlException.printStackTrace();
             }
         }
         return groups;
     }
 
-
-    private ArrayList<String> getAllUsername(int groupID) throws GroupException{
-        ArrayList<String> members = new ArrayList<>();
-        try {
-            ArrayList<Account> accounts = membershipDatabase.getGroupUsers(groupID);
-            for(int i = 0; i < accounts.size(); i++){
-                members.add(accounts.get(i).getUsername());
-            }
-        }catch (AccountException e){
-            throw new GroupException("Error");
-        }
-        return members;
-    }
 }

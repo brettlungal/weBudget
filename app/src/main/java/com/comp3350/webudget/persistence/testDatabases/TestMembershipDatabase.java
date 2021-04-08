@@ -16,21 +16,29 @@ public class TestMembershipDatabase implements IMembershipDatabase {
     IAccountDatabase accountDatabase = null;
     IGroupDatabase groupDatabase = null;
 
+    ArrayList<Integer> groupIDColumn;
+    ArrayList<String> usernameColumn;
+
     public TestMembershipDatabase(){
         accountDatabase = Services.accountPersistence();
         groupDatabase = Services.groupPersistence();
+        groupIDColumn = new ArrayList<>();
+        usernameColumn = new ArrayList<>();
     }
 
     public TestMembershipDatabase(IAccountDatabase injectedWalletDatabase, IGroupDatabase injectedGroupDatabase){
         accountDatabase = injectedWalletDatabase;
         groupDatabase = injectedGroupDatabase;
+        groupIDColumn = new ArrayList<>();
+        usernameColumn = new ArrayList<>();
     }
 
     public Boolean isUserInGroup(String username, int groupID) throws AccountException, GroupException {
         Group group = groupDatabase.getGroup(groupID);
 
         //test database only really needs to test one relationship. Real database would ideally only need to check that the single row is in the membershipDB
-        return (group.getMemberIDs().indexOf(username) != -1);
+        ArrayList<String> members = getGroupMembers(groupID);
+        return (members.indexOf(username) != -1);
     }
 
     @Override
@@ -38,28 +46,31 @@ public class TestMembershipDatabase implements IMembershipDatabase {
         Account user = accountDatabase.getAccount(username);
         Group group = groupDatabase.getGroup(groupID);
         //here, we can do it by a simple change of the object. In the real database, we need to access the Membership table.
-        user.getGroupIDs().add(groupID);
-        group.getMemberIDs().add(username);
+        groupIDColumn.add(groupID);
+        usernameColumn.add(username);
     }
 
     @Override
     public void removeUserFromGroup(String username, int groupID)  throws AccountException, GroupException{
-        Account user = accountDatabase.getAccount(username);
-        Group group = groupDatabase.getGroup(groupID);
-        //here, we can do it by a simple change of the object. In the real database, we need to access the Membership table.
-        user.getGroupIDs().remove(new Integer(groupID));
-        group.getMemberIDs().remove(username);
+        for(int i = 0; i < groupIDColumn.size(); i++){
+            if (groupIDColumn.get(i) == groupID && usernameColumn.get(i).equals(username)){
+                groupIDColumn.remove(i);
+                usernameColumn.remove(i);
+                break;
+            }
+        }
     }
 
     @Override
     public ArrayList<Group> getUserGroups(String username)  throws AccountException, GroupException{
         //horribly inefficient code, but it works for the test database.
         //In the actual database, this can be done in a single query, I think
-        Account user = accountDatabase.getAccount(username);
-        ArrayList<Group> userGroups = new ArrayList<>();
 
-        for(int i = 0; i < user.getGroupIDs().size(); i++){
-            userGroups.add(groupDatabase.getGroup(user.getGroupIDs().get(i)));
+        ArrayList<Group> userGroups = new ArrayList<>();
+        ArrayList<Integer> userGroupIDs = getUserGroupIDs(username);
+
+        for(int i = 0; i < userGroupIDs.size(); i++){
+            userGroups.add(groupDatabase.getGroup(userGroupIDs.get(i)));
         }
 
         return userGroups;
@@ -69,12 +80,11 @@ public class TestMembershipDatabase implements IMembershipDatabase {
     public ArrayList<Account> getGroupUsers(int groupID)  throws AccountException, GroupException{
         //horribly inefficient code, but it works for the test database.
         //In the actual database, this can be done in a single query, I think
-
-        Group group = groupDatabase.getGroup(groupID);
         ArrayList<Account> groupUsers = new ArrayList<>();
+        ArrayList<String> memberNames = getGroupMembers(groupID);
 
-        for(int i = 0; i < group.getMemberIDs().size(); i++){
-            groupUsers.add(accountDatabase.getAccount(group.getMemberIDs().get(i)));
+        for(int i = 0; i < memberNames.size(); i++){
+            groupUsers.add(accountDatabase.getAccount((memberNames.get(i))));
         }
 
         return groupUsers;
@@ -82,6 +92,22 @@ public class TestMembershipDatabase implements IMembershipDatabase {
 
     @Override
     public ArrayList<Integer> getUserGroupIDs(String username) {
-        return null;
+        ArrayList<Integer> groups = new ArrayList<>();
+        for(int i = 0; i < usernameColumn.size(); i++){
+            if (usernameColumn.get(i).equals(username)){
+                groups.add(groupIDColumn.get(i));
+            }
+        }
+        return groups;
+    }
+
+    private ArrayList<String> getGroupMembers(int groupID){
+        ArrayList<String> members = new ArrayList<>();
+        for(int i = 0; i < groupIDColumn.size(); i++){
+            if (groupIDColumn.get(i) == groupID){
+                members.add(usernameColumn.get(i));
+            }
+        }
+        return members;
     }
 }
