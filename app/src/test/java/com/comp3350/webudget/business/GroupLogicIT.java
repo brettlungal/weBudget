@@ -100,6 +100,16 @@ public class GroupLogicIT {
     }
 
     @Test
+    public void verifyGroupCount() throws GroupException{
+        testGroupLogic.createEmptyGroup("test1");
+        testGroupLogic.createEmptyGroup("test2");
+        testGroupLogic.createEmptyGroup("test3");
+        ArrayList<Group> all_groups = testGroupLogic.getGroups();
+        System.out.println(all_groups.get(0).toString());
+        assertEquals(3,all_groups.size());
+    }
+
+    @Test
     public void getUserGroupsValidUser() throws GroupException, AccountException, MembershipException{
         testAccountDB.insertUser("badinternet001", "Rob","Guderian","pass123");
         ArrayList<String> users = new ArrayList<String>();
