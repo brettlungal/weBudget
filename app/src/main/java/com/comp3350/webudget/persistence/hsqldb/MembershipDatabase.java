@@ -97,7 +97,7 @@ public class MembershipDatabase implements IMembershipDatabase {
 
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
-                    "select groupid from membership where username=?;"
+                    "select groupid, name from membership natural join groupTable where username=? order by name;"
             );
             st.setString(1, username );
             ResultSet resultSet = st.executeQuery();

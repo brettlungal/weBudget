@@ -4,6 +4,7 @@ import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.Exceptions.MembershipException;
 import com.comp3350.webudget.Exceptions.SignupException;
+import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IMembershipDatabase;
@@ -96,6 +97,16 @@ public class GroupLogicIT {
         int groupID = testGroupLogic.createEmptyGroup(group1Input);
         testUserLogic.signUp(user1Input);
         testGroupLogic.addUserToGroup("user1", groupID);
+    }
+
+    @Test
+    public void getUserGroupsValidUser() throws GroupException, AccountException, MembershipException{
+        testAccountDB.insertUser("badinternet001", "Rob","Guderian","pass123");
+        ArrayList<String> users = new ArrayList<String>();
+        users.add("badinternet001");
+        int group_id = testGroupLogic.createGroupWithUsers("test",users);
+        ArrayList<Group> rob_groups = testGroupLogic.getUserGroups("badinternet001");
+        assertEquals(1,rob_groups.size());
     }
 
     @After

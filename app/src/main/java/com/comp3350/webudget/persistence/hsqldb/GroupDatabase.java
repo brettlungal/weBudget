@@ -75,7 +75,7 @@ public class GroupDatabase implements IGroupDatabase {
     public Group getGroup(int id) throws GroupException {
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from groupTable where groupid = ?"
+                    "select * from groupTable where groupid = ? order by name;"
             );
             st.setInt(1, id);
             ResultSet resultSet = st.executeQuery();
