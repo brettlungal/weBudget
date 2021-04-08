@@ -1,5 +1,5 @@
 body {
-  font-family: "Courier New", sans-serif;
+  font-family: Helvetica, sans-serif;
   background-color: #fdfdfd;
 }
 
@@ -65,5 +65,9 @@ h1 {
 }
 
 .content h1 {
+  color: #262C31;
+}
+
+.content p {
   color: #262C31;
 }
