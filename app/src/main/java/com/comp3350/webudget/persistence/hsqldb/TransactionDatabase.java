@@ -50,7 +50,7 @@ public class TransactionDatabase implements ITransactionDatabase {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from account where toid = ?"
+                    "select * from transaction where toid = ?"
             );
             st.setInt(1, walletID);
             ResultSet resultSet = st.executeQuery();
@@ -76,7 +76,7 @@ public class TransactionDatabase implements ITransactionDatabase {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from account where fromid = ?"
+                    "select * from transaction where fromid = ?"
             );
             st.setInt(1, walletID);
             ResultSet resultSet = st.executeQuery();

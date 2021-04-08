@@ -28,7 +28,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View calView = inflater.inflate(R.layout.fragment_calendar , container, false);
         ArrayList<Transaction> recievedTransactions;
-        ArrayList<Transaction> sentTransactions;
+        ArrayList<Transaction> sentTransactions = null;
         try{
             recievedTransactions = Services.transactionLogic().getTransactionsIn(Services.userLogic().getCurrentUser());
             sentTransactions = Services.transactionLogic().getTransactionsOut(Services.userLogic().getCurrentUser());
@@ -39,7 +39,7 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
 
         }
 
-
+        System.out.println(sentTransactions);
 
         return calView;
     }
