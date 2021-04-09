@@ -1,10 +1,12 @@
 package com.comp3350.webudget.application;
 
 import com.comp3350.webudget.business.GroupLogic;
+import com.comp3350.webudget.business.GroupWalletLogic;
 import com.comp3350.webudget.business.IGroupLogic;
 import com.comp3350.webudget.business.ITransactionLogic;
 import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
+import com.comp3350.webudget.business.IWalletLogic;
 import com.comp3350.webudget.business.TransactionLogic;
 import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
@@ -34,7 +36,8 @@ public class Services {
     private static IMembershipDatabase membershipPersistence = null;
     private static ITransactionDatabase transactionDatabase = null;
 
-    private static IUserWalletLogic userWalletLogic = null;
+    private static IWalletLogic userWalletLogic = null;
+    private static IWalletLogic groupWalletLogic = null;
     private static IUserLogic userLogic = null;
     private static IGroupLogic groupLogic = null;
     private static ITransactionLogic transactionLogic = null;
@@ -47,6 +50,7 @@ public class Services {
 
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
+        groupWalletLogic = new GroupWalletLogic();
         groupLogic = new GroupLogic();
         transactionLogic = new TransactionLogic();
     }
@@ -95,11 +99,18 @@ public class Services {
         return userLogic;
     }
 
-    public static synchronized IUserWalletLogic userWalletLogic(){
+    public static synchronized IWalletLogic userWalletLogic(){
         if(userWalletLogic == null){
             userWalletLogic = new UserWalletLogic();
         }
         return userWalletLogic;
+    }
+
+    public static synchronized IWalletLogic groupWalletLogic(){
+        if(groupWalletLogic == null){
+            groupWalletLogic = new UserWalletLogic();
+        }
+        return groupWalletLogic;
     }
 
     public static synchronized IGroupLogic groupLogic(){
