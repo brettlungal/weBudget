@@ -41,9 +41,10 @@ public class MembershipDatabase implements IMembershipDatabase {
     public Boolean isUserInGroup(String username, int groupID){
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
-                    "select username from membership where groupid=?;"
+                    "select username from membership where groupid=? and username=?;"
             );
             st.setInt(1, groupID);
+            st.setString(2,username);
             ResultSet resultSet = st.executeQuery();
             st.close();
             if(resultSet.next()){
@@ -88,7 +89,26 @@ public class MembershipDatabase implements IMembershipDatabase {
 
     @Override
     public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException {
-        return null;
+        ArrayList<Group> groups = new ArrayList<>();
+
+        try(final Connection c = connection()) {
+            final PreparedStatement st = c.prepareStatement(
+                    "select groupid, name, walletid from membership natural join groupTable where username=? order by name;"
+            );
+            st.setString(1, username );
+            ResultSet resultSet = st.executeQuery();
+            st.close();
+            while(resultSet.next()){
+                int groupID = resultSet.getInt("groupid");
+                String groupName = resultSet.getString("name");
+                int walletID = resultSet.getInt("walletID");
+                groups.add(new Group(groupName, groupID, walletID));
+            }
+
+        } catch (final SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return groups;
     }
 
     @Override
