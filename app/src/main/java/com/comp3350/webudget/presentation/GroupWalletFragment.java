@@ -54,8 +54,9 @@ public class GroupWalletFragment extends Fragment implements View.OnClickListene
     private void updateBalance(){
         try {
             balance.setText(String.valueOf(Services.groupWalletLogic().getAmount(Integer.toString(current_group.getId()))));
-        }  catch (WalletException e) {
-            e.printStackTrace();
+        }  catch (WalletException w) {
+            Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
+            deposit_toast.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,40 +65,20 @@ public class GroupWalletFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        switch ( v.getId() ){
-            //listen for click
-            /**
-            case R.id.send_button:
-                String[] vals = getTransferInputValues();
-                try {
-                    Services.transactionLogic().userToUserTransaction(Services.userLogic().getCurrentUser(),vals[0],vals[1]);
-                }catch( WalletException w ){
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
-                    toast.show();
-                }catch ( AccountException a ){
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Transfer Successful!", Toast.LENGTH_SHORT);
-                toast.show();
-
-                updateBalance();
-                transfer_amount.getText().clear();
-                username.getText().clear();
-                break; **/
+        switch ( v.getId() ) {
 
             case R.id.gw_deposit_button:
                 String deposit_val = getDepositInputValue();
                 try {
                     Services.groupWalletLogic().deposit(Integer.toString(current_group.getId()), deposit_val);
+                    Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
+                    success_toast.show();
                 }catch( WalletException w ){
                     Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
                     deposit_toast.show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
-                success_toast.show();
 
                 updateBalance();
 

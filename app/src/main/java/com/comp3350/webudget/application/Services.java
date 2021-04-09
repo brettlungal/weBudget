@@ -90,8 +90,6 @@ public class Services {
         return transactionDatabase;
     }
 
-
-
     public static synchronized IUserLogic userLogic(){
         if(userLogic == null){
             userLogic = new UserLogic();
@@ -108,7 +106,7 @@ public class Services {
 
     public static synchronized IWalletLogic groupWalletLogic(){
         if(groupWalletLogic == null){
-            groupWalletLogic = new UserWalletLogic();
+            groupWalletLogic = new GroupWalletLogic();
         }
         return groupWalletLogic;
     }
