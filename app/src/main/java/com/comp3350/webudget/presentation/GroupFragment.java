@@ -59,6 +59,7 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
             public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
                 // index is the position in the listview of the clicked item
                 // index will match with the users_groups arraylist to get the correct group to display
+                load_fragment(new GroupWalletFragment(users_groups.get(index)));
             }
         });
         return view;
