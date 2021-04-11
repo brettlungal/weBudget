@@ -2,7 +2,6 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.WalletException;
-import com.comp3350.webudget.objects.Transaction;
 
 import java.util.ArrayList;
 

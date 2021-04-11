@@ -11,7 +11,7 @@ import com.comp3350.webudget.persistence.IWalletDatabase;
 
 import java.util.ArrayList;
 
-public class UserWalletLogic implements IWalletLogic {
+public class UserWalletLogic implements IUserWalletLogic {
 
     private IAccountDatabase accountPersistence;
     private IWalletDatabase walletPersistence;

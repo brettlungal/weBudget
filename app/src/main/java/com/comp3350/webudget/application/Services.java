@@ -3,6 +3,7 @@ package com.comp3350.webudget.application;
 import com.comp3350.webudget.business.GroupLogic;
 import com.comp3350.webudget.business.GroupWalletLogic;
 import com.comp3350.webudget.business.IGroupLogic;
+import com.comp3350.webudget.business.IGroupWalletLogic;
 import com.comp3350.webudget.business.ITransactionLogic;
 import com.comp3350.webudget.business.IUserLogic;
 import com.comp3350.webudget.business.IUserWalletLogic;
@@ -11,6 +12,7 @@ import com.comp3350.webudget.business.TransactionLogic;
 import com.comp3350.webudget.business.UserLogic;
 import com.comp3350.webudget.business.UserWalletLogic;
 
+import com.comp3350.webudget.business.WalletLogic;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.ITransactionDatabase;
 import com.comp3350.webudget.persistence.hsqldb.AccountDatabase;
@@ -36,8 +38,9 @@ public class Services {
     private static IMembershipDatabase membershipPersistence = null;
     private static ITransactionDatabase transactionDatabase = null;
 
-    private static IWalletLogic userWalletLogic = null;
-    private static IWalletLogic groupWalletLogic = null;
+    private static IUserWalletLogic userWalletLogic = null;
+    private static IGroupWalletLogic groupWalletLogic = null;
+    private static IWalletLogic walletLogic = null;
     private static IUserLogic userLogic = null;
     private static IGroupLogic groupLogic = null;
     private static ITransactionLogic transactionLogic = null;
@@ -51,6 +54,7 @@ public class Services {
         userLogic = new UserLogic();
         userWalletLogic = new UserWalletLogic();
         groupWalletLogic = new GroupWalletLogic();
+        walletLogic = new WalletLogic();
         groupLogic = new GroupLogic();
         transactionLogic = new TransactionLogic();
     }
@@ -97,18 +101,25 @@ public class Services {
         return userLogic;
     }
 
-    public static synchronized IWalletLogic userWalletLogic(){
+    public static synchronized IUserWalletLogic userWalletLogic(){
         if(userWalletLogic == null){
             userWalletLogic = new UserWalletLogic();
         }
         return userWalletLogic;
     }
 
-    public static synchronized IWalletLogic groupWalletLogic(){
+    public static synchronized IGroupWalletLogic groupWalletLogic(){
         if(groupWalletLogic == null){
             groupWalletLogic = new GroupWalletLogic();
         }
         return groupWalletLogic;
+    }
+
+    public static synchronized IWalletLogic walletLogic(){
+        if(walletLogic == null){
+            walletLogic = new WalletLogic();
+        }
+        return walletLogic;
     }
 
     public static synchronized IGroupLogic groupLogic(){
