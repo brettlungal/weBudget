@@ -35,7 +35,7 @@ public class UserWalletLogicIT {
         this.tempDB = TestUtils.copyDB();
         testWalletDB = new WalletDatabase(this.tempDB.getAbsolutePath().replace(".script", ""));
         testAccountDB = new AccountDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testWalletDB);
-        userWalletLogic = new UserWalletLogic(testAccountDB, testWalletDB);
+        userWalletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
 
     }
 

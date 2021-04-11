@@ -52,7 +52,7 @@ public class TransactionLogicTest {
         testTransactionDB = new TestTransactionDatabase();
         IUserLogic userLogic = new UserLogic(testAccountDB);
         IGroupLogic groupLogic = new GroupLogic(testAccountDB,testGroupDB,testMembershipDB);
-        IUserWalletLogic walletLogic = new UserWalletLogic(testAccountDB,testWalletDB);
+        IUserWalletLogic walletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
 
         testTransactionLogic = new TransactionLogic(testWalletDB,testAccountDB, testGroupDB, testTransactionDB ,userLogic);
 

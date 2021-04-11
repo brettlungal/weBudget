@@ -24,10 +24,10 @@ public class UserWalletLogicTest {
     private IUserWalletLogic userWalletLogic = null;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         testWalletDB = new TestWalletDatabase();
         testAccountDB = new TestAccountDatabase(testWalletDB);
-        this.userWalletLogic = new UserWalletLogic(testAccountDB,testWalletDB);
+        this.userWalletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
     }
 
     //test: get AccountError if the user searched for does not exist: get, deposit, withdraw, and get transactions
