@@ -11,7 +11,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TransactionDatabase implements ITransactionDatabase {
 
@@ -29,6 +32,8 @@ public class TransactionDatabase implements ITransactionDatabase {
 
     @Override
     public void insertTransaction(int fromWalletid, int toWalletid, int amount) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "insert into transaction (fromid,toid, amount,date) values (?, ?,?,?);"
@@ -37,7 +42,7 @@ public class TransactionDatabase implements ITransactionDatabase {
             st.setInt(1, fromWalletid );
             st.setInt(2, toWalletid );
             st.setInt(3, amount);
-            st.setString(4, "N/A" );
+            st.setString(4, dateFormat.format(date) );
             st.executeUpdate();
             st.close();
         } catch (final SQLException sqlException) {
