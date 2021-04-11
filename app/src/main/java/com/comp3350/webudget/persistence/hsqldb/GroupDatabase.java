@@ -75,14 +75,14 @@ public class GroupDatabase implements IGroupDatabase {
     public Group getGroup(int id) throws GroupException {
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from groupTable where groupid = ?"
+                    "select * from groupTable where groupid = ? order by name;"
             );
             st.setInt(1, id);
             ResultSet resultSet = st.executeQuery();
             if (resultSet.next()){
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                return new Group(groupName,id,walletid,getAllUsername(id));
+                return new Group(groupName,id,walletid);
             }
             st.close();
         }
@@ -99,23 +99,22 @@ public class GroupDatabase implements IGroupDatabase {
 
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from groupTable"
+                    "select * from groupTable order by name;"
             );
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.next()){
+            while (resultSet.next()){
                 int groupID = resultSet.getInt("groupid");
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                groups.add(new Group(groupName,groupID,walletid,getAllUsername(groupID)));
+                groups.add(new Group(groupName,groupID,walletid));
             }
             st.close();
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
-        } catch (GroupException e) {
-            e.getStackTrace();
         }
-        return null;
+
+        return groups;
     }
 
     @Override
@@ -129,31 +128,18 @@ public class GroupDatabase implements IGroupDatabase {
                 );
                 st.setInt(1, groupIDs.get(i));
                 ResultSet resultSet = st.executeQuery();
-                if (resultSet.next()){
+                while (resultSet.next()){
                     String groupName = resultSet.getString("name");
                     int walletid = resultSet.getInt("walletid");
-                    groups.add(new Group(groupName,groupIDs.get(i),walletid,getAllUsername(groupIDs.get(i))));
+                    groups.add(new Group(groupName,groupIDs.get(i),walletid));
                 }
                 st.close();
             }
-            catch (SQLException | GroupException sqlException) {
+            catch (SQLException sqlException) {
                 sqlException.printStackTrace();
             }
         }
         return groups;
     }
 
-
-    private ArrayList<String> getAllUsername(int groupID) throws GroupException{
-        ArrayList<String> members = new ArrayList<>();
-        try {
-            ArrayList<Account> accounts = membershipDatabase.getGroupUsers(groupID);
-            for(int i = 0; i < accounts.size(); i++){
-                members.add(accounts.get(i).getUsername());
-            }
-        }catch (AccountException e){
-            throw new GroupException("Error");
-        }
-        return members;
-    }
 }
