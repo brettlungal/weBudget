@@ -75,7 +75,7 @@ public class GroupDatabase implements IGroupDatabase {
     public Group getGroup(int id) throws GroupException {
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from groupTable where groupid = ?"
+                    "select * from groupTable where groupid = ? order by name;"
             );
             st.setInt(1, id);
             ResultSet resultSet = st.executeQuery();
@@ -99,10 +99,10 @@ public class GroupDatabase implements IGroupDatabase {
 
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
-                    "select * from groupTable"
+                    "select * from groupTable order by name;"
             );
             ResultSet resultSet = st.executeQuery();
-            if (resultSet.next()){
+            while (resultSet.next()){
                 int groupID = resultSet.getInt("groupid");
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
@@ -115,7 +115,8 @@ public class GroupDatabase implements IGroupDatabase {
         } catch (GroupException e) {
             e.getStackTrace();
         }
-        return null;
+
+        return groups;
     }
 
     @Override
@@ -129,7 +130,7 @@ public class GroupDatabase implements IGroupDatabase {
                 );
                 st.setInt(1, groupIDs.get(i));
                 ResultSet resultSet = st.executeQuery();
-                if (resultSet.next()){
+                while (resultSet.next()){
                     String groupName = resultSet.getString("name");
                     int walletid = resultSet.getInt("walletid");
                     groups.add(new Group(groupName,groupIDs.get(i),walletid,getAllUsername(groupIDs.get(i))));
