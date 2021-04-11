@@ -102,7 +102,6 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        //populate_calendar();
         return calView;
     }
 
