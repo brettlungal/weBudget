@@ -46,8 +46,14 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
         switch (item.getItemId()) {
             case R.id.appbar_logout:
                 try {
+                    //logout and clear backstack
                     Services.userLogic().logout();
-                    startActivity(new Intent(this , MainActivity.class));
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    MasterActivity.this.finish();
+
+
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(this.getApplicationContext(),
                             e.getMessage(), Toast.LENGTH_SHORT);
