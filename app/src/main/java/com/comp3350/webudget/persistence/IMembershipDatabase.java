@@ -14,6 +14,6 @@ public interface IMembershipDatabase {
     public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException; // DO NOT USE THIS FUNCTION FOR REAL DATABASE IN LOGIC LAYER!!!
     public ArrayList<Account> getGroupUsers(int groupID) throws AccountException, GroupException;
 
-    public ArrayList<Integer> getUserGroupIDs(String username);
+    public ArrayList<Integer> getUserGroupIDs(String username) throws GroupException;
 
 }

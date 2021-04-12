@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.TransactionException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Services;
@@ -65,6 +66,8 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
         }catch ( WalletException w ){
 
         }catch ( AccountException a ){
+
+        }catch ( TransactionException t ){
 
         }
         transaction_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

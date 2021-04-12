@@ -91,7 +91,7 @@ public class TestMembershipDatabase implements IMembershipDatabase {
     }
 
     @Override
-    public ArrayList<Integer> getUserGroupIDs(String username) {
+    public ArrayList<Integer> getUserGroupIDs(String username) throws GroupException {
         ArrayList<Integer> groups = new ArrayList<>();
         for(int i = 0; i < usernameColumn.size(); i++){
             if (usernameColumn.get(i).equals(username)){

@@ -38,7 +38,7 @@ public class MembershipDatabase implements IMembershipDatabase {
     }
 
     @Override
-    public Boolean isUserInGroup(String username, int groupID){
+    public Boolean isUserInGroup(String username, int groupID) throws GroupException{
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "select username from membership where groupid=? and username=?;"
@@ -52,12 +52,13 @@ public class MembershipDatabase implements IMembershipDatabase {
             }
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("Failed to get group information");
         }
         return false;
     }
 
     @Override
-    public void addUserToGroup(String username, int groupID){
+    public void addUserToGroup(String username, int groupID) throws GroupException{
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "insert into membership (username, groupid) values (?, ?);"
@@ -69,11 +70,12 @@ public class MembershipDatabase implements IMembershipDatabase {
             st.close();
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("Failed to add user to group");
         }
     }
 
     @Override
-    public void removeUserFromGroup(String username, int groupID) {
+    public void removeUserFromGroup(String username, int groupID)throws GroupException {
         try(final Connection c = connection()) {
             final PreparedStatement st = c.prepareStatement(
                     "delete from membership where username=? and groupid=?;"
@@ -84,11 +86,12 @@ public class MembershipDatabase implements IMembershipDatabase {
             st.close();
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("Failed to remove user from group");
         }
     }
 
     @Override
-    public ArrayList<Group> getUserGroups(String username) throws AccountException, GroupException {
+    public ArrayList<Group> getUserGroups(String username) throws  GroupException {
         ArrayList<Group> groups = new ArrayList<>();
 
         try(final Connection c = connection()) {
@@ -107,12 +110,13 @@ public class MembershipDatabase implements IMembershipDatabase {
 
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("Failed to get groups");
         }
         return groups;
     }
 
     @Override
-    public ArrayList<Integer> getUserGroupIDs(String username){
+    public ArrayList<Integer> getUserGroupIDs(String username) throws GroupException{
         ArrayList<Integer> groupIDs = new ArrayList<>();
 
         try(final Connection c = connection()) {
@@ -128,6 +132,7 @@ public class MembershipDatabase implements IMembershipDatabase {
 
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("failed to get group ids");
         }
         return groupIDs;
     }

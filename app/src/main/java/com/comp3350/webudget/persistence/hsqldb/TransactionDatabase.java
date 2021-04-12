@@ -1,6 +1,7 @@
 package com.comp3350.webudget.persistence.hsqldb;
 
 import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.TransactionException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Transaction;
 import com.comp3350.webudget.persistence.ITransactionDatabase;
@@ -31,7 +32,7 @@ public class TransactionDatabase implements ITransactionDatabase {
 
 
     @Override
-    public void insertTransaction(int fromWalletid, int toWalletid, int amount) {
+    public void insertTransaction(int fromWalletid, int toWalletid, int amount) throws TransactionException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         try(final Connection c = connection()) {
@@ -47,11 +48,12 @@ public class TransactionDatabase implements ITransactionDatabase {
             st.close();
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new TransactionException("failed to insert transaction");
         }
     }
 
     @Override
-    public ArrayList<Transaction> getInputTransaction(int walletID) {
+    public ArrayList<Transaction> getInputTransaction(int walletID) throws TransactionException {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
@@ -71,13 +73,14 @@ public class TransactionDatabase implements ITransactionDatabase {
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new TransactionException("failed to get transaction");
         }
 
         return transactions; // return an empty ArrayList if no transaction given walletid
     }
 
     @Override
-    public ArrayList<Transaction> getOutputTransaction(int walletID) {
+    public ArrayList<Transaction> getOutputTransaction(int walletID) throws TransactionException{
         ArrayList<Transaction> transactions = new ArrayList<>();
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
@@ -97,6 +100,7 @@ public class TransactionDatabase implements ITransactionDatabase {
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new TransactionException("failed to get transaction");
         }
 
         return transactions; // return an empty ArrayList if no transaction given walletid
