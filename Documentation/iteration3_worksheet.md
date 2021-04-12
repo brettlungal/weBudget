@@ -1,14 +1,13 @@
-What technical debt has been cleaned up --TODO
+What technical debt has been cleaned up
 ========================================
 
-Show links to a commit where you paid off technical debt. Write 2-5 sentences
-that explain what debt was paid, and what its classification is.
+In this iteration we cleaned up a few pieces of technical debt. The first one was [offloading all string to integer parsing](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/commit/7bf6cdb730184528e4a6cb86b5b30bb9df6ab35d) to the logic layer so that the UI layer just needs to pass the strings entered into the EditText fields. I would classify this technical debt as reckless inadvertant because it is a reckless violation of the layering design pattern. The next was that we had a fair amount of [logic in our test group database](https://code.cs.umanitoba.ca/3350-winter-2021-a01/weBudget/-/commit/8026a9cf8756affa1b51705d2401a8e330aad0b0) that needed to be offloaded into the logic layer aswell. This again would be reckless indadvertant technical debt because we disregarded the 3 tier architecture when we coded it.
 
-What technical debt did you leave? --TODO
+
+What technical debt did you leave?
 ==================================
 
-What one item would you like to fix, and can't? Anything you write will not
-be marked negatively. Classify this debt.
+One piece of technical debt we would have liked to have addressed if we had another iteration was the way that the Transaction domain specific objects are created and stored in the database. The way we did it made it extremely difficult to obtain the usernames of the users involved in the transaction which hindered our ability to add username to the transaction details on the calendar. We would have liked to of refactored all of the transaction logic and peristence classes to allow for username storing and dislpaying it in the UI. This debt would be prudent inadvertant. At the time we thought we were doing it the best way possible, then in hindsight as the project grew we looked back and said "Now we know how we should have done it".
 
 Discuss a Feature or User Story that was cut/re-prioritized
 ============================================
