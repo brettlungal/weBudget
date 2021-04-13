@@ -13,7 +13,8 @@
 
 
         <activity android:name=".presentation.SignupActivity"></activity>
-        <activity android:name=".presentation.MasterActivity" />
+        <activity android:name=".presentation.MasterActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".presentation.LoginActivity" />
         <activity android:name=".presentation.MainActivity">
             <intent-filter>

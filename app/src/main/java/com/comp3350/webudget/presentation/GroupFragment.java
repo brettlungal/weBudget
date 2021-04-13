@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.comp3350.webudget.Exceptions.MembershipException;
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
@@ -22,12 +24,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class GroupFragment extends Fragment implements View.OnClickListener {
 
-    private Button create_group_button;
+    private Button create_group_button, join_group_btn;
+    private EditText entered_groupname;
     private ArrayList<Group> users_groups;
     private ArrayList<String> users_groups_names;
 
@@ -39,6 +43,11 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         // Buttons
         create_group_button = (Button)view.findViewById(R.id.group_create_group_button);
         create_group_button.setOnClickListener(this);
+        join_group_btn = (Button)view.findViewById(R.id.join_group);
+        join_group_btn.setOnClickListener(this);
+
+        //Edittext
+        entered_groupname = (EditText)view.findViewById(R.id.group_name_field);
 
         // List View
         users_groups_names = new ArrayList<String>();
@@ -70,6 +79,27 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         switch ( view.getId() ){
             case R.id.group_create_group_button:
                 load_fragment(new CreateGroupFragment());
+                break;
+            case R.id.join_group:
+                try{
+                    Services.groupLogic().addUserToGroup(Services.userLogic().getCurrentUser(), entered_groupname.getText().toString());
+                }catch ( GroupException g ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), g.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+                }catch( AccountException a ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+                }catch ( MembershipException m ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), m.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+                }
+
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Successfully added to group!", Toast.LENGTH_SHORT);
+                toast.show();
+                load_fragment(new GroupFragment());
                 break;
         }
     }
