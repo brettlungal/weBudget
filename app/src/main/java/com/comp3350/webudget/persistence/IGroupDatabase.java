@@ -6,8 +6,8 @@ import com.comp3350.webudget.objects.Group;
 import java.util.ArrayList;
 
 public interface IGroupDatabase {
-     public int insertGroup(String groupName);
+     public int insertGroup(String groupName) throws GroupException;
      public Group getGroup(int id) throws GroupException;
-     public ArrayList<Group> getAllGroups();
-     public ArrayList<Group> getGroups(String username);
+     public ArrayList<Group> getAllGroups() throws GroupException;
+     public ArrayList<Group> getGroups(String username) throws GroupException;
 }

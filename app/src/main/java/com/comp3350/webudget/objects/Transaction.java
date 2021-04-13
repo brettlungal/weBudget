@@ -37,5 +37,8 @@ public class Transaction {
         return date;
     }
 
+    public String toString(){
+        return "$"+this.amount;
+    }
 
 }

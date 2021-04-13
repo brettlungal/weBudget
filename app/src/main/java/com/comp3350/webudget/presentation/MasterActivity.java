@@ -4,21 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.application.Services;
-import com.comp3350.webudget.objects.Transaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MasterActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +32,7 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
         nav.setOnNavigationItemSelectedListener(this);
 
         // fragments
-        load_fragment(new HomeFragment());
+        load_fragment(new CalendarFragment());
     }
 
     @Override
@@ -52,8 +46,14 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
         switch (item.getItemId()) {
             case R.id.appbar_logout:
                 try {
+                    //logout and clear backstack
                     Services.userLogic().logout();
-                    startActivity(new Intent(this , MainActivity.class));
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    MasterActivity.this.finish();
+
+
                 } catch (Exception e) {
                     Toast toast = Toast.makeText(this.getApplicationContext(),
                             e.getMessage(), Toast.LENGTH_SHORT);
@@ -72,20 +72,17 @@ public class MasterActivity extends AppCompatActivity implements BottomNavigatio
         Fragment frag = null;
 
         switch( menuItem.getItemId() ){
-            case R.id.navigation_settings:
-                frag = new SettingsFragment();
-                break;
 
             case R.id.navigation_account:
                 frag = new AccountFragment();
                 break;
 
-            case R.id.navigation_home:
-                frag = new HomeFragment();
-                break;
-
             case R.id.navigation_calendar:
                 frag = new CalendarFragment();
+                break;
+
+            case R.id.navigation_groups:
+                frag = new GroupFragment();
                 break;
         }
         return load_fragment(frag);
