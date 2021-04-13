@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.Exceptions.WalletException;
@@ -73,13 +74,10 @@ public class GroupWalletFragment extends Fragment implements View.OnClickListene
                     Services.groupWalletLogic().deposit(Integer.toString(current_group.getId()), deposit_val);
                     Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
                     success_toast.show();
-                }catch( WalletException w ){
-                    Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), w.getMessage(), Toast.LENGTH_SHORT);
+                }catch(WalletException | GroupException e ){
+                    Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                     deposit_toast.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-
                 updateBalance();
 
                 deposit_amount.getText().clear();

@@ -44,8 +44,12 @@ public class GroupWalletLogic implements IGroupWalletLogic {
     }
 
     public void deposit(String id, String amount) throws GroupException, WalletException {
-        int walletID = getWalletID(Integer.parseInt(id));
-        walletLogic.deposit(walletID, Integer.parseInt(amount));
+        try {
+            int walletID = getWalletID(Integer.parseInt(id));
+            walletLogic.deposit(walletID, Integer.parseInt(amount));
+        } catch(NumberFormatException e) {
+            throw new WalletException("Deposit to wallet must be within range $0 = $99,999");
+        }
     }
 
     public void withdraw(String id, int amount) throws GroupException, WalletException {
