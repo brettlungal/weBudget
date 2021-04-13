@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,10 +23,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GroupFragment extends Fragment implements View.OnClickListener {
 
     private Button create_group_button;
+    private ArrayList<Group> users_groups;
     private ArrayList<String> users_groups_names;
 
     @Nullable
@@ -39,13 +42,8 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
         // List View
         users_groups_names = new ArrayList<String>();
-        users_groups_names.add("nothing");
-        users_groups_names.add("appears");
-        users_groups_names.add("to");
-        users_groups_names.add("be");
-        users_groups_names.add("here");
         try {
-            ArrayList<Group> users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
+            users_groups = Services.groupLogic().getUserGroups(Services.userLogic().getCurrentUser());
             users_groups_names = groups_to_strings(users_groups);
         } catch (AccountException | GroupException e) {
             Toast toast = Toast.makeText(getActivity().getApplicationContext(),
@@ -56,7 +54,14 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         ListView group_list = (ListView) view.findViewById(R.id.group_list);
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, users_groups_names);
         group_list.setAdapter((listViewAdapter));
-
+        group_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
+                // index is the position in the listview of the clicked item
+                // index will match with the users_groups arraylist to get the correct group to display
+                load_fragment(new GroupWalletFragment(users_groups.get(index)));
+            }
+        });
         return view;
     }
 
@@ -83,12 +88,14 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     }
 
     // Creates a list of group names as strings for listView to display
+    // the arrayList will be in alphabetical sorted order
     private ArrayList<String> groups_to_strings(ArrayList<Group> groups) {
         ArrayList<String> groups_as_strings = new ArrayList<String>();
         if(groups != null) {
             for (int i = 0; i < groups.size(); i++) {
                 groups_as_strings.add(groups.get(i).toString());
             }
+            Collections.sort(groups_as_strings);
         } else {
             groups_as_strings.add("nothing");
             groups_as_strings.add("appears");

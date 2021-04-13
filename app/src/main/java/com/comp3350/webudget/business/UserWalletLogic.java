@@ -14,69 +14,50 @@ import java.util.ArrayList;
 public class UserWalletLogic implements IUserWalletLogic {
 
     private IAccountDatabase accountPersistence;
-    private IWalletDatabase walletPersistence;
+    private IWalletLogic walletLogic;
     //TODO should we store the current user/walletID to avoid checking the database too much?
 
     //default constructor
     public UserWalletLogic() {
         accountPersistence = Services.accountPersistence();
-        walletPersistence = Services.walletPersistence();
+        walletLogic = Services.walletLogic();
     }
 
     //injectable constructor
-    public UserWalletLogic(final IAccountDatabase accountPersistence, final IWalletDatabase walletPersistence) {
+    public UserWalletLogic(final IAccountDatabase accountPersistence, final IWalletLogic walletLogic) {
         this.accountPersistence = accountPersistence;
-        this.walletPersistence = walletPersistence;
+        this.walletLogic = walletLogic;
     }
 
-    private int getWalletID(String username) throws AccountException{
-        Account user = this.accountPersistence.getAccount(username); //TODO not the most efficient way... FIND A MORE EFFICIENT WAY TO DO THIS! (?)
+    private int getWalletID(String id) throws AccountException{
+        Account user = this.accountPersistence.getAccount(id); //TODO not the most efficient way... FIND A MORE EFFICIENT WAY TO DO THIS! (?)
         if(user == null){
-            throw new AccountException("No Account with username " + username + " found.");
+            throw new AccountException("No Account with username " + id + " found.");
         }
         return user.getWalletID();
     }
 
     @Override
-    public int getAmount(String username) throws AccountException, WalletException {
-        int walletID = getWalletID(username);
-        Wallet wallet = walletPersistence.getWallet(walletID);
-        return wallet.getBalance();
+    public int getAmount(String id) throws AccountException, WalletException {
+        int walletID = getWalletID(id);
+        return walletLogic.getAmount(walletID);
     }
 
     @Override
-    public void deposit(String username, int amount) throws AccountException, WalletException {
-        int walletID = getWalletID(username);
-        if(amount <= 0 || amount > 99999){
-            throw new WalletException("Deposit to wallet must be within range $0 = $99,999");
-        }
-        walletPersistence.deposit(walletID, amount);
+    public void deposit(String id, int amount) throws AccountException, WalletException {
+        int walletID = getWalletID(id);
+        walletLogic.deposit(walletID, amount);
     }
 
     @Override
-    public void deposit(String username, String amount) throws AccountException, WalletException {
-        if ( amount.equals("") || amount.length()>5 || username.equals("")){
-            throw new WalletException("Empty deposit amount received");
-        }
-        //if were here we have valid inputs
-        int walletID = getWalletID(username);
-        int amt = Integer.parseInt(amount);
-        if(amt <= 0 || amt > 99999){
-            throw new WalletException("Deposit to wallet must be within range $0 - $99,999");
-        }
-        walletPersistence.deposit(walletID, amt);
+    public void deposit(String id, String amount) throws AccountException, WalletException {
+        int walletID = getWalletID(id);
+        walletLogic.deposit(walletID, Integer.parseInt(amount));
     }
 
     @Override
-    public void withdraw(String username, int amount) throws AccountException, WalletException {
-        int walletID = getWalletID(username);
-        if(amount <= 0){
-            throw new WalletException("Withdraw from wallet must be positive");
-        }
-        Wallet wallet = walletPersistence.getWallet(walletID);
-        if(amount > wallet.getBalance()){
-            throw new WalletException("Cannot withdraw more money than is in the wallet");
-        }
-        walletPersistence.withdraw(walletID, amount);
+    public void withdraw(String id, int amount) throws AccountException, WalletException {
+        int walletID = getWalletID(id);
+        walletLogic.withdraw(walletID, amount);
     }
 }

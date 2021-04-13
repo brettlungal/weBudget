@@ -69,6 +69,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
             accountException.printStackTrace();
         } catch (WalletException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -109,6 +111,8 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
                 }catch ( AccountException a ){
                     Toast deposit_toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
                     deposit_toast.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 Toast success_toast = Toast.makeText(getActivity().getApplicationContext(), "Deposit Successful!", Toast.LENGTH_SHORT);
                 success_toast.show();
