@@ -69,7 +69,7 @@ public class AccountDatabase implements IAccountDatabase {
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
                 int walletid = resultSet.getInt("walletid");
-                return new Account(firstName,lastName,userName,password,walletid,null);
+                return new Account(firstName,lastName,userName,password,walletid);
             }
             st.close();
         }
@@ -93,7 +93,7 @@ public class AccountDatabase implements IAccountDatabase {
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
                 int walletid = resultSet.getInt("walletid");
-                accounts.add(new Account(firstName,lastName,userName,password,walletid,null));
+                accounts.add(new Account(firstName,lastName,userName,password,walletid));
             }
             st.close();
         }

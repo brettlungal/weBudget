@@ -41,7 +41,7 @@ public class GroupDatabase implements IGroupDatabase {
     }
 
     @Override
-    public int insertGroup(String groupName) {
+    public int insertGroup(String groupName) throws GroupException {
         int walletID = walletDatabase.insertWallet(groupName);
         int groupID = -1;
         try(final Connection c = connection()) {
@@ -66,6 +66,7 @@ public class GroupDatabase implements IGroupDatabase {
 
         } catch (final SQLException sqlException) {
             sqlException.printStackTrace();
+            throw new GroupException("Failed to insert group");
         }
 
         return groupID;
@@ -82,19 +83,19 @@ public class GroupDatabase implements IGroupDatabase {
             if (resultSet.next()){
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                return new Group(groupName,id,walletid,getAllUsername(id));
+                return new Group(groupName,id,walletid);
             }
             st.close();
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            throw new GroupException("Fail to Get Account in Database");
+            throw new GroupException("Failed to get group");
         }
         return null;
     }
 
     @Override
-    public ArrayList<Group> getAllGroups() {
+    public ArrayList<Group> getAllGroups() throws GroupException {
         ArrayList<Group> groups = new ArrayList<>();
 
         try(final Connection c = connection()){
@@ -106,21 +107,20 @@ public class GroupDatabase implements IGroupDatabase {
                 int groupID = resultSet.getInt("groupid");
                 String groupName = resultSet.getString("name");
                 int walletid = resultSet.getInt("walletid");
-                groups.add(new Group(groupName,groupID,walletid,getAllUsername(groupID)));
+                groups.add(new Group(groupName,groupID,walletid));
             }
             st.close();
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
-        } catch (GroupException e) {
-            e.getStackTrace();
+            throw new GroupException("Failed to get groups");
         }
 
         return groups;
     }
 
     @Override
-    public ArrayList<Group> getGroups(String username) {
+    public ArrayList<Group> getGroups(String username) throws GroupException {
         ArrayList<Integer> groupIDs = membershipDatabase.getUserGroupIDs(username);
         ArrayList<Group> groups = new ArrayList<>();
         for(int i = 0; i < groupIDs.size(); i++){
@@ -133,28 +133,16 @@ public class GroupDatabase implements IGroupDatabase {
                 while (resultSet.next()){
                     String groupName = resultSet.getString("name");
                     int walletid = resultSet.getInt("walletid");
-                    groups.add(new Group(groupName,groupIDs.get(i),walletid,getAllUsername(groupIDs.get(i))));
+                    groups.add(new Group(groupName,groupIDs.get(i),walletid));
                 }
                 st.close();
             }
-            catch (SQLException | GroupException sqlException) {
+            catch (SQLException sqlException) {
                 sqlException.printStackTrace();
+                throw new GroupException("Failed to get user groups");
             }
         }
         return groups;
     }
 
-
-    private ArrayList<String> getAllUsername(int groupID) throws GroupException{
-        ArrayList<String> members = new ArrayList<>();
-        try {
-            ArrayList<Account> accounts = membershipDatabase.getGroupUsers(groupID);
-            for(int i = 0; i < accounts.size(); i++){
-                members.add(accounts.get(i).getUsername());
-            }
-        }catch (AccountException e){
-            throw new GroupException("Error");
-        }
-        return members;
-    }
 }

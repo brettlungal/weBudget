@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
+import com.comp3350.webudget.Exceptions.TransactionException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
@@ -52,25 +53,25 @@ public class TransactionLogicTest {
         testTransactionDB = new TestTransactionDatabase();
         IUserLogic userLogic = new UserLogic(testAccountDB);
         IGroupLogic groupLogic = new GroupLogic(testAccountDB,testGroupDB,testMembershipDB);
-        IUserWalletLogic walletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
+        IUserWalletLogic walletLogic = new UserWalletLogic(testAccountDB,testWalletDB);
 
         testTransactionLogic = new TransactionLogic(testWalletDB,testAccountDB, testGroupDB, testTransactionDB ,userLogic);
 
     }
 
     @Test(expected = AccountException.class)
-    public void invalidAccountTransaction() throws AccountException, GroupException, WalletException {
+    public void invalidAccountTransaction() throws AccountException, GroupException, WalletException, TransactionException {
         testTransactionLogic.groupToUserTransaction("000000","doesntExist","100");
     }
 
     @Test(expected = GroupException.class)
-    public void invalidGroupTransaction() throws AccountException, GroupException, WalletException {
+    public void invalidGroupTransaction() throws AccountException, GroupException, WalletException, TransactionException {
         testAccountDB.insertUser("dev","developer","software","securepwrd");
         testTransactionLogic.groupToUserTransaction("000000","dev","100");
     }
 
     @Test
-    public void successfulUserToGroupTransaction() throws AccountException, GroupException, WalletException{
+    public void successfulUserToGroupTransaction() throws AccountException, GroupException, WalletException, TransactionException{
         testAccountDB.insertUser("dev","developer","software","securepwrd");
         Account me = testAccountDB.getAccount("dev");
         testWalletDB.deposit(me.getWalletID(),100);
@@ -82,7 +83,7 @@ public class TransactionLogicTest {
     }
 
     @Test
-    public void successfulGroupToUserTransaction() throws AccountException, GroupException, WalletException{
+    public void successfulGroupToUserTransaction() throws AccountException, GroupException, WalletException, TransactionException{
         testAccountDB.insertUser("dev","developer","software","securepwrd");
         int gID = testGroupDB.insertGroup("devgru");
         Group g = testGroupDB.getGroup(gID);
@@ -95,7 +96,7 @@ public class TransactionLogicTest {
     }
 
     @Test
-    public void successfulUserToUserTransaction() throws AccountException, GroupException, WalletException{
+    public void successfulUserToUserTransaction() throws AccountException, GroupException, WalletException, TransactionException{
         testAccountDB.insertUser("dev","developer","software","securepwrd");
         testAccountDB.insertUser("robin_hood","Rob","Guderian","secure");
         Account dev = testAccountDB.getAccount("dev");

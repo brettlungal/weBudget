@@ -26,10 +26,10 @@ public class TestGroupDatabase implements IGroupDatabase {
     }
 
     @Override
-    public int insertGroup(String groupName) {
+    public int insertGroup(String groupName) throws GroupException{
         groupID++;
         int walletID = walletDatabase.insertWallet(groupName);
-        database.add(new Group(groupName, groupID, walletID, new ArrayList<String>()));
+        database.add(new Group(groupName, groupID, walletID));
         return groupID;
     }
 
@@ -44,12 +44,12 @@ public class TestGroupDatabase implements IGroupDatabase {
     }
 
     @Override
-    public ArrayList<Group> getAllGroups() {
+    public ArrayList<Group> getAllGroups() throws GroupException {
         return new ArrayList<>(database);
     }
 
     @Override
-    public ArrayList<Group> getGroups(String username) {
+    public ArrayList<Group> getGroups(String username)throws GroupException {
         return null;
     }
 

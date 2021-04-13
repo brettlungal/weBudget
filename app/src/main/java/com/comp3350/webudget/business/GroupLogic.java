@@ -67,7 +67,7 @@ public class GroupLogic implements IGroupLogic {
             throw new AccountException("User not found");
         }
 
-        ArrayList<Group> userGroups = groupPersistence.getGroups(username);
+        ArrayList<Group> userGroups = membershipPersistence.getUserGroups(username);
 
         if(userGroups == null){
             throw new GroupException("No list of groups found");
