@@ -10,7 +10,6 @@
         android:id="@+id/gw_transfer_btn"
         android:layout_width="116dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="252dp"
         android:background="@drawable/roundedbutton"
         android:text="Transfer"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,13 +17,12 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gw_transfer_title"
-        app:layout_constraintVertical_bias="0.884" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <Button
         android:id="@+id/gw_deposit_button"
         android:layout_width="125dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="24dp"
         android:background="@drawable/roundedbutton"
         android:text="Deposit"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -236,10 +234,10 @@
         android:layout_height="39dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/gw_transfer_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gw_amount_input"
         app:layout_constraintTop_toBottomOf="@+id/gw_recipient_title"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintVertical_bias="0.006" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
