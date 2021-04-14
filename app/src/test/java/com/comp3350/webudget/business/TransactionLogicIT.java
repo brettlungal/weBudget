@@ -17,11 +17,6 @@ import com.comp3350.webudget.persistence.hsqldb.GroupDatabase;
 import com.comp3350.webudget.persistence.hsqldb.MembershipDatabase;
 import com.comp3350.webudget.persistence.hsqldb.TransactionDatabase;
 import com.comp3350.webudget.persistence.hsqldb.WalletDatabase;
-import com.comp3350.webudget.persistence.testDatabases.TestAccountDatabase;
-import com.comp3350.webudget.persistence.testDatabases.TestGroupDatabase;
-import com.comp3350.webudget.persistence.testDatabases.TestMembershipDatabase;
-import com.comp3350.webudget.persistence.testDatabases.TestTransactionDatabase;
-import com.comp3350.webudget.persistence.testDatabases.TestWalletDatabase;
 import com.comp3350.webudget.utils.TestUtils;
 
 import org.junit.After;
@@ -36,7 +31,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class TransactionIT {
+public class TransactionLogicIT {
 
 
 
