@@ -16,8 +16,7 @@ import java.util.Set;
 
 public class GroupLogic implements IGroupLogic {
 
-    //TODO implement this class fully
-    //Only exists so it can be called without error by the UI
+
 
     private IAccountDatabase accountPersistence;
     private IGroupDatabase groupPersistence;

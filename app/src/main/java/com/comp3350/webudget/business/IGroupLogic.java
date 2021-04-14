@@ -19,5 +19,4 @@ public interface IGroupLogic {
     public void addUserToGroup(String username, String groupID)  throws AccountException, GroupException, MembershipException;
     public void removeUserFromGroup(String username, int groupID)  throws AccountException, GroupException, MembershipException;
 
-    //TODO add admins maybe?
 }
