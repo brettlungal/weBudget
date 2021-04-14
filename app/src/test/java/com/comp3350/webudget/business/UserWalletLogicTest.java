@@ -31,13 +31,11 @@ public class UserWalletLogicTest {
     }
 
     //test: get AccountError if the user searched for does not exist: get, deposit, withdraw, and get transactions
-    //TODO do this for the other methods :/
     @Test(expected = AccountException.class)
     public void testAccountDNEGet() throws AccountException, WalletException {
         this.userWalletLogic.getAmount("admin");
    }
 
-    //TODO test: get account error if there are users in the database, but we search for the wrong one?
 
     //test: balance = 0 on creation
     @Test
@@ -96,10 +94,4 @@ public class UserWalletLogicTest {
         assertEquals(8301,userWalletLogic.getAmount("user2"));
     }
 
-    //TODO test: number of transactions on creation is 0
-    //TODO test: number of transactions after deposits/withdraws matches the number of deposits/withdraws
-    //TODO test: transaction after a single deposit has correct information
-    //TODO test: transaction after a single withdraw has correct information
-
-    //TODO: what else?
 }

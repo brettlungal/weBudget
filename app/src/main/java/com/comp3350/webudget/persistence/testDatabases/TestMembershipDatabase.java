@@ -63,8 +63,6 @@ public class TestMembershipDatabase implements IMembershipDatabase {
 
     @Override
     public ArrayList<Group> getUserGroups(String username)  throws AccountException, GroupException{
-        //horribly inefficient code, but it works for the test database.
-        //In the actual database, this can be done in a single query, I think
 
         ArrayList<Group> userGroups = new ArrayList<>();
         ArrayList<Integer> userGroupIDs = getUserGroupIDs(username);
@@ -78,8 +76,7 @@ public class TestMembershipDatabase implements IMembershipDatabase {
 
     @Override
     public ArrayList<Account> getGroupUsers(int groupID)  throws AccountException, GroupException{
-        //horribly inefficient code, but it works for the test database.
-        //In the actual database, this can be done in a single query, I think
+
         ArrayList<Account> groupUsers = new ArrayList<>();
         ArrayList<String> memberNames = getGroupMembers(groupID);
 

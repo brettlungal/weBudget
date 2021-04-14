@@ -32,18 +32,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class GroupLogicTest {
-    //Interface to test:
-    /*
-    public Group getGroup(int groupID)  throws GroupException;
-    public ArrayList<Group> getGroups()  throws GroupException;
-    public ArrayList<Group> getUserGroups(String username)  throws AccountException, GroupException;
-    public ArrayList<Account> getGroupUsers(int groupID) throws AccountException, GroupException;
-    public int createEmptyGroup(String name) throws GroupException;
-    public int createGroupWithUsers(String name, ArrayList<String> usernames)  throws AccountException, GroupException;
-    public void addUserToGroup(String username, int groupID)  throws AccountException, GroupException, MembershipException;
-    public void removeUserFromGroup(String username, int groupID)  throws AccountException, GroupException, MembershipException;
-     */
-    //TODO flesh this out with more tests
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -181,7 +169,6 @@ public class GroupLogicTest {
     }
 
 
-    //createGroupWithUsers: the group should not be made if any of the users do not exist. (you'll need two tests for this. One for accountError, and one to check that no group has been created) If you're clever you can do it in one
 
     @Test(expected = AccountException.class)
     public void addInvalidUserToExistingGroup()throws GroupException, AccountException, MembershipException{

@@ -59,8 +59,6 @@ public class TransactionLogicIT {
         testGroupDB = new GroupDatabase(this.tempDB.getAbsolutePath().replace(".script", ""), testWalletDB, testMembershipDB);
         testTransactionDB = new TransactionDatabase(this.tempDB.getAbsolutePath().replace(".script", ""));
         IUserLogic userLogic = new UserLogic(testAccountDB);
-        IGroupLogic groupLogic = new GroupLogic(testAccountDB, testGroupDB, testMembershipDB);
-        IUserWalletLogic walletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
 
         testTransactionLogic = new TransactionLogic(testWalletDB, testAccountDB, testGroupDB, testTransactionDB, userLogic);
     }

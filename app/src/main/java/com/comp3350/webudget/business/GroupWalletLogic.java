@@ -26,7 +26,7 @@ public class GroupWalletLogic implements IGroupWalletLogic {
     }
 
     private int getWalletID(int id) throws GroupException {
-        Group group = this.groupPersistence.getGroup(id); //TODO not the most efficient way... FIND A MORE EFFICIENT WAY TO DO THIS! (?)
+        Group group = this.groupPersistence.getGroup(id);
         if(group == null){
             throw new GroupException("No Group with id " + id + " found.");
         }

@@ -18,7 +18,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class UserLogicTest {
-    //TODO flesh this out with more tests
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -37,9 +36,6 @@ public class UserLogicTest {
         testUserLogic = new UserLogic(testAccountDB);
     }
 
-    //@After
-    //public void cleanUp(){}
-    //TODO need to remove the user from the database after running
 
     @Test
     public void signUpSuccess() throws SignupException{
