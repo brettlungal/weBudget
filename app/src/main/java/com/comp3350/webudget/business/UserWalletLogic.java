@@ -30,7 +30,7 @@ public class UserWalletLogic implements IUserWalletLogic {
     }
 
     private int getWalletID(String id) throws AccountException{
-        Account user = this.accountPersistence.getAccount(id); //TODO not the most efficient way... FIND A MORE EFFICIENT WAY TO DO THIS! (?)
+        Account user = this.accountPersistence.getAccount(id);
         if(user == null){
             throw new AccountException("No Account with username " + id + " found.");
         }
