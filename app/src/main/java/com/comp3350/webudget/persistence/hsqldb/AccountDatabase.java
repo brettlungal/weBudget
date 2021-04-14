@@ -57,6 +57,7 @@ public class AccountDatabase implements IAccountDatabase {
 
     @Override
     public Account getAccount(String username) throws AccountException{
+        Account forReturn = null;
         try(final Connection c = connection()){
             final PreparedStatement st = c.prepareStatement(
                     "select * from account where username = ?"
@@ -69,7 +70,7 @@ public class AccountDatabase implements IAccountDatabase {
                 String firstName = resultSet.getString("fName");
                 String lastName = resultSet.getString("lName");
                 int walletid = resultSet.getInt("walletid");
-                return new Account(firstName,lastName,userName,password,walletid);
+                forReturn =  new Account(firstName,lastName,userName,password,walletid);
             }
             st.close();
         }
@@ -77,7 +78,7 @@ public class AccountDatabase implements IAccountDatabase {
             throw new AccountException("Fail to Get Account in Database");
         }
 
-        return null;
+        return forReturn;
     }
 
     public ArrayList<Account> getAllAccounts() throws AccountException{

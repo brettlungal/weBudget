@@ -15,7 +15,7 @@ public class UserWalletLogic implements IUserWalletLogic {
 
     private IAccountDatabase accountPersistence;
     private IWalletLogic walletLogic;
-    //TODO should we store the current user/walletID to avoid checking the database too much?
+
 
     //default constructor
     public UserWalletLogic() {

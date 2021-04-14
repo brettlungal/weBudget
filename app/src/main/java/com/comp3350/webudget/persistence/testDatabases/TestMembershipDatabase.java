@@ -26,8 +26,8 @@ public class TestMembershipDatabase implements IMembershipDatabase {
         usernameColumn = new ArrayList<>();
     }
 
-    public TestMembershipDatabase(IAccountDatabase injectedWalletDatabase, IGroupDatabase injectedGroupDatabase){
-        accountDatabase = injectedWalletDatabase;
+    public TestMembershipDatabase(IAccountDatabase injectedAccountDatabase, IGroupDatabase injectedGroupDatabase){
+        accountDatabase = injectedAccountDatabase;
         groupDatabase = injectedGroupDatabase;
         groupIDColumn = new ArrayList<>();
         usernameColumn = new ArrayList<>();

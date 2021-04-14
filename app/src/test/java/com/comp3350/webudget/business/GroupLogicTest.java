@@ -3,8 +3,10 @@ package com.comp3350.webudget.business;
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.Exceptions.MembershipException;
+import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.objects.Group;
+import com.comp3350.webudget.objects.Wallet;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IMembershipDatabase;
@@ -18,10 +20,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GroupLogicTest {
     //Interface to test:
@@ -210,6 +218,41 @@ public class GroupLogicTest {
         assertEquals(mem.size(),2);
     }
 
+    @Test
+    public void addDuplicateUsersToGroup() throws GroupException, AccountException, MembershipException{
+        //In order to *try* not to add any new non-mock tests, only this test in this file will use a mock, as the rest have all been written for a fake
+        //setup
+        testAccountDB = mock(IAccountDatabase.class);
+        testGroupDB = mock(IGroupDatabase.class);
+        testMembershipDB = mock(IMembershipDatabase.class);
+        testGroupLogic = new GroupLogic(testAccountDB,testGroupDB,testMembershipDB);
 
+        Account mockAccount = mock(Account.class);
+        //Actual Test
+
+        when(testAccountDB.getAccount("user1")).thenReturn(mockAccount);
+        when(testAccountDB.getAccount("user2")).thenReturn(mockAccount);
+        when(testAccountDB.getAccount("user3")).thenReturn(mockAccount);
+
+        //we are testing duplicate usernames, so make sure we have some usernames that appear multiple times
+        ArrayList<String> usernames = new ArrayList<>();
+        usernames.add("user1");
+        usernames.add("user2");
+        usernames.add("user2");
+        usernames.add("user3");
+        usernames.add("user2");
+        usernames.add("user1");
+        usernames.add("user2");
+        usernames.add("user1");
+
+        //set our group name & id, then try inserting the duplicate usernames into the group
+        when(testGroupDB.insertGroup("group")).thenReturn(1);
+        testGroupLogic.createGroupWithUsers("group", usernames);
+
+        //If the logic filters things out right, it should add each user exactly once to the database
+        Mockito.verify(testMembershipDB, Mockito.times(1)).addUserToGroup("user1",1);
+        Mockito.verify(testMembershipDB, Mockito.times(1)).addUserToGroup("user2",1);
+        Mockito.verify(testMembershipDB, Mockito.times(1)).addUserToGroup("user3",1);
+    }
 
 }
