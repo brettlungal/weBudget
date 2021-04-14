@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.GroupException;
+import com.comp3350.webudget.Exceptions.TransactionException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.objects.Account;
@@ -40,7 +41,7 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
-    public ArrayList<Transaction> getTransactionsIn(String username) throws AccountException {
+    public ArrayList<Transaction> getTransactionsIn(String username) throws AccountException, TransactionException {
         Account acct = accountPersistence.getAccount(username);
         if ( acct == null ){
             throw new AccountException("Account does not exist!");
@@ -50,7 +51,7 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
-    public ArrayList<Transaction> getTransactionsOut(String username) throws AccountException {
+    public ArrayList<Transaction> getTransactionsOut(String username) throws AccountException, TransactionException {
         Account acct = accountPersistence.getAccount(username);
         if ( acct == null ){
             throw new AccountException("Account does not exist!");
@@ -60,7 +61,7 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
-    public void userToGroupTransaction( String username, String groupId, String amount ) throws WalletException, AccountException, GroupException {
+    public void userToGroupTransaction( String username, String groupId, String amount ) throws WalletException, AccountException, GroupException, TransactionException {
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");
         }
@@ -95,7 +96,7 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
-    public void groupToUserTransaction( String groupId, String username, String amount ) throws WalletException, AccountException, GroupException {
+    public void groupToUserTransaction( String groupId, String username, String amount ) throws WalletException, AccountException, GroupException, TransactionException {
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");
         }
@@ -127,7 +128,7 @@ public class TransactionLogic implements ITransactionLogic{
     }
 
     @Override
-    public void userToUserTransaction(String sender, String receiver, String amount ) throws AccountException, WalletException {
+    public void userToUserTransaction(String sender, String receiver, String amount ) throws AccountException, WalletException, TransactionException {
 
         if ( amount.equals("") ){
             throw new WalletException("Transaction amount cannot be empty");

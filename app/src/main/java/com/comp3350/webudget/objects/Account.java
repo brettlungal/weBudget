@@ -9,15 +9,13 @@ public class Account {
     private String username;
     private String password;
     private int walletID;
-    private ArrayList<Integer> groupIDs;
 
-    public Account(String fName, String lName, String username, String password, int walletID, ArrayList<Integer> groupIDs){
+    public Account(String fName, String lName, String username, String password, int walletID){
         this.fName = fName;
         this.lName = lName;
         this.walletID = walletID;
         this.username = username;
         this.password = password;
-        this.groupIDs = groupIDs;
     }
 
     public String getFirstName() {
@@ -38,10 +36,6 @@ public class Account {
 
     public int getWalletID() {
         return this.walletID;
-    }
-
-    public ArrayList<Integer> getGroupIDs(){
-        return this.groupIDs;
     }
 
 }

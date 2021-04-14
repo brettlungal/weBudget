@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.TransactionException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.R;
 import com.comp3350.webudget.Exceptions.WalletException;
@@ -87,6 +88,9 @@ public class WalletFragment extends Fragment implements View.OnClickListener {
                     toast.show();
                 }catch ( AccountException a ){
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), a.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }catch ( TransactionException t ){
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Transfer Successful!", Toast.LENGTH_SHORT);

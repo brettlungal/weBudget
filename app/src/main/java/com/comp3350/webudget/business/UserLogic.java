@@ -64,6 +64,19 @@ public class UserLogic implements IUserLogic {
         }
     }
 
+    @Override
+    public Account getAccount(String username) throws AccountException {
+        Account acct = null;
+        if ( username == "" ){
+            throw new AccountException("Please enter a username");
+        }
+        acct = this.accountPersistence.getAccount(username);
+        if ( acct == null ){
+            throw new AccountException("Invalid username");
+        }
+
+        return acct;
+    }
 
     @Override
     public void logout() {

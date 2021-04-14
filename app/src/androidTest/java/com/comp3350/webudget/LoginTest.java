@@ -1,6 +1,7 @@
 package com.comp3350.webudget;
 
 import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.SignupException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
 import com.comp3350.webudget.presentation.LoginActivity;
@@ -45,6 +46,13 @@ public class LoginTest {
         password = "pass";
         inputValue = "1024";
 
+        String[] arr = {username,"tester","tester",password};
+        try{
+            Services.userLogic().signUp(arr);
+        }catch( SignupException s ){
+            //this exception means that acct alraedy exists, thast fine handle it silently
+            System.out.println("Account already exists, continuing with existing account");
+        }
 
     }
 

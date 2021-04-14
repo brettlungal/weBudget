@@ -67,7 +67,7 @@ public class GroupLogic implements IGroupLogic {
             throw new AccountException("User not found");
         }
 
-        ArrayList<Group> userGroups = groupPersistence.getGroups(username);
+        ArrayList<Group> userGroups = membershipPersistence.getUserGroups(username);
 
         if(userGroups == null){
             throw new GroupException("No list of groups found");
@@ -169,6 +169,41 @@ public class GroupLogic implements IGroupLogic {
 
         if(!membershipPersistence.isUserInGroup(username, groupID)){
             membershipPersistence.addUserToGroup(username, groupID);
+        }else{
+            throw new MembershipException("User is already a member of this group");
+        }
+    }
+
+    @Override
+    public void addUserToGroup(String username, String groupID) throws AccountException, GroupException, MembershipException {
+        //check that both the user and group exist
+        if(username == null){
+            throw new AccountException("One of the usernames entered was invalid. Please enter valid usernames only");
+        }
+
+        Account user = accountPersistence.getAccount(username);
+        if(user == null){
+            throw new AccountException("User \"" + username + "\" not found");
+        }
+        if ( groupID.equals("") ){
+            throw new GroupException("Please enter non-empty group id");
+        }
+        int id = -1;
+        try{
+            id = Integer.parseInt(groupID);
+        }catch ( NumberFormatException n ){
+            throw new GroupException("Please enter valid group id");
+        }
+        Group group = groupPersistence.getGroup(id);
+
+        if(group == null){
+            throw new GroupException("User not found");
+        }
+
+        //check that the user is not already a member of the group
+
+        if(!membershipPersistence.isUserInGroup(username, id)){
+            membershipPersistence.addUserToGroup(username, id);
         }else{
             throw new MembershipException("User is already a member of this group");
         }
