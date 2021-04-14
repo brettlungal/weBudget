@@ -35,6 +35,7 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.1'
     testImplementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
 
