@@ -2,6 +2,7 @@ package com.comp3350.webudget;
 
 
 import com.comp3350.webudget.Exceptions.AccountException;
+import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.Exceptions.SignupException;
 import com.comp3350.webudget.Exceptions.WalletException;
 import com.comp3350.webudget.application.Services;
@@ -47,6 +48,12 @@ public class GroupAcceptanceTest {
             //this exception means that acct alraedy exists, thast fine handle it silently
             System.out.println("Account already exists, continuing with existing account");
         }
+        try{
+            Services.groupLogic().createEmptyGroup("existingGroup");
+        }catch ( GroupException e ){
+            System.out.println("group already exists, proceeding with existing group");
+        }
+
 
 
     }
@@ -80,6 +87,35 @@ public class GroupAcceptanceTest {
 
         //verify the group is created
         Espresso.onData(anything()).inAdapterView(withId(R.id.group_list)).atPosition(0).check(matches(withText(groupName)));
+
+
+    }
+
+    @Test
+    public void joinExistingGroup(){
+
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
+
+        }
+
+        //signin with account
+        Espresso.onView(withId(R.id.username)).perform(replaceText(username));
+        Espresso.onView(withId(R.id.password_input)).perform(replaceText(password)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.login_button)).perform(click());
+
+        //navigate to group screen
+        Espresso.onView(withId(R.id.navigation_groups)).perform(click());
+
+        //enter group ID and join group
+        Espresso.onView(withId(R.id.group_name_field)).perform(replaceText("0")).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.join_group)).perform(click());
+
+
+
+        //verify the group is added
+        Espresso.onData(anything()).inAdapterView(withId(R.id.group_list)).atPosition(0).check(matches(withText("existingGroup")));
 
 
     }

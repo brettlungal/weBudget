@@ -37,7 +37,17 @@ import androidx.test.runner.AndroidJUnit4;
 @LargeTest
 public class WalletAcceptanceTest {
 
-    private String username,password,inputValue,currentBal;
+
+    String username = "dev";
+    String password = "pass";
+    String inputValue = "1024";
+    String[] arr = {username,"tester","tester",password};
+
+    String user2 = "newuser";
+    String pass2 = "newpass";
+    String transferAmt = "1024";
+
+    private String[] arr2 = {user2, "newtest", "testagain", pass2};
 
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
@@ -48,8 +58,11 @@ public class WalletAcceptanceTest {
         password = "pass";
         inputValue = "1024";
         String[] arr = {username,"tester","tester",password};
+
+
         try{
             Services.userLogic().signUp(arr);
+            Services.userLogic().signUp(arr2);
         }catch( SignupException s ){
             //this exception means that acct alraedy exists, thast fine handle it silently
             System.out.println("Account already exists, continuing with existing account");
@@ -70,8 +83,60 @@ public class WalletAcceptanceTest {
 
     }
 
+
+    @Test
+    public void transferMoney(){
+
+        try{
+            Services.userLogic().signUp(arr);
+            Services.userLogic().signUp(arr2);
+        }catch( SignupException s ){
+            //this exception means that acct alraedy exists, thast fine handle it silently
+            System.out.println("Account already exists, continuing with existing account");
+        }
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
+
+        }
+        //signin with account
+        Espresso.onView(withId(R.id.username)).perform(replaceText(username));
+        Espresso.onView(withId(R.id.password_input)).perform(replaceText(password)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.login_button)).perform(click());
+
+        //navigate to account screen
+        Espresso.onView(withId(R.id.navigation_account)).perform(click());
+
+        //click on the wallet icon
+        Espresso.onView(withId(R.id.wallet_icon)).perform(click());
+
+        //deposit money to wallet for transfer
+        Espresso.onView(withId(R.id.depost_amt_input)).perform(replaceText(inputValue)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.deposit_button)).perform(click());
+
+        //transfer money
+        Espresso.onView(withId(R.id.amount_input)).perform(replaceText(transferAmt)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.recipient_input)).perform(replaceText(user2)).perform(closeSoftKeyboard());
+        Espresso.onView(withId(R.id.send_button)).perform(click());
+
+        try{
+            Thread.sleep(3000);
+        }catch(InterruptedException e){
+
+        }
+
+        Espresso.onView(withId(R.id.balance)).check(matches(withText("0")));
+
+    }
+
     @Test
     public void depositMoney(){
+        try{
+            Services.userLogic().signUp(arr);
+        }catch( SignupException s ){
+            //this exception means that acct alraedy exists, thast fine handle it silently
+            System.out.println("Account already exists, continuing with existing account");
+        }
 
         try{
             Thread.sleep(3000);
