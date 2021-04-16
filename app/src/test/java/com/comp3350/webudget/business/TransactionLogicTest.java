@@ -144,5 +144,31 @@ public class TransactionLogicTest {
         verify(testTransactionDB).insertTransaction(1,2,100);
     }
 
+    @Test
+    public void successfulGetInTransaction() throws AccountException, GroupException, WalletException, TransactionException{
+        Account user = new Account("developer", "software","dev","securepwrd",1);
+
+        when(testAccountDB.getAccount("dev")).thenReturn(user);
+
+
+        testTransactionLogic.getTransactionsIn("dev");
+
+        verify(testAccountDB).getAccount("dev");
+        verify(testTransactionDB).getInputTransaction(1);
+    }
+
+    @Test
+    public void successfulGetOutTransaction() throws AccountException, GroupException, WalletException, TransactionException{
+        Account user = new Account("developer", "software","dev","securepwrd",1);
+
+        when(testAccountDB.getAccount("dev")).thenReturn(user);
+
+
+        testTransactionLogic.getTransactionsOut("dev");
+
+        verify(testAccountDB).getAccount("dev");
+        verify(testTransactionDB).getOutputTransaction(1);
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.GroupException;
 import com.comp3350.webudget.Exceptions.WalletException;
+import com.comp3350.webudget.objects.Group;
 import com.comp3350.webudget.persistence.IGroupDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.testDatabases.TestGroupDatabase;
@@ -120,4 +121,22 @@ public class GroupWalletLogicTest {
         verify(mockWalletLogic).withdraw(wallet_id, 100);
         verify(mockWalletLogic).getAmount(wallet_id);
     }
+
+    @Test
+    public void testStringDeposit() throws GroupException, WalletException {
+        testWalletDB = mock(IWalletDatabase.class);
+        testGroupDB = mock(IGroupDatabase.class);
+        mockWalletLogic = new WalletLogic(testWalletDB);
+        groupWalletLogic = new GroupWalletLogic(testGroupDB, mockWalletLogic);
+
+        Group grp = new Group("group",10,666);
+        when(testGroupDB.insertGroup("group")).thenReturn(10);
+        when(testGroupDB.getGroup(10)).thenReturn(grp);
+
+
+        int group_id = this.testGroupDB.insertGroup("group");
+        groupWalletLogic.deposit(Integer.toString(group_id), "100");
+        verify(testWalletDB).deposit(666, 100);
+    }
+
 }

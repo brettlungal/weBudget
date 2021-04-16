@@ -2,6 +2,7 @@ package com.comp3350.webudget.business;
 
 import com.comp3350.webudget.Exceptions.AccountException;
 import com.comp3350.webudget.Exceptions.WalletException;
+import com.comp3350.webudget.objects.Account;
 import com.comp3350.webudget.persistence.IAccountDatabase;
 import com.comp3350.webudget.persistence.IWalletDatabase;
 import com.comp3350.webudget.persistence.testDatabases.TestAccountDatabase;
@@ -13,6 +14,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class UserWalletLogicTest {
 
@@ -54,9 +59,28 @@ public class UserWalletLogicTest {
     //test: wallet balance increases after successful deposit
     @Test
     public void testGoodDeposit() throws AccountException, WalletException {
+        IAccountDatabase accountPersistence = mock(IAccountDatabase.class);
+        IWalletDatabase walletPersistence = mock(IWalletDatabase.class);
+
+        userWalletLogic = new UserWalletLogic(accountPersistence, new WalletLogic(walletPersistence));
+        when(accountPersistence.getAccount("user")).thenReturn(new Account("user","u","u","admin",0));
         this.testAccountDB.insertUser("user","u","u","admin");
-        this.userWalletLogic.deposit("user", 100);
-        assertEquals(100, this.userWalletLogic.getAmount("user"));
+        this.userWalletLogic.deposit("user", "100");
+        verify(accountPersistence).getAccount("user");
+        verify(walletPersistence).deposit(0, 100);
+    }
+
+    //test: wallet balance increases after successful String deposit
+    @Test
+    public void testGoodStringDeposit() throws AccountException, WalletException {
+        testWalletDB = mock(IWalletDatabase.class);
+        testAccountDB = mock(IAccountDatabase.class);
+        this.userWalletLogic = new UserWalletLogic(testAccountDB, new WalletLogic(testWalletDB));
+
+        when(testAccountDB.getAccount("user")).thenReturn(new Account("user","ss","ss","pass",1));
+        userWalletLogic.deposit("user","100");
+
+        verify(testWalletDB).deposit(1, 100);
     }
 
     //test: withdrawing -ve amounts invalid
@@ -93,5 +117,6 @@ public class UserWalletLogicTest {
         assertEquals(333,userWalletLogic.getAmount("user1"));
         assertEquals(8301,userWalletLogic.getAmount("user2"));
     }
+
 
 }

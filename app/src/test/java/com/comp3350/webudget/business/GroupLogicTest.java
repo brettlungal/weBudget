@@ -206,6 +206,22 @@ public class GroupLogicTest {
     }
 
     @Test
+    public void removeValidUserFromGroup()throws GroupException,AccountException, MembershipException {
+        testAccountDB.insertUser("horidinternet","Rob","Guderian","pass");
+        testAccountDB.insertUser("ilikecomp3350","Rob","Guderian","pass");
+        ArrayList<String> users = new ArrayList<>();
+        users.add("horidinternet");
+        users.add("ilikecomp3350");
+        int group_id = testGroupLogic.createGroupWithUsers("bobby",users);
+
+        testGroupLogic.removeUserFromGroup("horidinternet",group_id);
+        ArrayList<Account> mem = testGroupLogic.getGroupUsers(group_id);
+        assertEquals(mem.size(),1);
+        assertEquals("ilikecomp3350", mem.get(0).getUsername());
+    }
+
+
+    @Test
     public void addDuplicateUsersToGroup() throws GroupException, AccountException, MembershipException{
         //In order to *try* not to add any new non-mock tests, only this test in this file will use a mock, as the rest have all been written for a fake
         //setup

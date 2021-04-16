@@ -68,6 +68,14 @@ public class UserWalletLogicIT {
         assertEquals(100, this.userWalletLogic.getAmount("user3"));
     }
 
+    //test: wallet balance increases after successful String deposit
+    @Test
+    public void testGoodStringDeposit() throws AccountException, WalletException {
+        this.testAccountDB.insertUser("user3","u","u","admin");
+        this.userWalletLogic.deposit("user3", "100");
+        assertEquals(100, this.userWalletLogic.getAmount("user3"));
+    }
+
     //test: withdrawing -ve amounts invalid
     @Test(expected = WalletException.class)
     public void testNegativeWithdraw() throws AccountException, WalletException {
